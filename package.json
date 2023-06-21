@@ -1,0 +1,30 @@
+{
+  "name": "aniki",
+  "version": "1.0.0",
+  "description": "Aniki is a module using APIs to obtain information about anime.",
+  "main": "aniki.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Normioffi/Aniki.git"
+  },
+  "keywords": [
+    "anime",
+    "anime-info",
+    "aniki",
+    "anime-api",
+    "api"
+  ],
+  "author": "normioffi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Normioffi/Aniki/issues"
+  },
+  "homepage": "https://github.com/Normioffi/Aniki#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  }
+}
