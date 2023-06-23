@@ -5,7 +5,7 @@
  * @param {number} offset - The offset for a specific result/page.
  */
 
-export function apiEPP(api, text, offset) {
+function apiEPP(api, text, offset) {
   let EPP = {
     konet: {
       anime: `anime?name=${text}`,
@@ -32,3 +32,4 @@ export function apiEPP(api, text, offset) {
     }
   }
 };
+module.exports = { apiEPP }
