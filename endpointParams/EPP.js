@@ -9,15 +9,18 @@ export function apiEPP(api, text, offset) {
   let EPP = {
     konet: {
       anime: `anime?name=${text}`,
-      search: `search?query=${text}`,
-      list: `all`,
-      gender: `genre?type=${text}`,
-      theme: `theme?type=${text}`,
+      search: `search?query=${text}?offset=${offset}`,
+      list: `all?offset=${offset}`,
+      gender: `genre?type=${text}?offset=${offset}`,
+      theme: `theme?type=${text}?offset=${offset}`,
     },
     kitsu: {
       search: `anime?filter[text]=${text}&page%5Boffset%5D=${offset}`,
       list: `anime?page%5Blimit%5D=10&page%5Boffset%5D=${offset}`
     }
+  }
+  if (offset && isNaN(offset) || null || undefined) {
+    console.warn("Offset must be a number.")
   }
   if (!text || undefined) {
     console.warn("Missing text entries.")
@@ -27,8 +30,5 @@ export function apiEPP(api, text, offset) {
     } else if (api === "kitsu") {
       return EPP.kitsu
     }
-  if (!offset || isNaN(offset) === false || null || undefined) {
-    console.warn("Offset must be a number.")
-  }
   }
 };
