@@ -1,9 +1,8 @@
 {
   "name": "aniki",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Aniki is a module using APIs to obtain information about anime.",
   "main": "aniki.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
