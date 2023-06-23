@@ -1,5 +1,5 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-import { apiEPP } from "./endpointParams/EPP.js";
+const { apiEPP } = require("./endpointParams/EPP.js");
 
 
 class AnikiApiType {
@@ -8,7 +8,7 @@ class AnikiApiType {
         this.isDev = isDev;
     }
 };
-export class Aniki extends AnikiApiType {
+class Aniki extends AnikiApiType {
 /**
  * 
  * @param {string} api - The api used for the request.
@@ -127,13 +127,14 @@ export class Aniki extends AnikiApiType {
 
     /**
      * @param {string} type - The theme of the list.
+     * @param {number} offset - The offset for a specific result. (Optional)
      */
 
-    theme(type) {
+    theme(type, offset) {
         if (this.api === "kitsu") return console.warn("No theme endpoint for this api")
            
         if (type) {
-            return fetch(this.url + apiEPP(this.api, type).theme, {
+            return fetch(this.url + apiEPP(this.api, type, offset).theme, {
                 headers: {
                     'Content-Type': 'application/vnd.api+json',
                     'Accept': 'application/vnd.api+json'
@@ -164,12 +165,13 @@ export class Aniki extends AnikiApiType {
     }
     /**
      * @param {string} type - The gender for the list.
+     * @param {number} offset - The offset for a specific result. (Optional)
      */
 
-    gender(type) {
+    gender(type, offset) {
         if (this.api === "kitsu") return console.warn("No gender endpoint for this api")
         if (type) {
-            return fetch(this.url + apiEPP(this.api, type).gender, {
+            return fetch(this.url + apiEPP(this.api, type, offset).gender, {
                 headers: {
                     'Content-Type': 'application/vnd.api+json',
                     'Accept': 'application/vnd.api+json'
@@ -200,4 +202,4 @@ export class Aniki extends AnikiApiType {
     }
 };
 
-export default { Aniki };
+module.exports = { Aniki };
