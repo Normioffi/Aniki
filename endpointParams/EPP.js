@@ -9,10 +9,10 @@ function apiEPP(api, text, offset) {
   let EPP = {
     konet: {
       anime: `anime?name=${text}`,
-      search: `search?query=${text}?offset=${offset}`,
+      search: `search?query=${text}&offset=${offset}`,
       list: `all?offset=${offset}`,
-      gender: `genre?type=${text}?offset=${offset}`,
-      theme: `theme?type=${text}?offset=${offset}`,
+      gender: `genre?type=${text}&offset=${offset}`,
+      theme: `theme?type=${text}&offset=${offset}`,
     },
     kitsu: {
       search: `anime?filter[text]=${text}&page%5Boffset%5D=${offset}`,
