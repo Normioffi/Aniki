@@ -1,5 +1,7 @@
 ![Aniki Logo](https://ik.imagekit.io/TheNormidb/Aniki.png)
-Aniki is a module using APIs to obtain information about anime.
+
+Aniki is a module using APIs to obtain information about an anime or manga.
+
 
 # Installation
 With NPM:
@@ -12,14 +14,19 @@ Konet Anime DB: French api (this one are incompleted, use other api instead.)
 
 Kitsu.io
 
+# Helping
+Do you have an anime/manga api to suggest? Make a pull request!
+
+Are you french? Join the [Konet](https://twitter.com/KonetOrigin) community now and help the api grow!
+
 # Usage
 
-With Konet anime db:
+With Konet anime db (Anime):
 
 ```javascript
 const { Aniki } = require("aniki");
 
-const aniki = new Aniki("konet", false); // Set the api to konet and set the parameter for developpement to false.
+const aniki = new Aniki("konet", false); // Set the api to konet and set the parameter for developpement to false. (you can set it true to get console server error.)
 
 // Find one anime.
 aniki.anime("name").then(anime => {
@@ -36,18 +43,18 @@ aniki.search("name").then(results => {
 	console.log(results[0]) // The 0 is the first result.
 });
 
-// List by genre.
-aniki.genre("Genre").then(animes => {
+// List by gender.
+aniki.gender("gender").then(animes => {
 	console.log(animes);
 });
 
 // List by theme.
-aniki.theme("Thème").then(animes => {
+aniki.theme("theme").then(animes => {
 	console.log(animes);
 });
 ```
 
-With kitsu.io:
+With Kitsu:
 
 ```javascript
 const { Aniki } = require("aniki");
@@ -68,6 +75,39 @@ aniki.list(0).then(animes => { // 0 is the offset (first page)
 // Other function are not working with this api.
 ```
 
+With Kitsu for manga:
+
+```js
+const { Manga } = require("aniki");
+
+const manga = new Manga("kitsu", false); // Set the api to kitsu (Only Kitsu.io api are used.) and set the dev mode to false.
+
+// Find anime.
+manga.search("name", 0).then(results => {
+    console.log(results.data[0]);
+});
+
+// Get a list.
+manga.list(0).then(mangas => {
+    console.log(mangas);
+});
+```
+# Important
+
+If you use all function at one time, use asynchronous function:
+
+```js
+async function yourFunc() {
+await aniki.search("name").then(results => {
+	console.log(results.data[0])
+});
+ 
+await aniki.list(0).then(animes => {
+	console.log(animes)
+});
+}
+yourFunc()
+```
 
 # Konet anime data
 |Attributes|Description|Type|
@@ -84,9 +124,26 @@ aniki.list(0).then(animes => { // 0 is the offset (first page)
 |`keywords`|Keywords|Array|
 |`studio`|The animation studio|String|
 |`studio_3d`|The 3D animation studio|String|
-|`genre`|The genre of the anime|Array|
+|`genre`|The gender of the anime|Array|
 |`theme`|The theme of the anime|Array|
 
+# Konet JSON
+
+```json
+{
+  "title": "",
+  "title_jp": "",
+  "title_url": "",
+  "synopsis": "",
+  "image": "https://",
+  "start": "00-00-0000",
+  "end": "00-00-0000",
+  "studio": "",
+  "keywords": ["", ""],
+  "genre":["", ""],
+  "theme": ["", ""]
+}
+```
 # Kitsu anime data
 |Attributes|Description|Type|
 |---|---|---|
@@ -119,5 +176,8 @@ aniki.list(0).then(animes => { // 0 is the offset (first page)
 |`ageRating`|The age rating|"enum"|
 |`subtype`|The subtype|"enum"|
 
-# Helping
-Do you have an anime api to suggest? Make a pull request!
+# Kitsu JSON format
+
+Example with an anime search
+
+See the [Github](https://github.com/Normioffi/Aniki/blob/main/json-example/kitsu.json) for the example (The data are too long to fit here.)
