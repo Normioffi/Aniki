@@ -2,28 +2,13 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 const { apiEPP } = require("./endPointParams/EPP.js");
 
 
-class AnikiAnimeApi {
-    constructor(api, isDev) {
-        this.api = api;
-        this.isDev = isDev;
-    }
-
-};
-
-class AnikiMangaApi {
-    constructor(api, isDev) {
-        this.api = api;
-        this.isDev = isDev;
-    }
-}
-class Anime extends AnikiAnimeApi {
+class Anime {
     /**
      * 
      * @param {string} api - The api used for the request.
      * @param {boolean} isDev - If true: returns console server errors. If false: no returns console server errors.
      */
     constructor(api, isDev) {
-        super()
         this.api = api
         if (api === "konet") {
             this.url = "https://konet-anime-db.normioffi.repl.co/"
@@ -72,7 +57,7 @@ class Anime extends AnikiAnimeApi {
      */
     anime(name) {
         if (name) {
-            return fetch(this.url + apiEPP(this.api, name).anime, {
+            return fetch(this.url + apiEPP("anime", this.api, name).anime, {
                 headers: {
                     'Content-Type': 'application/vnd.api+json',
                     'Accept': 'application/vnd.api+json'
@@ -125,6 +110,8 @@ class Anime extends AnikiAnimeApi {
                 }
             } else if (this.isDev === false) {
                 return null;
+            } else if (!this.isDev) {
+                return null
             } else {
                 console.error("The parameter isDev must be a boolean!")
             }
@@ -208,14 +195,13 @@ class Anime extends AnikiAnimeApi {
     }
 };
 
-class Manga extends AnikiMangaApi {
+class Manga {
     /**
          * 
          * @param {string} api - The api used for the request.
          * @param {boolean} isDev - If true: returns console server errors. If false: no returns console server errors.
          */
     constructor(api, isDev) {
-        super();
         this.api = api;
         if (api === "kitsu") {
             this.url = "https://kitsu.io/api/edge/";
@@ -250,6 +236,8 @@ class Manga extends AnikiMangaApi {
                     }
                 } else if (this.isDev === false) {
                     return null;
+                } else if (!this.isDev) {
+                    return null
                 } else {
                     console.error("The parameter isDev must be a boolean!")
                 }
