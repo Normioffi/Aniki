@@ -24,32 +24,32 @@ Are you french? Join the [Konet](https://twitter.com/KonetOrigin) community now 
 With Konet anime db (Anime):
 
 ```javascript
-const { Aniki } = require("aniki");
+const { Anime } = require("aniki");
 
-const aniki = new Aniki("konet", false); // Set the api to konet and set the parameter for developpement to false. (you can set it true to get console server error.)
+const anime = new Anime("konet", false); // Set the api to konet and set the parameter for developpement to false. (you can set it true to get console server error.)
 
 // Find one anime.
-aniki.anime("name").then(anime => {
+anime.anime("name").then(anime => {
   console.log(anime)
 });
 
 // All list from the database.
-aniki.list().then(animes => {
+anime.list().then(animes => {
   console.log(animes)
 });
 
 // Find anime.
-aniki.search("name").then(results => {
+anime.search("name").then(results => {
 	console.log(results[0]) // The 0 is the first result.
 });
 
 // List by gender.
-aniki.gender("gender").then(animes => {
+anime.gender("gender").then(animes => {
 	console.log(animes);
 });
 
 // List by theme.
-aniki.theme("theme").then(animes => {
+anime.theme("theme").then(animes => {
 	console.log(animes);
 });
 ```
@@ -57,18 +57,18 @@ aniki.theme("theme").then(animes => {
 With Kitsu:
 
 ```javascript
-const { Aniki } = require("aniki");
+const { Anime } = require("aniki");
 
-const aniki = new Aniki("kitsu", false); // Set the api to kitsu.io and set the parameter for developpement to false.
+const anime = new Anime("kitsu", false); // Set the api to kitsu.io and set the parameter for developpement to false.
 
 
 // Find anime.
-aniki.search("name").then(results => {
+anime.search("name").then(results => {
 	console.log(results.data[0]) // The 0 is the first result, data are required.
 });
 
 // All list from the page, 
-aniki.list(0).then(animes => { // 0 is the offset (first page)
+anime.list(0).then(animes => { // 0 is the offset (first page)
   console.log(animes)
 });
 
@@ -98,13 +98,18 @@ If you use all function at one time, use asynchronous function:
 
 ```js
 async function yourFunc() {
-await aniki.search("name").then(results => {
-	console.log(results.data[0])
-});
+  await anime.search("name", 0).then(results => {
+	  console.log(results.data[0]);
+  });
  
-await aniki.list(0).then(animes => {
-	console.log(animes)
-});
+  await anime.list(0).then(animes => {
+	  console.log(animes.data[0]);
+  });
+
+  await manga.search("name", 0).then(results => {
+    console.log(results.data[0]);
+  });
+  // ...
 }
 yourFunc()
 ```
@@ -132,6 +137,8 @@ yourFunc()
 ```json
 {
   "title": "",
+  "title_en": "",
+  "title_fr": "", 
   "title_jp": "",
   "title_url": "",
   "synopsis": "",
