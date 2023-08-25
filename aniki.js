@@ -11,7 +11,7 @@ class Anime {
     constructor(api, isDev) {
         this.api = api
         if (api === "konet") {
-            this.url = "https://konet-anime-db.normioffi.repl.co/"
+            this.url = "https://konet-anime.vercel.app/api/"
 
         } else if (api === "kitsu") {
             this.url = "https://kitsu.io/api/edge/"
@@ -56,6 +56,8 @@ class Anime {
      * @param {string} name - The name of the anime
      */
     anime(name) {
+        if (this.api === "kitsu") return console.warn("No anime endpoint for this api")
+
         if (name) {
             return fetch(this.url + apiEPP("anime", this.api, name).anime, {
                 headers: {
