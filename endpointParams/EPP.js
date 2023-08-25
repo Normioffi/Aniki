@@ -21,6 +21,8 @@ function apiEPP(type, api, text, offset) {
         list: `anime?page%5Blimit%5D=10&page%5Boffset%5D=${offset}`
       }
     }
+    if (!offset) offset = 0;
+    
     if (offset && isNaN(offset) || null || undefined) {
       return console.warn("Offset must be a number.");
     }
