@@ -1,7 +1,7 @@
-![Aniki Logo](https://ik.imagekit.io/TheNormidb/Aniki.png)
-
+<div align="center">
+<img src="https://ik.imagekit.io/TheNormidb/Aniki.png"/>
 Aniki is a module using APIs to obtain information about an anime or manga.
-
+</div>
 
 # Installation
 With NPM:
@@ -15,9 +15,9 @@ Konet Anime DB: French api (this one are incompleted, use other api instead.)
 Kitsu.io
 
 # Helping
-Do you have an anime/manga api to suggest? Make a pull request!
+Do you have an anime/manga api to suggest? Tell me in [X](https://twitter.com/Normioffi)! (The api must not have an access key.)
 
-Are you french? Join the [Konet](https://twitter.com/KonetOrigin) community now and help the api grow!
+Are you <b>french</b>? Join the [Konet](https://twitter.com/KonetOrigin) community now and help the api grow!
 
 # Usage
 
@@ -64,11 +64,11 @@ const anime = new Anime("kitsu", false); // Set the api to kitsu.io and set the 
 
 // Find anime.
 anime.search("name").then(results => {
-	console.log(results.data[0]) // The 0 is the first result, data are required.
+	console.log(results.data[0].attributes) // The 0 is the first result, "data" and "attributes" are required to get anime data (titles, synopsis...).
 });
 
 // All list from the page, 
-anime.list(0).then(animes => { // 0 is the offset (first page)
+anime.list(0).then(animes => { // 0 is the first page (offset)
   console.log(animes)
 });
 
@@ -83,8 +83,8 @@ const { Manga } = require("aniki");
 const manga = new Manga("kitsu", false); // Set the api to kitsu (Only Kitsu.io api are used.) and set the dev mode to false.
 
 // Find anime.
-manga.search("name", 0).then(results => {
-    console.log(results.data[0]);
+manga.search("name", 0).then(results => { // The
+    console.log(results.data[0].attributes);// The 0 is the first result, "data" and "attributes" are required to get manga data (titles, synopsis...).
 });
 
 // Get a list.
@@ -97,61 +97,80 @@ manga.list(0).then(mangas => {
 If you use all function at one time, use asynchronous function:
 
 ```js
+// For Kitsu.io
 async function yourFunc() {
   await anime.search("name", 0).then(results => {
-	  console.log(results.data[0]);
+	  console.log(results.data[0].attributes);
   });
  
   await anime.list(0).then(animes => {
-	  console.log(animes.data[0]);
+	  console.log(animes.data[0].attributes);
   });
 
   await manga.search("name", 0).then(results => {
-    console.log(results.data[0]);
+    console.log(results.data[0].attributes);
   });
   // ...
 }
 yourFunc()
 ```
 
-# Konet anime data
+# Konet Response
 |Attributes|Description|Type|
 |---|---|---|
-|`title`|Normal title|String|
-|`title_jp`|Title in japanese character|String|
-|`title_en`|Title in english|String|
-|`title_fr`|Title in french|String|
-|`title_url`|Title used for urls (https://example.com/showbyrock1)|String|
+|`titles`|All types of titles|Object|
+|`titles` > `main`|The main title|String|
+|`titles` > `url`|Title used for urls (https://example.com/showbyrock1)|String|
+|`titles` > `fr`|The french version|String|
+|`titles` > `en`|The english version|String|
+|`titles` > `jp`|The japanese (character) version|String|
 |`synopsis`|The synopsis (The description)|String|
-|`image`|Image correspondent with the anime|String|
-|`start`|The start date|String|
-|`end`|The end date|String|
+|`images`|Images correspondent with the anime|Object|
+|`images` > `main`|The main image|String|
+|`images` > `cover`|The second image|String|
+|`status`|The status of the anime|String|
+|`dates`|The release and end date|Object|
+|`dates` > `start`|The start date|String|
+|`dates` > `end`|The end date|String|
 |`keywords`|Keywords|Array|
-|`studio`|The animation studio|String|
-|`studio_3d`|The 3D animation studio|String|
+|`studios`|The studios that created the anime|Object|
+|`studios` > `threeD`|The 3D animation studio|String|
+|`studios` > `twoD`|The 2D animation studio|String|
 |`genre`|The gender of the anime|Array|
 |`theme`|The theme of the anime|Array|
 
-# Konet JSON
+# Konet JSON response
 
 ```json
 {
-  "title": "",
-  "title_en": "",
-  "title_fr": "", 
-  "title_jp": "",
-  "title_url": "",
-  "synopsis": "",
-  "image": "https://",
-  "start": "00-00-0000",
-  "end": "00-00-0000",
-  "studio": "",
-  "keywords": ["", ""],
-  "genre":["", ""],
-  "theme": ["", ""]
-}
+    "titles": {
+        "main": "",
+        "url": "",
+        "fr": "",
+        "en": "",
+        "jp": ""
+    },
+    "synopsis": "",
+    "images": {
+        "main": "https://",
+        "cover": "https://"
+    },
+    "status": "",
+    "dates": {
+        "start": "00-00-0000",
+        "end": "00-00-0000"
+    },
+    "studios": {
+        "twoD": "",
+        "threeD": ""
+    },
+    "keywords": ["", ""],
+    "genre":["", ""],
+    "theme": ["", ""]
+  }
 ```
-# Kitsu anime data
+# Kitsu Anime Response
+
 |Attributes|Description|Type|
 |---|---|---|
 |`titles`|All type of title|object|
@@ -183,8 +202,229 @@ yourFunc()
 |`ageRating`|The age rating|"enum"|
 |`subtype`|The subtype|"enum"|
 
-# Kitsu JSON format
+# Kitsu JSON Response
 
 Example with an anime search
 
-See the [Github](https://github.com/Normioffi/Aniki/blob/main/json-example/kitsu.json) for the example (The data are too long to fit here.)
+```json
+{
+    "data": [
+        {
+            "id": "",
+            "type": "anime",
+            "links": {
+                "self": ""
+            },
+            "attributes": {
+                "createdAt": "",
+                "updatedAt": "",
+                "slug": "",
+                "synopsis": "",
+                "description": "",
+                "coverImageTopOffset": 0,
+                "titles": {
+                    "en_jp": "",
+                    "ja_jp": ""
+                },
+                "canonicalTitle": "",
+                "abbreviatedTitles": [
+                    ""
+                ],
+                "averageRating": "",
+                "ratingFrequencies": {
+                    "2": "",
+                    "3": "",
+                    "4": "",
+                    "5": "",
+                    "6": "",
+                    "7": "",
+                    "8": "",
+                    "9": "",
+                    "10": "",
+                    "11": "",
+                    "12": "",
+                    "13": "",
+                    "14": "",
+                    "15": "",
+                    "16": "",
+                    "17": "",
+                    "18": "",
+                    "19": "",
+                    "20": ""
+                },
+                "userCount": 7772,
+                "favoritesCount": 44,
+                "startDate": "0000-00-00",
+                "endDate": "0000-00-00",
+                "nextRelease": null,
+                "popularityRank": 0,
+                "ratingRank": 0,
+                "ageRating": "",
+                "ageRatingGuide": "",
+                "subtype": "",
+                "status": "",
+                "tba": "",
+                "posterImage": {
+                    "tiny": "",
+                    "large": "",
+                    "small": "",
+                    "medium": "",
+                    "original": "",
+                    "meta": {
+                        "dimensions": {
+                            "tiny": {
+                                "width": 0,
+                                "height": 0
+                            },
+                            "large": {
+                                "width": 0,
+                                "height": 0
+                            },
+                            "small": {
+                                "width": 0,
+                                "height": 0
+                            },
+                            "medium": {
+                                "width": 0,
+                                "height": 0
+                            }
+                        }
+                    }
+                },
+                "coverImage": {
+                    "tiny": "",
+                    "large": "",
+                    "small": "",
+                    "original": "",
+                    "meta": {
+                        "dimensions": {
+                            "tiny": {
+                                "width": 0,
+                                "height": 0
+                            },
+                            "large": {
+                                "width": 0,
+                                "height": 0
+                            },
+                            "small": {
+                                "width": 0,
+                                "height": 0
+                            }
+                        }
+                    }
+                },
+                "episodeCount": 0,
+                "episodeLength": 0,
+                "totalLength": 0,
+                "youtubeVideoId": "",
+                "showType": "",
+                "nsfw": false
+            },
+            "relationships": {
+                "genres": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "categories": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "castings": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "installments": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "mappings": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "reviews": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "mediaRelationships": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "characters": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "staff": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "productions": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "quotes": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "episodes": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "streamingLinks": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "animeProductions": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "animeCharacters": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                },
+                "animeStaff": {
+                    "links": {
+                        "self": "",
+                        "related": ""
+                    }
+                }
+            }
+        }
+    ],
+    "meta": {
+        "count": 0
+    },
+    "links": {
+        "first": "",
+        "last": ""
+    }
+}```
