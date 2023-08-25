@@ -1,6 +1,6 @@
 {
   "name": "aniki",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "description": "Aniki is a module using APIs to obtain information about an anime or manga.",
   "main": "aniki.js",
   "scripts": {
@@ -18,7 +18,8 @@
     "manga-api",
     "manga",
     "manga-info",
-    "api"
+    "api",
+    "kitsu"
   ],
   "author": "normioffi",
   "license": "MIT",
