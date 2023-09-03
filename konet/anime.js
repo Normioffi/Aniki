@@ -75,9 +75,7 @@ class AnimeKonet {
                 } else {
                     console.error("The parameter isDev must be a boolean!");
                 }
-            }).then((g) => {
-                return g;
-            });
+            };
         } else {
             console.error("No text entries.");
         }
