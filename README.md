@@ -427,4 +427,5 @@ Example with an anime search
         "first": "",
         "last": ""
     }
-}```
+}
+```
