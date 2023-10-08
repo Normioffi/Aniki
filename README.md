@@ -8,6 +8,8 @@ With NPM:
 ```npm
 npm i aniki
 ```
+# Alpha
+An alpha version (1.3.0) will be released soon, the module has been restructured in TypeScript, you can still use it in JavaScript.
 
 # Api used
 Konet Anime DB: French api (this one are incompleted, use other api instead.)
@@ -21,12 +23,12 @@ Are you <b>french</b>? Join the [Konet](https://twitter.com/KonetOrigin) communi
 
 # Usage
 
-With Konet anime db (Anime):
+With Konet Anime (Anime):
 
 ```javascript
-const { Anime } = require("aniki");
+const { AnimeKonet } = require("aniki/konet");
 
-const anime = new Anime("konet", false); // Set the api to konet and set the parameter for developpement to false. (you can set it true to get console server error.)
+const anime = new AnimeKonet(false); // Set the parameter for developpement to false. (you can set it true to get console server error.)
 
 // Find one anime.
 anime.anime("name").then(anime => {
@@ -57,18 +59,18 @@ anime.theme("theme").then(animes => {
 With Kitsu:
 
 ```javascript
-const { Anime } = require("aniki");
+const { AnimeKitsu } = require("aniki/kitsu");
 
-const anime = new Anime("kitsu", false); // Set the api to kitsu.io and set the parameter for developpement to false.
+const anime = new AnimeKitsu(false); // Set the api to kitsu.io and set the parameter for developpement to false.
 
 
 // Find anime.
 anime.search("name").then(results => {
-	console.log(results.data[0].attributes) // The 0 is the first result, "data" and "attributes" are required to get anime data (titles, synopsis...).
+	console.log(results.data[0]) // The 0 is the first result, data are required.
 });
 
 // All list from the page, 
-anime.list(0).then(animes => { // 0 is the first page (offset)
+anime.list(0).then(animes => { // 0 is the offset (first page)
   console.log(animes)
 });
 
@@ -78,13 +80,13 @@ anime.list(0).then(animes => { // 0 is the first page (offset)
 With Kitsu for manga:
 
 ```js
-const { Manga } = require("aniki");
+const { MangaKitsu } = require("aniki/kitsu");
 
-const manga = new Manga("kitsu", false); // Set the api to kitsu (Only Kitsu.io api are used.) and set the dev mode to false.
+const manga = new MangaKitsu(false); // Set the api to kitsu (Only Kitsu.io api are used.) and set the dev mode to false.
 
 // Find anime.
-manga.search("name", 0).then(results => { // The
-    console.log(results.data[0].attributes);// The 0 is the first result, "data" and "attributes" are required to get manga data (titles, synopsis...).
+manga.search("name", 0).then(results => {
+    console.log(results.data[0]);
 });
 
 // Get a list.
@@ -97,18 +99,17 @@ manga.list(0).then(mangas => {
 If you use all function at one time, use asynchronous function:
 
 ```js
-// For Kitsu.io
 async function yourFunc() {
   await anime.search("name", 0).then(results => {
-	  console.log(results.data[0].attributes);
+	  console.log(results.data[0]);
   });
  
   await anime.list(0).then(animes => {
-	  console.log(animes.data[0].attributes);
+	  console.log(animes.data[0]);
   });
 
   await manga.search("name", 0).then(results => {
-    console.log(results.data[0].attributes);
+    console.log(results.data[0]);
   });
   // ...
 }
@@ -252,8 +253,8 @@ Example with an anime search
                     "19": "",
                     "20": ""
                 },
-                "userCount": 7772,
-                "favoritesCount": 44,
+                "userCount": 0,
+                "favoritesCount": 0,
                 "startDate": "0000-00-00",
                 "endDate": "0000-00-00",
                 "nextRelease": null,
@@ -427,4 +428,5 @@ Example with an anime search
         "first": "",
         "last": ""
     }
-}```
+}
+```
