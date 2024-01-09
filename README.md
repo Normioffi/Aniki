@@ -1,5 +1,4 @@
 <div align="center">
-<img src="https://ik.imagekit.io/TheNormidb/Aniki.png"/>
 Aniki is a module using APIs to obtain information about an anime or manga.
 </div>
 
@@ -9,52 +8,17 @@ With NPM:
 npm i aniki
 ```
 # Alpha
-An alpha version (1.3.0) will be released soon, the module has been restructured in TypeScript, you can still use it in JavaScript.
+An alpha version (1.3.0) will be released soon as possible (i really work a long time in...), the module has been restructured in TypeScript, you can still use it in JavaScript ESM.
 
 # Api used
-Konet Anime DB: French api (this one are incompleted, use other api instead.)
+~~Konet Anime DB~~ For now this api is deprecated for missing all animes, use Kitsu api instead.
 
 Kitsu.io
 
 # Helping
 Do you have an anime/manga api to suggest? Tell me in [X](https://twitter.com/Normioffi)! (The api must not have an access key.)
 
-Are you <b>french</b>? Join the [Konet](https://twitter.com/KonetOrigin) community now and help the api grow!
-
 # Usage
-
-With Konet Anime (Anime):
-
-```javascript
-const { AnimeKonet } = require("aniki/konet");
-
-const anime = new AnimeKonet(false); // Set the parameter for developpement to false. (you can set it true to get console server error.)
-
-// Find one anime.
-anime.anime("name").then(anime => {
-  console.log(anime)
-});
-
-// All list from the database.
-anime.list().then(animes => {
-  console.log(animes)
-});
-
-// Find anime.
-anime.search("name").then(results => {
-	console.log(results[0]) // The 0 is the first result.
-});
-
-// List by gender.
-anime.gender("gender").then(animes => {
-	console.log(animes);
-});
-
-// List by theme.
-anime.theme("theme").then(animes => {
-	console.log(animes);
-});
-```
 
 With Kitsu:
 
@@ -116,60 +80,6 @@ async function yourFunc() {
 yourFunc()
 ```
 
-# Konet Response
-|Attributes|Description|Type|
-|---|---|---|
-|`titles`|All types of titles|Object|
-|`titles` > `main`|The main title|String|
-|`titles` > `url`|Title used for urls (https://example.com/showbyrock1)|String|
-|`titles` > `fr`|The french version|String|
-|`titles` > `en`|The english version|String|
-|`titles` > `jp`|The japanese (character) version|String|
-|`synopsis`|The synopsis (The description)|String|
-|`images`|Images correspondent with the anime|Object|
-|`images` > `main`|The main image|String|
-|`images` > `cover`|The second image|String|
-|`status`|The status of the anime|String|
-|`dates`|The release and end date|Object|
-|`dates` > `start`|The start date|String|
-|`dates` > `end`|The end date|String|
-|`keywords`|Keywords|Array|
-|`studios`|The studios that created the anime|Object|
-|`studios` > `threeD`|The 3D animation studio|String|
-|`studios` > `twoD`|The 2D animation studio|String|
-|`genre`|The gender of the anime|Array|
-|`theme`|The theme of the anime|Array|
-
-# Konet JSON response
-
-```json
-{
-    "titles": {
-        "main": "",
-        "url": "",
-        "fr": "",
-        "en": "",
-        "jp": ""
-    },
-    "synopsis": "",
-    "images": {
-        "main": "https://",
-        "cover": "https://"
-    },
-    "status": "",
-    "dates": {
-        "start": "00-00-0000",
-        "end": "00-00-0000"
-    },
-    "studios": {
-        "twoD": "",
-        "threeD": ""
-    },
-    "keywords": ["", ""],
-    "genre":["", ""],
-    "theme": ["", ""]
-  }
-```
 # Kitsu Anime Response
 
 |Attributes|Description|Type|
