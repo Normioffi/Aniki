@@ -1,6 +1,6 @@
 {
   "name": "aniki",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Aniki is a module using APIs to obtain information about an anime or manga.",
   "main": "index.js",
   "scripts": {
@@ -11,10 +11,10 @@
     "url": "git+https://github.com/Normioffi/Aniki.git"
   },
   "keywords": [
-    "anime",
-    "anime-info",
     "aniki",
+    "anime",
     "anime-api",
+    "anime-info",
     "api",
     "manga",
     "manga-api",

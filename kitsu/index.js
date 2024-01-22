@@ -1,4 +1,4 @@
-const { AnimeKitsu } = require("./anime")
-const { MangaKitsu } = require("./manga")
+const { AnimeKitsu } = require("./anime");
+const { MangaKitsu } = require("./manga");
 
-module.exports = { AnimeKitsu, MangaKitsu}
+module.exports = { AnimeKitsu, MangaKitsu };

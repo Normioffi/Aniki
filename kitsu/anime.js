@@ -1,84 +1,70 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
+const url = "https://kitsu.io/api/edge/";
+
+/**
+     * @class
+     * @since 1.0.2
+     * @description Kitsu is an website to get Anime and Manga information, this module use the official API with the AnimeKitsu class
+     * @example
+     * Basic usage:
+     * ```js
+     * // JS
+     * const { AnimeKitsu } = require("aniki/kitsu");
+     * 
+     * const anime = new AnimeKitsu();
+     * 
+     * // Normal
+     * anime.find({ query: "Oshi no Ko" }).then(a => console.log(a.data[0]));
+     * 
+     * // With offset (recommended if have multiple results.)
+     * anime.find({ query: "Oshi no Ko", offset: 0 }).then(a => console.log(a.data[0]));
+     * ```
+     **/
 class AnimeKitsu {
     /**
-     * @param {boolean} isDev - If true: returns console server errors. If false: no returns console server errors.
-     */
-    constructor(isDev) {
-        this.url = "https://kitsu.io/api/edge/";
-
-        this.isDev = isDev;
-    }
-    /**
+     * @method
      * @param {string} query - The query for research.
-     * @param {number} offset - The offset for a certain result. (Optional)
-     * @returns Return a promise
+     * @param {number} offset - The offset for a certain result. (Optional) Default: 0
+     * @returns {Promise | null} Return a promise or a console error.
      */
 
-    search(query, offset) {
+    find(query, offset = 0) {
         if (query) {
-            return fetch(this.url + `anime?filter[text]=${query}&page%5Boffset%5D=${offset}`, {
+            return fetch(url + `anime?filter[text]=${query}&page%5Boffset%5D=${offset}`, {
                 headers: {
                     'Content-Type': 'application/vnd.api+json',
                     'Accept': 'application/vnd.api+json'
                 }
             }).then(r => {
-                if (r.status === 200) {
-                    return r.json();
-                }
-                if (this.isDev === true) {
-                    if (r.status === 404) {
-                        console.warn("No data or invalid EndPoint or parameter.");
-                    } else if (r.status === 406) {
-                        console.error("invalid data in Accept. " + r);
-                    } else {
-                        throw new Error(r);
-                    }
-                } else if (this.isDev === false) {
-                    return null;
-                } else {
-                    console.error("The parameter isDev must be a boolean!");
-                }
+                if (r.ok) return r.json();
+                if (r.status === 404) return null;
+            }).catch(e => {
+                throw new Error("An error has occured:" + e)
             });
         } else {
             console.error("No text entries.");
-        }
-    }
+        };
+    };
     /**
-     * 
-     * @param {number} offset - The offset is a optionnal parameter for certain api.
-     * @param {number} perPage - The number of animes need to be return
-     * @returns Return a promise
+     * @method
+     * @param {number} offset - The offset for a certain result. Default: 0
+     * @param {number} perPage - The number of animes need to be return. Default: 10
+     * @returns {Promise | null} Return a Promise.
      */
-    list(offset, perPage) {
-        return fetch(this.url + `anime?page%5Blimit%5D=${perPage || 1}&page%5Boffset%5D=${offset || 0}`, {
+    list(offset = 0, perPage = 10) {
+        return fetch(url + `anime?page%5Blimit%5D=${perPage}&page%5Boffset%5D=${offset}`, {
             headers: {
                 'Content-Type': 'application/vnd.api+json',
                 'Accept': 'application/vnd.api+json'
             }
         }).then(r => {
-            if (r.ok) {
-                return r.json();
-            }
-            if (this.isDev === true) {
-                if (r.status === 404) {
-                    console.warn("No data or invalid EndPoint or parameter.");
-                } else if (r.status === 406) {
-                    console.error("invalid data in Accept. " + r);
-                } else {
-                    throw new Error(r);
-                }
-            } else if (this.isDev === false) {
-                return null;
-            } else if (!this.isDev) {
-                return null
-            } else {
-                console.error("The parameter isDev must be a boolean!");
-            }
+            if (r.ok) return r.json();
+            if (r.status === 404) return null;
         }).catch(e => {
-            console.error('An error was occured', e);
-        })
-    }
+            throw new Error("An error has occured:" + e);
+        });
+    };
 };
 
 module.exports = { AnimeKitsu };

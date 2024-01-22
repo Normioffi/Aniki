@@ -7,13 +7,13 @@ With NPM:
 ```npm
 npm i aniki
 ```
+
 # Alpha
-An alpha version (1.3.0) will be released soon as possible (i really work a long time in...), the module has been restructured in TypeScript, you can still use it in JavaScript ESM.
+An alpha version (1.3.0) will be released soon as possible (I WORK A LOT FOR NOTHING LOL), the module has been restructured in TypeScript, you can still use it in JavaScript ESM.
 
 # Api used
-~~Konet Anime DB~~ For now this api is deprecated for missing all animes, use Kitsu api instead.
 
-Kitsu.io
+Kitsu.io (For anime and manga)
 
 # Helping
 Do you have an anime/manga api to suggest? Tell me in [X](https://twitter.com/Normioffi)! (The api must not have an access key.)
@@ -22,23 +22,27 @@ Do you have an anime/manga api to suggest? Tell me in [X](https://twitter.com/No
 
 With Kitsu:
 
-```javascript
+```js
 const { AnimeKitsu } = require("aniki/kitsu");
 
-const anime = new AnimeKitsu(false); // Set the api to kitsu.io and set the parameter for developpement to false.
-
+const anime = new AnimeKitsu();
 
 // Find anime.
-anime.search("name").then(results => {
+anime.find("name").then(results => {
 	console.log(results.data[0]) // The 0 is the first result, data are required.
+
+    // Tips: If you want to make sure you have any data, make a condition like this:
+    if (results.data.length > 0) {
+        // ...
+    } else {
+        // ...
+    }
 });
 
 // All list from the page, 
 anime.list(0).then(animes => { // 0 is the offset (first page)
   console.log(animes)
 });
-
-// Other function are not working with this api.
 ```
 
 With Kitsu for manga:
@@ -46,10 +50,10 @@ With Kitsu for manga:
 ```js
 const { MangaKitsu } = require("aniki/kitsu");
 
-const manga = new MangaKitsu(false); // Set the api to kitsu (Only Kitsu.io api are used.) and set the dev mode to false.
+const manga = new MangaKitsu();
 
 // Find anime.
-manga.search("name", 0).then(results => {
+manga.find("name", 0).then(results => {
     console.log(results.data[0]);
 });
 
@@ -64,7 +68,7 @@ If you use all function at one time, use asynchronous function:
 
 ```js
 async function yourFunc() {
-  await anime.search("name", 0).then(results => {
+  await anime.find("name", 0).then(results => {
 	  console.log(results.data[0]);
   });
  
@@ -72,12 +76,12 @@ async function yourFunc() {
 	  console.log(animes.data[0]);
   });
 
-  await manga.search("name", 0).then(results => {
+  await manga.find("name", 0).then(results => {
     console.log(results.data[0]);
   });
   // ...
-}
-yourFunc()
+};
+yourFunc();
 ```
 
 # Kitsu Anime Response
@@ -122,7 +126,7 @@ Example with an anime search
     "data": [
         {
             "id": "",
-            "type": "anime",
+            "type": "",
             "links": {
                 "self": ""
             },
