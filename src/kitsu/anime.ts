@@ -95,7 +95,7 @@ class AnimeKitsu {
     }
     Object.assign(parameters, { "filter[text]": params.query });
 
-    if (params.offset)
+    if (params.offset) {
       if (isNaN(params.offset as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -105,8 +105,9 @@ class AnimeKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-    if (params.perPage)
+    if (params.perPage) {
       if (isNaN(params.perPage as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -116,6 +117,7 @@ class AnimeKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
 
     if (params.averageRating)
@@ -225,7 +227,7 @@ class AnimeKitsu {
   ): Promise<IKitsuAnime | undefined> {
     // Maybe i should delete this method and using find method only...
     const parameters = {};
-    if (params.offset)
+    if (params.offset) {
       if (isNaN(params.offset as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -235,8 +237,9 @@ class AnimeKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-    if (params.perPage)
+    if (params.perPage) {
       if (isNaN(params.perPage as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -246,6 +249,7 @@ class AnimeKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
 
     if (params.averageRating)

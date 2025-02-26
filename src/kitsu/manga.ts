@@ -93,7 +93,7 @@ class MangaKitsu {
       return;
     }
     Object.assign(parameters, { "filter[text]": params.query });
-    if (params.offset)
+    if (params.offset) {
       if (isNaN(params.offset as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -103,8 +103,9 @@ class MangaKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-    if (params.perPage)
+    if (params.perPage) {
       if (isNaN(params.perPage as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -114,6 +115,7 @@ class MangaKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
 
     if (params.season)
@@ -217,7 +219,7 @@ class MangaKitsu {
   ): Promise<IKitsuManga | undefined> {
     const parameters = {};
 
-    if (params.offset)
+    if (params.offset) {
       if (isNaN(params.offset as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -227,8 +229,9 @@ class MangaKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-    if (params.perPage)
+    if (params.perPage) {
       if (isNaN(params.perPage as any)) {
         await (handleError || this.defaultHandleError)(
           {
@@ -238,6 +241,7 @@ class MangaKitsu {
         );
         return;
       }
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
     if (params.averageRating)
       Object.assign(parameters, {
