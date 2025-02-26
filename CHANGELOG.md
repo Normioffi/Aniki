@@ -3,6 +3,12 @@
 In this file, you can see everything got changed.
 </div>
 
+# 1.3.1.1
+
+<small>Nooby things come back... AGAIN!</small>
+
+1. Fixed offset/perPage isNaN errors!
+
 # 1.3.1
 
 <small>I'm sorry for some easy mistakes that i made.. Btw MyAnimeList support will be available in the 1.4.0@beta.1 version soon!</small>

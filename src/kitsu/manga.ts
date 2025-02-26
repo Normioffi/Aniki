@@ -93,25 +93,27 @@ class MangaKitsu {
       return;
     }
     Object.assign(parameters, { "filter[text]": params.query });
-    if (isNaN(params.offset as any)) {
-      await (handleError || this.defaultHandleError)(
-        {
-          moduleError: "'offset' in MangaKitsu#find is not a number.",
-        },
-        400
-      );
-      return;
-    }
+    if (params.offset)
+      if (isNaN(params.offset as any)) {
+        await (handleError || this.defaultHandleError)(
+          {
+            moduleError: "'offset' in MangaKitsu#find is not a number.",
+          },
+          400
+        );
+        return;
+      }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-    if (isNaN(params.perPage as any)) {
-      await (handleError || this.defaultHandleError)(
-        {
-          moduleError: "'perPage' in MangaKitsu#find is not a number.",
-        },
-        400
-      );
-      return;
-    }
+    if (params.perPage)
+      if (isNaN(params.perPage as any)) {
+        await (handleError || this.defaultHandleError)(
+          {
+            moduleError: "'perPage' in MangaKitsu#find is not a number.",
+          },
+          400
+        );
+        return;
+      }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
 
     if (params.season)
@@ -215,25 +217,27 @@ class MangaKitsu {
   ): Promise<IKitsuManga | undefined> {
     const parameters = {};
 
-    if (isNaN(params.offset as any)) {
-      await (handleError || this.defaultHandleError)(
-        {
-          moduleError: "'offset' in MangaKitsu#list is not a number.",
-        },
-        400
-      );
-      return;
-    }
+    if (params.offset)
+      if (isNaN(params.offset as any)) {
+        await (handleError || this.defaultHandleError)(
+          {
+            moduleError: "'offset' in MangaKitsu#list is not a number.",
+          },
+          400
+        );
+        return;
+      }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-    if (isNaN(params.perPage as any)) {
-      await (handleError || this.defaultHandleError)(
-        {
-          moduleError: "'perPage' in MangaKitsu#list is not a number.",
-        },
-        400
-      );
-      return;
-    }
+    if (params.perPage)
+      if (isNaN(params.perPage as any)) {
+        await (handleError || this.defaultHandleError)(
+          {
+            moduleError: "'perPage' in MangaKitsu#list is not a number.",
+          },
+          400
+        );
+        return;
+      }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
     if (params.averageRating)
       Object.assign(parameters, {
