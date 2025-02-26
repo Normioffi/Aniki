@@ -4,6 +4,8 @@ Aniki is a NPM module using different website APIs to get anime and manga inform
 
 See [CHANGELOG](/CHANGELOG.md) for new content.
 
+<div class="tags">
+<img src="https://img.shields.io/npm/v/aniki" alt="NPM Version"/></div>
 </div>
 
 # Installation
@@ -11,7 +13,13 @@ See [CHANGELOG](/CHANGELOG.md) for new content.
 With NPM:
 
 ```npm
-npm i aniki
+npm i aniki@latest
+```
+
+With pnpm
+
+```pnpm
+pnpm i aniki@latest
 ```
 
 # API used
@@ -22,15 +30,14 @@ Kitsu.app: English API to get anime or manga informations.
 
 With Kitsu:
 
-CommonJS
-
 ```javascript
 const aniki = require("aniki");
+// ESM/TS
+import aniki from "aniki";
 
 const anime = new aniki.AnimeKitsu();
 
 // Find anime in a simple way:
-
 anime
   .find({ query: "Oshi no ko", offset: 0 })
   .then((r) => console.log(r.data[0]));
@@ -74,8 +81,6 @@ anime
   .then((r) => console.log(r.data));
 ```
 
-<p style="font-size: 20px">You don't know what the API will return? No problem, with the version <b>1.3.0</b>, _aniki_ now support <b>CJS</b>/<b>ESM</b> and <b>TS</b>, which means that <b>Promise</b>s now returns a type for each methods! (or undefined if errors.)</p>
-
 # Available parameters
 
 Anime/Manga > find:
@@ -87,6 +92,6 @@ Anime/Manga > find:
 | season | The season of the anime | "winter" \| "spring" \| "summer" \| "fall" \| EKitsuSeasons (Enum) | No | None |
 | year | The year of the anime. | `${number}..` \| `${number}..${number}` | No | None |
 | streamers | The available streaming platforms. | "Crunchyroll" \| "Hulu" \| "Funanimation" \| "CONtv" \| "Netflix" \| "HIDIVE" \| "TubiTV" \| "Amazon" \| "Youtube" \| "AnimeLab" \| "VRV" (Array too) | No | None |
-| ageRating | Age rating of the anime (**G**: _General Audiences_, **PG**: _Parental Guidance Suggested_, **R**: _Restricted_, **R18**: _Restricted for 18 years old or older_.) | "G" \| "R18" \| "PG" \| "R" \| Array<"G" \| "R18" \| "PG" \| "R"> \| EKitsuAgeRating | No | None |
+| ageRating | Age rating of the anime (**G**: _General Audiences_, **PG**: _Parental Guidance Suggested_, **R**: _Restricted_, **R18**: _Restricted for 18 years old or older_.) | "G" \| "R18" \| "PG" \| "R" \| Array<"G" \| "R18" \| "PG" \| "R"> \| EKitsuAgeRating (Enum) | No | None |
 | averageRating | The average rating of the anime | `${number}..` \| `${number}..${number}` | No | None |
 | categories | The categories of the anime. | "comedy" \| "anti-war" \| "coming-of-age" \| "epidemic" \| "post-apocalypse" \| EKitsuAnimeCategories (Enum) | No | None |

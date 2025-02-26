@@ -1,12 +1,46 @@
+/**
+ * @file This file is used as interfaces library for Kitsu.app API response.
+ */
+
 // interfaces
 
 /**
+ * @type
+ * @description This type returns errors from the Kitsu.app API and module.
+ * @since 1.3.0
+ */
+type IKitsuHandleError = (
+  /**
+   * @param {object} errors
+   * @param {Promise<IKitsuError>} [errors.apiError] - The API errors
+   * @param {unknown} [errors.moduleError] - The module errors
+   */
+  errors: { apiError?: Promise<IKitsuError>; moduleError?: unknown },
+  status: number
+) => Promise<void>;
+
+/**
  * @interface
- * @description This interface is the JSON response of the AnimeKitsu#find Promise, can be exported.
+ * @description
+ */
+interface IKitsuError {
+  errors: [
+    {
+      title: string;
+      detail?: string;
+      code?: string;
+      status: string;
+    }
+  ];
+}
+
+/**
+ * @interface
+ * @description This interface is the JSON response of the AnimeKitsu#find Promise, can be d.
  * @since 1.3.0
  */
 
-export interface IKitsuAnime {
+interface IKitsuAnime {
   /**
    * @property Get the content of the request (starting only with data)
    * @example
@@ -38,11 +72,11 @@ export interface IKitsuAnime {
         /**
          * @property The creation date of the data from Kitsu.io (ISO 8601)
          */
-        createdAt: string;
+        createdAt: Date;
         /**
          * @property The update date of the data from Kitsu.io. (ISO 8601)
          */
-        updatedAt: string;
+        updatedAt: Date;
         /**
          * @property The title with - (oshi-no-ko)
          */
@@ -317,7 +351,7 @@ export interface IKitsuAnime {
  * @description This interface is the JSON response of the AnimeKitsu#findById Promise (single object)
  * @since 1.3.0
  */
-export interface IKitsuAnimeSingle {
+interface IKitsuAnimeSingle {
   data: {
     /**
      * @property The identifiant (ID) of the anime.
@@ -341,11 +375,11 @@ export interface IKitsuAnimeSingle {
       /**
        * @property The creation date of the data from Kitsu.io (ISO 8601)
        */
-      createdAt: string;
+      createdAt: Date;
       /**
        * @property The update date of the data from Kitsu.io. (ISO 8601)
        */
-      updatedAt: string;
+      updatedAt: Date;
       /**
        * @property The title with - (oshi-no-ko)
        */
@@ -619,7 +653,7 @@ export interface IKitsuAnimeSingle {
  * @description This interface is the JSON response of the AnimeKitsu#episode Promise (only the property data changing into a single object and not an array).
  * @since 1.3.0
  */
-export interface IKitsuEpisode {
+interface IKitsuEpisode {
   data: {
     id: string;
     type: string;
@@ -665,3 +699,11 @@ export interface IKitsuEpisode {
     };
   };
 }
+
+export {
+  IKitsuAnime,
+  IKitsuAnimeSingle,
+  IKitsuEpisode,
+  IKitsuError,
+  IKitsuHandleError,
+};

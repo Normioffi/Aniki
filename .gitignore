@@ -7,3 +7,6 @@ dist
 tsconfig.cjs.json
 tsconfig.esm.json
 tsconfig.json
+myanimelist
+pnpm-lock.yaml
+.vscode

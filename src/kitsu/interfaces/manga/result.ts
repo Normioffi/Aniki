@@ -1,5 +1,31 @@
 // interfaces
 
+interface IKitsuError {
+  errors: [
+    {
+      title: string;
+      detail?: string;
+      code?: string;
+      status: string;
+    }
+  ];
+}
+
+/**
+ * @type
+ * @description This type returns errors from the Kitsu.app API and module.
+ * @since 1.3.0
+ */
+type IKitsuHandleError = (
+  /**
+   * @param {object} errors
+   * @param {Promise<IKitsuError>} [errors.apiError] - The API error(s)
+   * @param {unknown} [errors.moduleError] - The module error(s)
+   */
+  errors: { apiError?: Promise<IKitsuError>; moduleError?: unknown },
+  status: number
+) => Promise<void>;
+
 /**
  * @interface
  * @description This interface is the JSON response of the MangaKitsu#find and MangaKitsu#list Promise.
@@ -470,4 +496,10 @@ interface IKitsuChapter {
   };
 }
 
-export { IKitsuChapter, IKitsuManga, IKitsuMangaSingle };
+export {
+  IKitsuChapter,
+  IKitsuError,
+  IKitsuHandleError,
+  IKitsuManga,
+  IKitsuMangaSingle,
+};

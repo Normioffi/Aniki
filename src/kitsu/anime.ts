@@ -2,16 +2,13 @@
  * @file This file contain the AnimeKitsu class, used to get anime informations from the Kitsu.app API.
  */
 
-import {
-  IKitsuAnimeFind,
-  IKitsuAnimeList,
-  IKitsuError,
-  IKitsuHandleError,
-} from "./interfaces/anime/params.js";
+import { IKitsuAnimeFind, IKitsuAnimeList } from "./interfaces/anime/params.js";
 import {
   IKitsuAnime,
   IKitsuAnimeSingle,
   IKitsuEpisode,
+  IKitsuError,
+  IKitsuHandleError,
 } from "./interfaces/anime/result.js";
 
 // The url
@@ -59,7 +56,7 @@ const url = "https://kitsu.app/api/edge";
  *
  * ```
  */
-export default class AnimeKitsu {
+class AnimeKitsu {
   private defaultHandleError: IKitsuHandleError = async (error) => {
     if (error.apiError)
       console.error(
@@ -98,8 +95,25 @@ export default class AnimeKitsu {
     }
     Object.assign(parameters, { "filter[text]": params.query });
 
+    if (isNaN(params.offset as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'offset' in AnimeKitsu#find is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-
+    if (isNaN(params.perPage as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'perPage' in AnimeKitsu#find is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
 
     if (params.averageRating)
@@ -142,19 +156,16 @@ export default class AnimeKitsu {
   /**
    * @method
    * @since 1.3.0
-   * @param {number} id - The ID of the anime.
+   * @param {number | `${number}`} id - The ID of the anime.
    * @description Get an anime with the ID.
    * @returns {Promise<IKitsuAnimeSingle | undefined>} - Return a Promise.
    * @example
    * ```js
    * anime.findById(30).then(r => console.log(r.data.id));
-   *
-   * // Or
-   * anime.findById("30").then(r => console.log(r.data.id));
    * ```
    */
   async findById(
-    id: number,
+    id: number | `${number}`,
     handleError?: IKitsuHandleError
   ): Promise<IKitsuAnimeSingle | undefined> {
     if (!id) {
@@ -166,7 +177,7 @@ export default class AnimeKitsu {
       );
       return;
     }
-    if (typeof id !== "number") {
+    if (isNaN(id as any)) {
       await (handleError || this.defaultHandleError)(
         {
           moduleError: "'id' in AnimeKitsu#findById is not a number.",
@@ -210,10 +221,27 @@ export default class AnimeKitsu {
     params: IKitsuAnimeList,
     handleError?: IKitsuHandleError
   ): Promise<IKitsuAnime | undefined> {
+    // Maybe i should delete this method and using find method only...
     const parameters = {};
-
+    if (isNaN(params.offset as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'offset' in AnimeKitsu#list is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-
+    if (isNaN(params.perPage as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'perPage' in AnimeKitsu#list is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
 
     if (params.averageRating)
@@ -266,19 +294,19 @@ export default class AnimeKitsu {
    * ```
    */
   async episode(
-    id: number,
+    id: number | `${number}`,
     handleError?: IKitsuHandleError
   ): Promise<IKitsuEpisode | undefined> {
     if (!id) {
       await (handleError || this.defaultHandleError)(
         {
-          moduleError: "'id' in AnimeKitsu#episode is empty.",
+          moduleError: "'id' in AnimeKitsu#findById is empty.",
         },
         400
       );
       return;
     }
-    if (typeof id !== "number") {
+    if (isNaN(id as any)) {
       await (handleError || this.defaultHandleError)(
         {
           moduleError: "'id' in AnimeKitsu#episode is not a number.",
@@ -306,3 +334,6 @@ export default class AnimeKitsu {
     return res.json() as Promise<IKitsuEpisode>;
   }
 }
+
+export { AnimeKitsu };
+export default AnimeKitsu;

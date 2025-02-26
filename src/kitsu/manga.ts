@@ -2,14 +2,11 @@
  * @file This file contain the MangaKitsu class, used to get Manga informations from the Kitsu.app API.
  */
 
-import {
-  IKitsuError,
-  IKitsuHandleError,
-  IKitsuMangaFind,
-  IKitsuMangaList,
-} from "./interfaces/manga/params.js";
+import { IKitsuMangaFind, IKitsuMangaList } from "./interfaces/manga/params.js";
 import {
   IKitsuChapter,
+  IKitsuError,
+  IKitsuHandleError,
   IKitsuManga,
   IKitsuMangaSingle,
 } from "./interfaces/manga/result.js";
@@ -53,13 +50,13 @@ const url = "https://kitsu.app/api/edge";
  *
  * async function getManga(query) {
  * // ...
- *  const a = await Manga.find({ query: query })
+ *  const a = await manga.find({ query: query })
  * // ...
  * }
  *
  * ```
  */
-export default class MangaKitsu {
+class MangaKitsu {
   private defaultHandleError: IKitsuHandleError = async (error) => {
     if (error.apiError)
       console.error(
@@ -78,7 +75,7 @@ export default class MangaKitsu {
    * @returns {Promise<IKitsuManga | undefined>} - Returns a Promise with the IKitsuManga inteface.
    * @example
    * ```js
-   * Manga.find({ query: "Oshi no ko", offset: 0 }).then(a => console.log(a)); // offset is optional.
+   * manga.find({ query: "Oshi no ko", offset: 0 }).then(a => console.log(a)); // offset is optional.
    * ```
    */
   async find(
@@ -89,16 +86,32 @@ export default class MangaKitsu {
     if (!params.query) {
       await (handleError || this.defaultHandleError)(
         {
-          moduleError: "'query' in MangaKitsu.find() is empty.",
+          moduleError: "'query' in MangaKitsu#find is empty.",
         },
         400
       );
       return;
     }
     Object.assign(parameters, { "filter[text]": params.query });
-
+    if (isNaN(params.offset as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'offset' in MangaKitsu#find is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-
+    if (isNaN(params.perPage as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'perPage' in MangaKitsu#find is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
 
     if (params.season)
@@ -131,7 +144,7 @@ export default class MangaKitsu {
   /**
    * @method
    * @since 1.3.0
-   * @param {number} id - The ID of the manga.
+   * @param {number | `${number}`} id - The ID of the manga.
    * @description Get an Manga with the ID.
    * @returns {Promise<IKitsuMangaSingle | undefined>} - Return a Promise.
    * @example
@@ -143,7 +156,7 @@ export default class MangaKitsu {
    * ```
    */
   async findById(
-    id: number,
+    id: number | `${number}`,
     handleError?: IKitsuHandleError
   ): Promise<IKitsuMangaSingle | undefined> {
     if (!id) {
@@ -156,7 +169,7 @@ export default class MangaKitsu {
       return;
     }
 
-    if (typeof id !== "number") {
+    if (isNaN(id as any)) {
       await (handleError || this.defaultHandleError)(
         {
           moduleError: "'id' in MangaKitsu#findById is not a number.",
@@ -202,10 +215,26 @@ export default class MangaKitsu {
   ): Promise<IKitsuManga | undefined> {
     const parameters = {};
 
+    if (isNaN(params.offset as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'offset' in MangaKitsu#list is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[offset]": params.offset ?? 0 });
-
+    if (isNaN(params.perPage as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'perPage' in MangaKitsu#list is not a number.",
+        },
+        400
+      );
+      return;
+    }
     Object.assign(parameters, { "page[limit]": params.perPage ?? 10 });
-
     if (params.averageRating)
       Object.assign(parameters, {
         "filter[averageRating]": params.averageRating,
@@ -220,7 +249,7 @@ export default class MangaKitsu {
       Object.assign(parameters, { "filter[categories]": params.categories });
 
     const p = new URLSearchParams(parameters);
-    const res = await fetch(`${url}/Manga?${p}`, {
+    const res = await fetch(`${url}/manga?${p}`, {
       headers: {
         "Content-Type": "application/vnd.api+json",
         Accept: "application/vnd.api+json",
@@ -251,7 +280,7 @@ export default class MangaKitsu {
    * ```
    */
   async chapters(
-    id: number,
+    id: number | `${number}`,
     handleError?: IKitsuHandleError
   ): Promise<IKitsuChapter | undefined> {
     if (!id) {
@@ -263,7 +292,7 @@ export default class MangaKitsu {
       );
       return;
     }
-    if (typeof id !== "number") {
+    if (isNaN(id as any)) {
       await (handleError || this.defaultHandleError)(
         {
           moduleError: "'id' in MangaKitsu#chapters is not a number.",
@@ -291,3 +320,6 @@ export default class MangaKitsu {
     return res.json() as Promise<IKitsuChapter>;
   }
 }
+
+export { MangaKitsu };
+export default MangaKitsu;

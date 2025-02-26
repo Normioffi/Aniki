@@ -1,10 +1,11 @@
+import { IKitsuAnimeFind, IKitsuAnimeList } from "./anime/params";
 import {
-  IKitsuAnimeFind,
-  IKitsuAnimeList,
+  IKitsuAnime,
+  IKitsuAnimeSingle,
+  IKitsuEpisode,
   IKitsuError,
   IKitsuHandleError,
-} from "./anime/params";
-import { IKitsuAnime, IKitsuAnimeSingle, IKitsuEpisode } from "./anime/result";
+} from "./anime/result";
 
 export {
   IKitsuAnime,

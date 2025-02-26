@@ -1,50 +1,128 @@
 import { EKitsuMangaCategories, EKitsuSeason } from "../../enums";
 
 /**
- * @type
- * @description This type returns errors from the Kitsu.app API and module.
- * @since 1.3.0
- */
-type IKitsuHandleError = (
-  /**
-   * @param {object} errors
-   * @param {Promise<IKitsuError>} [errors.apiError] - The API errors
-   * @param {unknown} [errors.moduleError] - The module errors
-   */
-  errors: { apiError?: Promise<IKitsuError>; moduleError?: unknown },
-  status: number
-) => Promise<void>;
-
-/**
  * @interface
  * @description The parameters for the MangaKitsu#find method.
  * @since 1.3.0
  */
 interface IKitsuMangaFind {
   /**
-   * @property The query to find an Manga.
+   * @param {string} query
+   * @description An query to find an specific manga.
+   * @example
+   * ```js
+   * manga.find({ query: "Oshi no ko" }).then(r => console.log(r))
+   * ```
    */
   query: string;
   /**
-   * @property The offset pagination to skip pages (default is 0)
+   * @param {number} [offset]
+   * @description The offset for pagination.
+   * @example
+   * ```js
+   * manga.list({ offset: "33" }).then(r => console.log(r));
+   * ```
+   * should result as:
+   * ```json
+   * {
+  "data": [
+    {
+      "id": "34",
+      "type": "manga",
+      "links": {},
+      "attributes": {},
+      "relationships": {}
+    },
+    {
+      "id": "35",
+      "type": "manga",
+      "links": {},
+      "attributes": {},
+      "relationships": {}
+    }
+  ],
+  "meta": { "count": 21099 },
+  "links": {
+    "first": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=0",
+    "prev": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=31",
+    "next": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=35",
+    "last": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=21097"
+  }
+}
+  ```
    */
-  offset?: number;
+  offset?: number | `${number}`;
   /**
-   * @property The number of objects that should be returned by the API (default: 10, max: **30**)
+   * @param {number | `${number}`} [perPage]
+   * @description The number of mangas that should return the API.
+   * @example
+   * ```js
+   * manga.list({ perPage: 10 }) // 10 result will show up, by default if empty.
+   * manga.list({ perPage: 30 }) // Kitsu.app will accept less or equal to 30.
+   * // ...
    */
   perPage?: number | `${number}`;
   /**
-   * @property The season of the Manga
+   * @param {"winter" | "spring" | "summer" | "fall" | EKitsuSeason} season
+   * @description The season of the manga.
+   * @example
+   * ```js
+   * // Simplest way
+   * manga.find({ query: "Oshi no ko", season: "fall"});
+   *
+   * // Using EKitsuSeason
+   * manga.find({ query: "Oshi no ko", season: EKitsuSeason.fall });
+   *
    */
   season?: "winter" | "spring" | "summer" | "fall" | EKitsuSeason;
   /**
-   * @property The year of the Manga.
+   * @param {number | `${number}` | `${number}..` | `${number}..${number}`}
+   * @description The year of mangas, minimum is year **1862**. **No verification will occur for now**.
+   * @example
+   * ```js
+   * // Simple number
+   * manga.find({ query: "Oshi no ko", year: 2020 })
+   *
+   * // Simple ${number}
+   * manga.find({ query: "Oshi no ko", year: "2020" })
+   *
+   * // Using ${number}..
+   * manga.find({ query: "Oshi no ko", year: "2020.." })
+   *
+   * // Using ${number}..${number}
+   * manga.find({ query: "Oshi no ko", year: "2020..2025" })
+   *
    */
-  year?: number | `${number}..` | `${number}..${number}`;
+  year?: number | `${number}` | `${number}..` | `${number}..${number}`;
   /**
-   * @property The average rating.
+   * @param {number | `${number}..` | `${number}..${number}`} averageRating
+   * @description The average rating of the manga in % (min **5**%, max **100**%). No verification will occur for now.
+   * @example
+   * ```js
+   * // Using number only
+   * manga.find({ query: "Oshi no ko", averageRating: 50});
+   *
+   * // Using ${number}..
+   * manga.find({ query: "Oshi no ko", averageRating: "50.."});
+   *
+   * // Using ${number}..${number}
+   * manga.find({ query: "Oshi no ko", averageRating: "50..79"});
    */
-  averageRating?: `${number}..` | `${number}..${number}`;
+  averageRating?: number | `${number}..` | `${number}..${number}`;
+  /**
+   * @param {( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "manga_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsumangaCategories ) | ( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "manga_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsumangaCategories )[]} categories
+   * @description The available categories of the manga.
+   * @example
+   * ```js
+   * // Using string only
+   * manga.find({ query: "Oshi no ko", categories: "drama"});
+   *
+   * // Using string[]
+   * manga.find({ query: "Oshi no ko", categories: ["drama", "family"]);
+   *
+   * // Using EKitsumangaCategories
+   * manga.find({ query: "Oshi no ko", categories: EKitsumangaCategories.DRAMA});
+   */
   categories?:
     | (
         | "violence"
@@ -224,29 +302,117 @@ interface IKitsuMangaFind {
  * @since 1.3.0
  */
 interface IKitsuMangaList {
-  offset?: number;
-  perPage?: number;
-  season?: "winter" | "spring" | "summer" | "fall" | EKitsuSeason;
-  year?:
-    | (`${number}` | `${number}..` | `${number}..${number}`)
-    | (`${number}` | `${number}..` | `${number}..${number}`)[];
-  averageRating?: `${number}..` | `${number}..${number}`;
   /**
-   * @property All of the available categories from Kitsu.app
+   * @param {number} [offset]
+   * @description The offset for pagination.
    * @example
    * ```js
-   * // Basic usage (string only)
-   * Manga.list({ categories: "comedy"}).then(r => console.log(r.data[0].id));
+   * manga.list({ offset: "33" }).then(r => console.log(r));
+   * ```
+   * should result as:
+   * ```json
+   * {
+  "data": [
+    {
+      "id": "34",
+      "type": "manga",
+      "links": {},
+      "attributes": {},
+      "relationships": {}
+    },
+    {
+      "id": "35",
+      "type": "manga",
+      "links": {},
+      "attributes": {},
+      "relationships": {}
+    }
+  ],
+  "meta": { "count": 21099 },
+  "links": {
+    "first": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=0",
+    "prev": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=31",
+    "next": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=35",
+    "last": "https://kitsu.app/api/edge/manga?page%5Blimit%5D=2&page%5Boffset%5D=21097"
+  }
+}
+  ```
+   */
+  offset?: number | `${number}`;
+  /**
+   * @param {number | `${number}`} [perPage]
+   * @description The number of mangas that should return the API.
+   * @example
+   * ```js
+   * manga.list({ perPage: 10 }) // 10 result will show up, by default if empty.
+   * manga.list({ perPage: 30 }) // Kitsu.app will accept less or equal to 30.
+   * // ...
+   */
+  perPage?: number | `${number}`;
+  /**
+   * @param {"winter" | "spring" | "summer" | "fall" | EKitsuSeason} season
+   * @description The season of the manga.
+   * @example
+   * ```js
+   * // Simplest way
+   * manga.find({ query: "Oshi no ko", season: "fall"});
+   *
+   * // Using EKitsuSeason
+   * manga.find({ query: "Oshi no ko", season: EKitsuSeason.fall });
+   *
+   */
+  season?: "winter" | "spring" | "summer" | "fall" | EKitsuSeason;
+  /**
+   * @param {number | `${number}` | `${number}..` | `${number}..${number}`}
+   * @description The year of mangas, minimum is year **1862**. **No verification will occur for now**.
+   * @example
+   * ```js
+   * // Simple number
+   * manga.find({ query: "Oshi no ko", year: 2020 })
+   *
+   * // Simple ${number}
+   * manga.find({ query: "Oshi no ko", year: "2020" })
+   *
+   * // Using ${number}..
+   * manga.find({ query: "Oshi no ko", year: "2020.." })
+   *
+   * // Using ${number}..${number}
+   * manga.find({ query: "Oshi no ko", year: "2020..2025" })
+   *
+   */
+  year?: number | `${number}` | `${number}..` | `${number}..${number}`;
+  /**
+   * @param {number | `${number}..` | `${number}..${number}`} averageRating
+   * @description The average rating of the manga in % (min **5**%, max **100**%). No verification will occur for now.
+   * @example
+   * ```js
+   * // Using number only
+   * manga.find({ query: "Oshi no ko", averageRating: 50});
+   *
+   * // Using ${number}..
+   * manga.find({ query: "Oshi no ko", averageRating: "50.."});
+   *
+   * // Using ${number}..${number}
+   * manga.find({ query: "Oshi no ko", averageRating: "50..79"});
+   */
+  averageRating?: number | `${number}..` | `${number}..${number}`;
+  /**
+   * @param {( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "manga_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsumangaCategories ) | ( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "manga_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsumangaCategories )[]} categories
+   * @description The available categories of the manga.
+   * @example
+   * ```js
+   * // Using string only
+   * manga.find({ query: "Oshi no ko", categories: "drama"});
    *
    * // Using string[]
-   * Manga.list({ categories: ["comedy", "anti_war"]}).then(r => console.log(r.data[0].id));
+   * manga.find({ query: "Oshi no ko", categories: ["drama", "family"]);
    *
-   * // Using Enums
-   * Manga.list({ categories: EKitsuMangaCategories.Action }).then(r => console.log(r.data[0].id));
-   *```
+   * // Using EKitsumangaCategories
+   * manga.find({ query: "Oshi no ko", categories: EKitsumangaCategories.DRAMA});
    */
   categories?:
     | (
+        | "violence"
         | "comedy"
         | "anti_war"
         | "coming_of_age"
@@ -332,6 +498,7 @@ interface IKitsuMangaList {
       )
     | (
         | "comedy"
+        | "violence"
         | "anti_war"
         | "coming_of_age"
         | "epidemic"
@@ -416,15 +583,4 @@ interface IKitsuMangaList {
       )[];
 }
 
-interface IKitsuError {
-  errors: [
-    {
-      title: string;
-      detail?: string;
-      code?: string;
-      status: string;
-    }
-  ];
-}
-
-export { IKitsuError, IKitsuHandleError, IKitsuMangaFind, IKitsuMangaList };
+export { IKitsuMangaFind, IKitsuMangaList };

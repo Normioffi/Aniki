@@ -3,6 +3,20 @@
 In this file, you can see everything got changed.
 </div>
 
+# 1.3.1
+
+<small>I'm sorry for some easy mistakes that i made.. Btw MyAnimeList support will be available in the 1.4.0@beta.1 version soon!</small>
+
+1. Fixed createdAt and updatedAt types! (`string` to `Date`)
+2. Fixed AnimeKitsu#findById(id) description that showed a way to use the method with a string with an number inside (like "456") without the ability to do so, now should work properly with `"${number}"` and `number`.
+3. Fixed some import/export classes and interfaces?
+4. Modified some interfaces informations
+5. Fixed `year` parameters that used normal dates (such as "1907", etc...) instead of `number` | `${number}` | `${number}..` | `${number}..${number}`.
+6. Fixed some `number` only types on parameters, now able to use `number` or `"${number}"`. (Checking if value is number isn't required, the method will do so by itself.)
+7. Changed `@property` to `@param` for the parameters of methods.
+8. Fixed a mistake on the module description (added "[...] also for anime waifus." by error.) <small>(Well it was a future possible API to add for waifus, but due to the type of content... It will not.)</small>)
+9. Added better descriptions for some parameters.
+
 # 1.3.0
 
 1. Full support for **CJS**/**ESM** and **TS**.
