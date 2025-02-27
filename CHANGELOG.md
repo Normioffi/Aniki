@@ -3,9 +3,9 @@
 In this file, you can see everything got changed.
 </div>
 
-# 1.3.3
+# 1.3.4
 
-<small>Nooby things come back... AGAIN AND AGAIN, AHH!</small>
+<small>Nooby things come back... AGAIN AND AGAIN, AHH! Just because i forgot to compile i'd just made 3 updates... YES.</small>
 
 1. Fixed offset/perPage isNaN errors!
 
