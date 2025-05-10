@@ -5,36 +5,6 @@
 // interfaces
 
 /**
- * @type
- * @description This type returns errors from the Kitsu.app API and module.
- * @since 1.3.0
- */
-type IKitsuHandleError = (
-  /**
-   * @param {object} errors
-   * @param {Promise<IKitsuError>} [errors.apiError] - The API errors
-   * @param {unknown} [errors.moduleError] - The module errors
-   */
-  errors: { apiError?: Promise<IKitsuError>; moduleError?: unknown },
-  status: number
-) => Promise<void>;
-
-/**
- * @interface
- * @description
- */
-interface IKitsuError {
-  errors: [
-    {
-      title: string;
-      detail?: string;
-      code?: string;
-      status: string;
-    }
-  ];
-}
-
-/**
  * @interface
  * @description This interface is the JSON response of the AnimeKitsu#find Promise, can be d.
  * @since 1.3.0
@@ -107,7 +77,7 @@ interface IKitsuAnime {
            */
           en_jp: string;
           /**
-           * @property TItle in japanese (like "推しの子")
+           * @property Title in japanese (like "推しの子")
            */
           ja_jp: string;
         };
@@ -151,7 +121,10 @@ interface IKitsuAnime {
          * @property The official anime end date.
          */
         endDate: string;
-        nextRelease: string;
+        /**
+         * @property The approximate date of the next release.
+         */
+        nextRelease: string | null;
         /**
          * @property The popularity rank of the anime. (used for Kitsu.app)
          */
@@ -160,7 +133,7 @@ interface IKitsuAnime {
         /**
          * @property Age rating of the anime. (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*.)
          */
-        ageRating: "G" | "PG" | "R" | "R18";
+        ageRating: "G" | "PG" | "R";
         ageRatingGuide: string | null;
         /**
          * @property The type of the anime (can be a movie, a TV serie or OVA episode, etc...)
@@ -229,9 +202,12 @@ interface IKitsuAnime {
             };
           };
         };
+        /**
+         * @property Number of episodes planned.
+         */
         episodeCount: number;
         /**
-         * @property Approximative episode length. (such as 24 mins)
+         * @property Approximative episodes length. (such as 24 mins)
          */
         episodeLength: number;
         /**
@@ -239,7 +215,7 @@ interface IKitsuAnime {
          */
         totalLength: number;
         /**
-         * @property Official (or unofficial) Youtube video ID of the trailer/presentation
+         * @property Official (or unofficial) Youtube video ID of the trailer/presentation (like https://youtu.be/lpiB2wMc49g)
          */
         youtubeVideoId: string;
         showType: string;
@@ -352,6 +328,13 @@ interface IKitsuAnime {
  * @since 1.3.0
  */
 interface IKitsuAnimeSingle {
+  /**
+   * @property Get the content of the request (starting only with data)
+   * @example
+   * ```js
+   * anime.findById({ query: "oshi no ko", offset: 0 }).then(r => console.log(r.data[0])) // Calling the first result with [0].
+   * ```
+   */
   data: {
     /**
      * @property The identifiant (ID) of the anime.
@@ -368,7 +351,7 @@ interface IKitsuAnimeSingle {
      * @property The main attributes (anime informations)
      * @example
      * ```js
-     * anime.findById(33).then(r=> console.log(r.data.attributes)) // { ... }
+     * anime.find({ query: "oshi no ko", offset: 0}).then(r=> console.log(r.data[0].attributes)) // { ... }
      * ```
      */
     attributes: {
@@ -410,7 +393,7 @@ interface IKitsuAnimeSingle {
          */
         en_jp: string;
         /**
-         * @property TItle in japanese (like "推しの子")
+         * @property Title in japanese (like "推しの子")
          */
         ja_jp: string;
       };
@@ -422,6 +405,9 @@ interface IKitsuAnimeSingle {
        * @property Abbreviated titles (like Roshidere)
        */
       abbreviatedTitles: string[];
+      /**
+       * @property The average rating of the anime in %
+       */
       averageRating: string | null;
       ratingFrequencies: {
         "2": string;
@@ -454,7 +440,10 @@ interface IKitsuAnimeSingle {
        * @property The official anime end date.
        */
       endDate: string;
-      nextRelease: string;
+      /**
+       * @property The approximate date of the next release.
+       */
+      nextRelease: string | null;
       /**
        * @property The popularity rank of the anime. (used for Kitsu.app)
        */
@@ -463,7 +452,7 @@ interface IKitsuAnimeSingle {
       /**
        * @property Age rating of the anime. (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*.)
        */
-      ageRating: "G" | "PG" | "R" | "R18";
+      ageRating: "G" | "PG" | "R";
       ageRatingGuide: string | null;
       /**
        * @property The type of the anime (can be a movie, a TV serie or OVA episode, etc...)
@@ -532,9 +521,12 @@ interface IKitsuAnimeSingle {
           };
         };
       };
+      /**
+       * @property Number of episodes planned.
+       */
       episodeCount: number;
       /**
-       * @property Approximative episode length. (such as 24 mins)
+       * @property Approximative episodes length. (such as 24 mins)
        */
       episodeLength: number;
       /**
@@ -542,7 +534,7 @@ interface IKitsuAnimeSingle {
        */
       totalLength: number;
       /**
-       * @property Official (or unofficial) Youtube video ID of the trailer/presentation
+       * @property Official (or unofficial) Youtube video ID of the trailer/presentation (like https://youtu.be/lpiB2wMc49g)
        */
       youtubeVideoId: string;
       showType: string;
@@ -699,11 +691,53 @@ interface IKitsuEpisode {
     };
   };
 }
+interface IKitsuEpisodes {
+  data: [
+    {
+      id: string;
+      type: string;
+      links: {
+        self: string;
+      };
+      attributes: {
+        createdAt: string;
+        updatedAt: string;
+        synopsis: string;
+        description: string;
+        titles: {
+          en_jp: string;
+          en_us: string;
+          ja_jp: string;
+        };
+        canonicalTitle: string;
+        seasonNumber: number;
+        number: number;
+        relativeNumber: number;
+        airdate: string;
+        length: number;
+        thumbnail: {
+          original: string;
+          meta: {
+            dimensions: object;
+          };
+        };
+      };
+      relationships: {
+        media: {
+          links: {
+            self: string;
+            related: string;
+          };
+        };
+        videos: {
+          links: {
+            self: string;
+            related: string;
+          };
+        };
+      };
+    }
+  ];
+}
 
-export {
-  IKitsuAnime,
-  IKitsuAnimeSingle,
-  IKitsuEpisode,
-  IKitsuError,
-  IKitsuHandleError,
-};
+export { IKitsuAnime, IKitsuAnimeSingle, IKitsuEpisode, IKitsuEpisodes };

@@ -1,17 +1,38 @@
 <div align="center">
-<h1>Change Logs</h1>
+<h1>Aniki</h1>
+<h2>Change Logs</h2>
 In this file, you can see everything got changed.
 </div>
 
-# 1.3.4
+## Bugs?
 
-<small>Nooby things come back... AGAIN AND AGAIN, AHH! Just because i forgot to compile i'd just made 3 updates... YES.</small>
+If you get any bugs, please make an [Issue](https://github.com/Normioffi/Aniki/issues) here!
+
+# 1.3.5
+
+1. Fixed an error while installing the package with PNPM.
+2. Modified some params description.
+3. Modified/added some results description.
+4. Edited module description.
+5. Added and edited methods in AnimeKitsu and MangaKitsu:
+
+- Added #episodes and #chapters
+- Edited #episode and #chapter
+
+6. Added enums informations.
+7. Added missing categories in IKitsuAnimeFind, IKitsuAnimeList, IKitsuMangaFind and IKitsuMangaList and moved them in a new type. (can be imported!)
+8. Fixed categories name with \_ (now using -)
+9. Fixed some import/export interfaces.
+10. Classes, enums will now be exported as normal and not by default, it means that you should change from `const aniki = require("aniki");` to `const { AnimeKitsu, MangaKitsu, EKitsuSeason } = require("aniki");`.
+11. Fixed duplicated `TKitsuHandleError, IKitsuError` type and interface.
+12. Removed `R18` in EKitsuAgeRating and in find/list params interfaces. (Because it returns nothing.)
+13. Fixed max size of `perPage` (30 to 20). + added verification. (return undefined + moduleError if greater than 20.)
+
+# 1.3.4
 
 1. Fixed offset/perPage isNaN errors!
 
 # 1.3.1
-
-<small>I'm sorry for some easy mistakes that i made.. Btw MyAnimeList support will be available in the 1.4.0@beta.1 version soon!</small>
 
 1. Fixed createdAt and updatedAt types! (`string` to `Date`)
 2. Fixed AnimeKitsu#findById(id) description that showed a way to use the method with a string with an number inside (like "456") without the ability to do so, now should work properly with `"${number}"` and `number`.

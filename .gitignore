@@ -4,9 +4,6 @@ dist
 ._.DS_Store
 .npmignore
 .eslintrc.json
-tsconfig.cjs.json
-tsconfig.esm.json
-tsconfig.json
 myanimelist
 pnpm-lock.yaml
 .vscode

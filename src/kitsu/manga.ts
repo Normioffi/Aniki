@@ -2,14 +2,16 @@
  * @file This file contain the MangaKitsu class, used to get Manga informations from the Kitsu.app API.
  */
 
-import { IKitsuMangaFind, IKitsuMangaList } from "./interfaces/manga/params.js";
 import {
   IKitsuChapter,
+  IKitsuChapters,
   IKitsuError,
-  IKitsuHandleError,
   IKitsuManga,
+  IKitsuMangaFind,
+  IKitsuMangaList,
   IKitsuMangaSingle,
-} from "./interfaces/manga/result.js";
+  TKitsuHandleError,
+} from "./interfaces/index.js";
 
 // The url
 const url = "https://kitsu.app/api/edge";
@@ -17,15 +19,14 @@ const url = "https://kitsu.app/api/edge";
 // Main class
 /**
  * @class
- * @since 1.0.2
  * @description MangaKitsu is a class that's using the Kitsu.app API, with this class you can find Mangas informations in different ways
  * @example
  * Basic usage:
  * ```js
  * // CJS
- * const { MangaKitsu } = require("aniki/kitsu")
+ * const { MangaKitsu } = require("aniki")
  * // JS ESM or TS
- * import { MangaKitsu } from "aniki/kitsu";
+ * import { MangaKitsu } from "aniki";
  *
  * const manga = new MangaKitsu();
  *
@@ -36,28 +37,32 @@ const url = "https://kitsu.app/api/edge";
  * manga.findById(3600).then(a => console.log(a.data));
  *
  * // Handling errors
- * 
- * manga.find(
-  { query: "Oshi no ko" },
-  async ({ apiError, moduleError }, status) => {
-    if (apiError) console.error(await apiError);
-    if (moduleError) console.error(await moduleError);
-  }
-);
-
  *
- * // Best practice to avoid using .then() method is by using asynchronous function
+ * manga.find(
+ *  { query: "Oshi no ko" },
+ *  async ({ apiError, moduleError }, status) => {
+ *    if (apiError) console.error(await apiError);
+ *    if (moduleError) console.error(await moduleError);
+ * });
+ *
+ *
+ * // Best practice to avoid using .then() method is by using asynchronous functions
  *
  * async function getManga(query) {
  * // ...
  *  const a = await manga.find({ query: query })
- * // ...
+ *
+ * // Tip to avoid multiple awaits
+ * const a = manga.find({query: ""});
+ * const b = manga.list({});
+ * const [A, B] = await Promise.all([a, b])
  * }
  *
  * ```
+ * @since 1.0.2
  */
 class MangaKitsu {
-  private defaultHandleError: IKitsuHandleError = async (error) => {
+  private defaultHandleError: TKitsuHandleError = async (error) => {
     if (error.apiError)
       console.error(
         "Aniki: Unhandled API error:",
@@ -69,18 +74,19 @@ class MangaKitsu {
   // Methods
   /**
    * @method
-   * @since 1.0.2
-   * @param params - The parameters for the request.
+   * @param {IKitsuMangaFind} params - The parameters for the request.
+   * @param {TKitsuHandleError} [handleError] - Used for handling errors from the method and the API.
    * @description The find method is used to find mangas with different parameters.
    * @returns {Promise<IKitsuManga | undefined>} - Returns a Promise with the IKitsuManga inteface.
    * @example
    * ```js
    * manga.find({ query: "Oshi no ko", offset: 0 }).then(a => console.log(a)); // offset is optional.
    * ```
+   * @since 1.0.2
    */
   async find(
     params: IKitsuMangaFind,
-    handleError?: IKitsuHandleError
+    handleError?: TKitsuHandleError
   ): Promise<IKitsuManga | undefined> {
     const parameters = {};
     if (!params.query) {
@@ -110,6 +116,16 @@ class MangaKitsu {
         await (handleError || this.defaultHandleError)(
           {
             moduleError: "'perPage' in MangaKitsu#find is not a number.",
+          },
+          400
+        );
+        return;
+      }
+      if ((params.perPage as number) > 20) {
+        await (handleError || this.defaultHandleError)(
+          {
+            moduleError:
+              "'perPage' in MangaKitsu#find should be less than or equal to 20.",
           },
           400
         );
@@ -147,8 +163,8 @@ class MangaKitsu {
   }
   /**
    * @method
-   * @since 1.3.0
    * @param {number | `${number}`} id - The ID of the manga.
+   * @param {TKitsuHandleError} [handleError] - Used for handling errors from the method and the API.
    * @description Get an Manga with the ID.
    * @returns {Promise<IKitsuMangaSingle | undefined>} - Return a Promise.
    * @example
@@ -158,10 +174,11 @@ class MangaKitsu {
    * // Or
    * manga.findById("30").then(r => console.log(r.data.id));
    * ```
+   * @since 1.3.0
    */
   async findById(
     id: number | `${number}`,
-    handleError?: IKitsuHandleError
+    handleError?: TKitsuHandleError
   ): Promise<IKitsuMangaSingle | undefined> {
     if (!id) {
       await (handleError || this.defaultHandleError)(
@@ -203,19 +220,20 @@ class MangaKitsu {
   /**
    *
    * @method
-   * @since 1.0.2
-   * @param params - The parameters for the request.
+   * @param {IKitsuMangaList} params - The parameters for the request.
+   * @param {TKitsuHandleError} [handleError] - Used for handling errors from the method and the API.
    * @description Get an list of Mangas, you can choose the page, and the number of Mangas per page.
    * @returns {Promise<IKitsuManga | undefined>} - Return a Promise.
    * @example
    * ```js
    * Manga.list({ offset: 0, perPage: 10 }).then(a => console.log(a));
    * ```
+   * @since 1.0.2
    *
    */
   async list(
     params: IKitsuMangaList,
-    handleError?: IKitsuHandleError
+    handleError?: TKitsuHandleError
   ): Promise<IKitsuManga | undefined> {
     const parameters = {};
 
@@ -236,6 +254,16 @@ class MangaKitsu {
         await (handleError || this.defaultHandleError)(
           {
             moduleError: "'perPage' in MangaKitsu#list is not a number.",
+          },
+          400
+        );
+        return;
+      }
+      if ((params.perPage as number) > 20) {
+        await (handleError || this.defaultHandleError)(
+          {
+            moduleError:
+              "'perPage' in MangaKitsu#list should be less than or equal to 20.",
           },
           400
         );
@@ -278,23 +306,24 @@ class MangaKitsu {
 
   /**
    * @method
-   * @since 1.3.0
-   * @param params - The parameters to find an chapter or a list of chapters
+   * @param {number | `${number}`} id - The parameters to find a specific chapter of a manga using the chapter ID.
+   * @param {TKitsuHandleError} [handleError] - Used for handling errors from the method and the API.
    * @description Get an chapter with the ID.
-   * @returns {Promise<IKitsuchapter | undefined>} - Return a IKitsuChapter Promise interface or undefined if it has no result.
+   * @returns {Promise<IKitsuChapter | undefined>} - Return a IKitsuChapter Promise interface or undefined if it has no result.
    * @example
    * ```js
-   * Manga.chapter(30).then(r => console.log(r.data.attributes.titles.en));
+   * manga.chapter(30).then(r => console.log(r.data.attributes.titles.en));
    * ```
+   * @since 1.3.0
    */
-  async chapters(
+  async chapter(
     id: number | `${number}`,
-    handleError?: IKitsuHandleError
+    handleError?: TKitsuHandleError
   ): Promise<IKitsuChapter | undefined> {
     if (!id) {
       await (handleError || this.defaultHandleError)(
         {
-          moduleError: "'id' in MangaKitsu#chapters is empty.",
+          moduleError: "'id' in MangaKitsu#chapter is empty.",
         },
         400
       );
@@ -303,7 +332,7 @@ class MangaKitsu {
     if (isNaN(id as any)) {
       await (handleError || this.defaultHandleError)(
         {
-          moduleError: "'id' in MangaKitsu#chapters is not a number.",
+          moduleError: "'id' in MangaKitsu#chapter is not a number.",
         },
         400
       );
@@ -326,6 +355,57 @@ class MangaKitsu {
     }
 
     return res.json() as Promise<IKitsuChapter>;
+  }
+  /**
+   * @method
+   * @param {number | `${number}`} mangaId - The parameters to find all chapters of an manga using its ID.
+   * @param {TKitsuHandleError} [handleError] - Used for handling errors from the method and the API.
+   * @returns {Promise<IKitsuChapters | undefined>} Return a IKitsuChapters Promise interface or undefined if it has no result.
+   * @example
+   * ```js
+   * manga.chapters(7442).then(r => console.log(r.data.attributes.titles.en));
+   * ```
+   * @since 1.3.5
+   */
+  async chapters(
+    mangaId: number | `${number}`,
+    handleError?: TKitsuHandleError
+  ): Promise<IKitsuChapters | undefined> {
+    if (!mangaId) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'mangaId' in MangaKitsu#chapters is empty.",
+        },
+        400
+      );
+      return;
+    }
+    if (isNaN(mangaId as any)) {
+      await (handleError || this.defaultHandleError)(
+        {
+          moduleError: "'mangaId' in MangaKitsu#chapters is not a number.",
+        },
+        400
+      );
+      return;
+    }
+    const res = await fetch(`${url}/chapters?filter[manga_id]=${mangaId}`, {
+      headers: {
+        "Content-Type": "application/vnd.api+json",
+        Accept: "application/vnd.api+json",
+      },
+    });
+    if (!res.ok) {
+      await (handleError || this.defaultHandleError)(
+        {
+          apiError: (await res.json()) as Promise<IKitsuError>,
+        },
+        res.status
+      );
+      return;
+    }
+
+    return res.json() as Promise<IKitsuChapters>;
   }
 }
 

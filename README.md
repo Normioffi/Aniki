@@ -1,8 +1,8 @@
 <div align="center">
 <h1>Aniki</h1>
-Aniki is a NPM module using different website APIs to get anime and manga informations.
+Aniki is an easy-to-use NPM module that gets information about your favorite anime and manga.
 
-See [CHANGELOG](/CHANGELOG.md) for new content.
+See [CHANGELOG](/CHANGELOG.md) for new content in each updates.
 
 <div class="tags">
 <img src="https://img.shields.io/npm/v/aniki" alt="NPM Version"/></div>
@@ -25,24 +25,25 @@ pnpm i aniki@latest
 # API used
 
 Kitsu.app: English API to get anime or manga informations.
+In the next beta, MyAnimeList will be supported, only read-only informations will be returned, you will need your API Client ID.
 
 # Usage
 
 With Kitsu:
 
 ```javascript
-const aniki = require("aniki");
+const { AnimeKitsu } = require("aniki");
 // ESM/TS
-import aniki from "aniki";
+import { AnimeKitsu } from "aniki";
 
-const anime = new aniki.AnimeKitsu();
+const anime = new AnimeKitsu();
 
 // Find anime in a simple way:
 anime
   .find({ query: "Oshi no ko", offset: 0 })
   .then((r) => console.log(r.data[0]));
 
-// All list from the first page (limited by 10 result)
+// All list from the first page (limited by 10 result, max is 20)
 anime.list({ offset: 0, perPage: 10 }).then((results) => {
   console.log(results.data);
 });
@@ -69,10 +70,9 @@ anime
 Also, some parameters supports Enums!
 
 ```javascript
-const aniki = require("aniki");
-const { EKitsuAnimeCategories } = require("aniki/kitsu/enums");
+const { AnimeKitsu } = require("aniki");
 
-const anime = new aniki.AnimeKitsu();
+const anime = new AnimeKitsu();
 
 // finding a specific category with the EKitsuAnimeCategories enum.
 
@@ -83,15 +83,4 @@ anime
 
 # Available parameters
 
-Anime/Manga > find:
-| Property | Description | Type | Required | Default value |
-|:-------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------:|:-------------:|
-| query | The query to find an anime. | string | Yes | None |
-| offset | The offset pagination to skip pages (default is 0) | number | No | 0 |
-| perPage | The number of animes that must be returned by the function (default: 10, max: **30**) | number | No | 10 |
-| season | The season of the anime | "winter" \| "spring" \| "summer" \| "fall" \| EKitsuSeasons (Enum) | No | None |
-| year | The year of the anime. | `${number}..` \| `${number}..${number}` | No | None |
-| streamers | The available streaming platforms. | "Crunchyroll" \| "Hulu" \| "Funanimation" \| "CONtv" \| "Netflix" \| "HIDIVE" \| "TubiTV" \| "Amazon" \| "Youtube" \| "AnimeLab" \| "VRV" (Array too) | No | None |
-| ageRating | Age rating of the anime (**G**: _General Audiences_, **PG**: _Parental Guidance Suggested_, **R**: _Restricted_, **R18**: _Restricted for 18 years old or older_.) | "G" \| "R18" \| "PG" \| "R" \| Array<"G" \| "R18" \| "PG" \| "R"> \| EKitsuAgeRating (Enum) | No | None |
-| averageRating | The average rating of the anime | `${number}..` \| `${number}..${number}` | No | None |
-| categories | The categories of the anime. | "comedy" \| "anti-war" \| "coming-of-age" \| "epidemic" \| "post-apocalypse" \| EKitsuAnimeCategories (Enum) | No | None |
+See [interfaces](https://github.com/Normioffi/Aniki/tree/normal/src/kitsu/interfaces) (.../params.ts) for Kitsu.

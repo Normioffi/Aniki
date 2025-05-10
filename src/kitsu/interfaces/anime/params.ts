@@ -3,8 +3,167 @@ import {
   EKitsuAnimeCategories,
   EKitsuAnimeStreamers,
   EKitsuSeason,
-} from "../../enums";
+} from "../../enums/index.js";
 
+type TKitsuAnimeCategories =
+  | "violence"
+  | "plot-continuity"
+  | "stereotypes"
+  | "tone-changes"
+  | "action"
+  | "battle-royale"
+  | "gunfights"
+  | "martial-arts"
+  | "ninja"
+  | "space-battles"
+  | "swordplay"
+  | "samurai"
+  | "adventure"
+  | "angst"
+  | "anime-influenced"
+  | "anthropomorphism"
+  | "blackmail"
+  | "comedy"
+  | "absurdist-humour"
+  | "breaking-the-fourth-wall"
+  | "parody"
+  | "satire"
+  | "super-deformed"
+  | "violent-retribution-for-accidental-infringement"
+  | "detective"
+  | "drama"
+  | "fantasy"
+  | "angel"
+  | "contemporary-fantasy"
+  | "dark-fantasy"
+  | "deity"
+  | "demon"
+  | "dragon"
+  | "elf"
+  | "high-fantasy"
+  | "magic"
+  | "mermaid"
+  | "ghost"
+  | "harem"
+  | "henshin"
+  | "horror"
+  | "magical-girl"
+  | "mystery"
+  | "parasite"
+  | "dementia"
+  | "love-polygon"
+  | "psychological"
+  | "romance"
+  | "shoujo-ai"
+  | "shounen-ai"
+  | "slow-when-it-comes-to-love"
+  | "sudden-girlfriend-appearance"
+  | "unrequited-love"
+  | "ecchi"
+  | "slapstick"
+  | "science-fiction"
+  | "alien"
+  | "humanoid-alien"
+  | "cyberpunk"
+  | "human-enhancement"
+  | "cyborg"
+  | "genetic-modification"
+  | "mecha"
+  | "robot"
+  | "power-suit"
+  | "space-opera"
+  | "space-travel"
+  | "steampunk"
+  | "time-travel"
+  | "super-power"
+  | "superhero"
+  | "supernatural"
+  | "thriller"
+  | "vampire"
+  | "zombie"
+  | "virtual-reality"
+  | "countryside"
+  | "desert"
+  | "earth"
+  | "africa"
+  | "americas"
+  | "united-states"
+  | "new-york"
+  | "china"
+  | "japan"
+  | "kyoto"
+  | "tokyo"
+  | "europe"
+  | "korea"
+  | "middle-east"
+  | "france"
+  | "germany"
+  | "italy"
+  | "russia"
+  | "united-kingdom"
+  | "floating-island"
+  | "fantasy-world"
+  | "future"
+  | "isekai"
+  | "island"
+  | "parallel-universe"
+  | "past"
+  | "alternative-past"
+  | "bakumatsu-meiji-period"
+  | "heian-period"
+  | "sengoku-period"
+  | "three-kingdoms"
+  | "tokugawa-period"
+  | "victorian-period"
+  | "world-war-ii"
+  | "historical"
+  | "present"
+  | "alternative-present"
+  | "space"
+  | "other-planet"
+  | "mars"
+  | "shipboard"
+  | "summer"
+  | "josei"
+  | "kids"
+  | "seinen"
+  | "shoujo"
+  | "shounen"
+  | "anti-war"
+  | "coming-of-age"
+  | "conspiracy"
+  | "cooking"
+  | "crime"
+  | "assassin"
+  | "bounty-hunter"
+  | "mafia"
+  | "pirate"
+  | "thievery"
+  | "disaster"
+  | "epidemic"
+  | "post-apocalypse"
+  | "war"
+  | "family"
+  | "friendship"
+  | "gender-bender"
+  | "law-and-order"
+  | "cops"
+  | "special-squads"
+  | "shinsengumi"
+  | "military"
+  | "air-force"
+  | "feudal-warfare"
+  | "navy"
+  | "netorare"
+  | "parental-abandonment"
+  | "politics"
+  | "proxy-battles"
+  | "religion"
+  | "buddhism"
+  | "revenge"
+  | "dystopia"
+  | "school-life"
+  | "music";
 /**
  * @interface
  * @description The parameters for the AnimeKitsu#find method.
@@ -63,7 +222,7 @@ interface IKitsuAnimeFind {
    * @example
    * ```js
    * anime.list({ perPage: 10 }) // 10 result will show up, by default if empty.
-   * anime.list({ perPage: 30 }) // Kitsu.app will accept less or equal to 30.
+   * anime.list({ perPage: 20 }) // Kitsu.app will accept less or equal to 20.
    * // ...
    */
   perPage?: number | `${number}`;
@@ -73,7 +232,7 @@ interface IKitsuAnimeFind {
    * @example
    * ```js
    * // Simplest way
-   * anime.find({ query: "Oshi no ko", season: "fall"});
+   * anime.find({ query: "Oshi no ko", season: "fall" });
    *
    * // Using EKitsuSeason
    * anime.find({ query: "Oshi no ko", season: EKitsuSeason.fall });
@@ -105,13 +264,13 @@ interface IKitsuAnimeFind {
    * @example
    * ```js
    * // Simplest way
-   * anime.find({ query: "Oshi no ko", streamers: "Funanimation"});
+   * anime.find({ query: "Oshi no ko", streamers: "Funanimation" });
    *
    * // Using string[]
-   * anime.find({ query: "Oshi no ko", streamers: ["Funanimation", "Hulu"]});
+   * anime.find({ query: "Oshi no ko", streamers: ["Funanimation", "Hulu"] });
    *
    * // Using EKitsuAnimeStreamers
-   * anime.find({ query: "Oshi no ko", streamers: EKitsuAnimeStreamers.Hulu});
+   * anime.find({ query: "Oshi no ko", streamers: EKitsuAnimeStreamers.Hulu });
    * ```
    */
   streamers?:
@@ -144,7 +303,7 @@ interface IKitsuAnimeFind {
         | EKitsuAnimeStreamers
       )[];
   /**
-   * @param {("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating) | ("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating)[]} ageRating
+   * @param {("G" | "PG" | "R" | EKitsuAnimeAgeRating) | ("G" | "PG" | "R" | EKitsuAnimeAgeRating)[]} ageRating
    * @description the age rating of the anime (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*.)
    * @example
    * ```js
@@ -158,25 +317,25 @@ interface IKitsuAnimeFind {
    * anime.find({ query: "Oshi no ko", ageRating: EKitsuAnimeAgeRating.GeneralAudiences });
    */
   ageRating?:
-    | ("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating)
-    | ("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating)[];
+    | ("G" | "PG" | "R" | EKitsuAnimeAgeRating)
+    | ("G" | "PG" | "R" | EKitsuAnimeAgeRating)[];
   /**
    * @param {number | `${number}..` | `${number}..${number}`} averageRating
    * @description The average rating of the anime in % (min **5**%, max **100**%). No verification will occur for now.
    * @example
    * ```js
    * // Using number only
-   * anime.find({ query: "Oshi no ko", averageRating: 50});
+   * anime.find({ query: "Oshi no ko", averageRating: 50 });
    *
    * // Using ${number}..
-   * anime.find({ query: "Oshi no ko", averageRating: "50.."});
+   * anime.find({ query: "Oshi no ko", averageRating: "50.." });
    *
    * // Using ${number}..${number}
-   * anime.find({ query: "Oshi no ko", averageRating: "50..79"});
+   * anime.find({ query: "Oshi no ko", averageRating: "50..79" });
    */
   averageRating?: number | `${number}..` | `${number}..${number}`;
   /**
-   * @param {( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "anime_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsuAnimeCategories ) | ( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "anime_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsuAnimeCategories )[]} categories
+   * @param {(TKitsuAnimeCategories | EKitsuAnimeCategories) | (TKitsuAnimeCategories | EKitsuAnimeCategories)[]} categories
    * @description The available categories of the anime.
    * @example
    * ```js
@@ -184,180 +343,14 @@ interface IKitsuAnimeFind {
    * anime.find({ query: "Oshi no ko", categories: "drama"});
    *
    * // Using string[]
-   * anime.find({ query: "Oshi no ko", categories: ["drama", "family"]);
+   * anime.find({ query: "Oshi no ko", categories: ["drama", "family"] });
    *
    * // Using EKitsuAnimeCategories
-   * anime.find({ query: "Oshi no ko", categories: EKitsuAnimeCategories.DRAMA});
+   * anime.find({ query: "Oshi no ko", categories: EKitsuAnimeCategories.DRAMA });
    */
   categories?:
-    | (
-        | "comedy"
-        | "anti_war"
-        | "coming_of_age"
-        | "epidemic"
-        | "post_apocalypse"
-        | "war"
-        | "feudal_warfare"
-        | "navy"
-        | "family"
-        | "friendship"
-        | "gender_bender"
-        | "law_and_order"
-        | "shinsengumi"
-        | "air_force"
-        | "police"
-        | "conspiracy"
-        | "cooking"
-        | "crime"
-        | "assassin"
-        | "bounty_hunter"
-        | "mafia"
-        | "pirate"
-        | "thievery"
-        | "disaster"
-        | "countryside"
-        | "desert"
-        | "earth"
-        | "fantasy_world"
-        | "josei"
-        | "shoujo"
-        | "shounen"
-        | "kids"
-        | "seinen"
-        | "alternative_present"
-        | "space"
-        | "summer"
-        | "shipboard"
-        | "other_planet"
-        | "mars"
-        | "isekai"
-        | "island"
-        | "parallel_universe"
-        | "floating_island"
-        | "past"
-        | "alternative_past"
-        | "bakumatsu_meiji_period"
-        | "heian_period"
-        | "sengoku_period"
-        | "three_kingdoms"
-        | "tokugawa_period"
-        | "victorian_period"
-        | "world_war_ii"
-        | "future"
-        | "romance"
-        | "fantasy"
-        | "action"
-        | "drama"
-        | "harem"
-        | "mecha"
-        | "ecchi"
-        | "supernatural"
-        | "super_power"
-        | "mystery"
-        | "magical_girl"
-        | "horror"
-        | "henshin"
-        | "parasite"
-        | "science_fiction"
-        | "thriller"
-        | "vampire"
-        | "virtual_reality"
-        | "zombie"
-        | "detective"
-        | "blackmail"
-        | "anthropomorphism"
-        | "anime_influenced"
-        | "angst"
-        | "ghost"
-        | "slice_of_life"
-        | "adventure"
-        | "school_life"
-        | EKitsuAnimeCategories
-      )
-    | (
-        | "comedy"
-        | "anti_war"
-        | "coming_of_age"
-        | "epidemic"
-        | "post_apocalypse"
-        | "war"
-        | "feudal_warfare"
-        | "navy"
-        | "family"
-        | "friendship"
-        | "gender_bender"
-        | "law_and_order"
-        | "shinsengumi"
-        | "air_force"
-        | "police"
-        | "conspiracy"
-        | "cooking"
-        | "crime"
-        | "assassin"
-        | "bounty_hunter"
-        | "mafia"
-        | "pirate"
-        | "thievery"
-        | "disaster"
-        | "countryside"
-        | "desert"
-        | "earth"
-        | "fantasy_world"
-        | "josei"
-        | "shoujo"
-        | "shounen"
-        | "kids"
-        | "seinen"
-        | "alternative_present"
-        | "space"
-        | "summer"
-        | "shipboard"
-        | "other_planet"
-        | "mars"
-        | "isekai"
-        | "island"
-        | "parallel_universe"
-        | "floating_island"
-        | "past"
-        | "alternative_past"
-        | "bakumatsu_meiji_period"
-        | "heian_period"
-        | "sengoku_period"
-        | "three_kingdoms"
-        | "tokugawa_period"
-        | "victorian_period"
-        | "world_war_ii"
-        | "future"
-        | "romance"
-        | "fantasy"
-        | "action"
-        | "drama"
-        | "harem"
-        | "mecha"
-        | "ecchi"
-        | "supernatural"
-        | "super_power"
-        | "mystery"
-        | "magical_girl"
-        | "horror"
-        | "henshin"
-        | "parasite"
-        | "science_fiction"
-        | "thriller"
-        | "vampire"
-        | "virtual_reality"
-        | "zombie"
-        | "detective"
-        | "blackmail"
-        | "anthropomorphism"
-        | "anime_influenced"
-        | "angst"
-        | "ghost"
-        | "slice_of_life"
-        | "adventure"
-        | "school_life"
-        | EKitsuAnimeCategories
-      )[];
+    | (TKitsuAnimeCategories | EKitsuAnimeCategories)
+    | (TKitsuAnimeCategories | EKitsuAnimeCategories)[];
 }
 
 /**
@@ -380,16 +373,16 @@ interface IKitsuAnimeList {
     {
       "id": "34",
       "type": "anime",
-      "links": {},
-      "attributes": {},
-      "relationships": {}
+      "links": {...},
+      "attributes": {...},
+      "relationships": {...}
     },
     {
       "id": "35",
       "type": "anime",
-      "links": {},
-      "attributes": {},
-      "relationships": {}
+      "links": {...},
+      "attributes": {...},
+      "relationships": {...}
     }
   ],
   "meta": { "count": 21099 },
@@ -409,7 +402,7 @@ interface IKitsuAnimeList {
    * @example
    * ```js
    * anime.list({ perPage: 10 }) // 10 result will show up, by default if empty.
-   * anime.list({ perPage: 30 }) // Kitsu.app will accept less or equal to 30.
+   * anime.list({ perPage: 20 }) // Kitsu.app will accept less or equal to 20.
    * // ...
    */
   perPage?: number | `${number}`;
@@ -427,7 +420,7 @@ interface IKitsuAnimeList {
    */
   season?: "winter" | "spring" | "summer" | "fall" | EKitsuSeason;
   /**
-   * @param {number | `${number}` | `${number}..` | `${number}..${number}`}
+   * @param {number | `${number}` | `${number}..` | `${number}..${number}`} year
    * @description The year of animes, minimum is year **1907**. **No verification will occur for now**.
    * @example
    * ```js
@@ -451,13 +444,13 @@ interface IKitsuAnimeList {
    * @example
    * ```js
    * // Simplest way
-   * anime.list({ streamers: "Funanimation"});
+   * anime.list({ streamers: "Funanimation" });
    *
    * // Using string[]
-   * anime.list({ streamers: ["Funanimation", "Hulu"]});
+   * anime.list({ streamers: ["Funanimation", "Hulu"] });
    *
    * // Using EKitsuAnimeStreamers
-   * anime.list({ streamers: EKitsuAnimeStreamers.Hulu});
+   * anime.list({ streamers: EKitsuAnimeStreamers.Hulu });
    * ```
    */
   streamers?:
@@ -490,7 +483,7 @@ interface IKitsuAnimeList {
         | EKitsuAnimeStreamers
       )[];
   /**
-   * @param {("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating) | ("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating)[]} ageRating
+   * @param {("G" | "PG" | "R" | EKitsuAnimeAgeRating) | ("G" | "PG" | "R" | EKitsuAnimeAgeRating)[]} ageRating
    * @description the age rating of the anime (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*.)
    * @example
    * ```js
@@ -504,206 +497,38 @@ interface IKitsuAnimeList {
    * anime.list({ ageRating: EKitsuAnimeAgeRating.GeneralAudiences });
    */
   ageRating?:
-    | ("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating)
-    | ("G" | "R18" | "PG" | "R" | EKitsuAnimeAgeRating)[];
+    | ("G" | "PG" | "R" | EKitsuAnimeAgeRating)
+    | ("G" | "PG" | "R" | EKitsuAnimeAgeRating)[];
   /**
-   * @param {number | `${number}..` | `${number}..${number}`} averageRating
+   * @param {`${number}..` | `${number}..${number}`} averageRating
    * @description The average rating of the anime in % (min **5**%, max **100**%). **No verification will occur for now**.
    * @example
    * ```js
-   * // Using number only
-   * anime.list({ averageRating: 50});
-   *
    * // Using ${number}..
-   * anime.list({ averageRating: "50.."});
+   * anime.list({ averageRating: "50.." });
    *
    * // Using ${number}..${number}
-   * anime.list({ averageRating: "50..79"});
+   * anime.list({ averageRating: "50..79" });
+   * @
    */
-  averageRating?: number | `${number}..` | `${number}..${number}`;
+  averageRating?: `${number}..` | `${number}..${number}`;
   /**
-   * @param {( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "anime_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsuAnimeCategories ) | ( | "comedy" | "anti_war" | "coming_of_age" | "epidemic" | "post_apocalypse" | "war" | "feudal_warfare" | "navy" | "family" | "friendship" | "gender_bender" | "law_and_order" | "shinsengumi" | "air_force" | "police" | "conspiracy" | "cooking" | "crime" | "assassin" | "bounty_hunter" | "mafia" | "pirate" | "thievery" | "disaster" | "countryside" | "desert" | "earth" | "fantasy_world" | "josei" | "shoujo" | "shounen" | "kids" | "seinen" | "alternative_present" | "space" | "summer" | "shipboard" | "other_planet" | "mars" | "isekai" | "island" | "parallel_universe" | "floating_island" | "past" | "alternative_past" | "bakumatsu_meiji_period" | "heian_period" | "sengoku_period" | "three_kingdoms" | "tokugawa_period" | "victorian_period" | "world_war_ii" | "future" | "romance" | "fantasy" | "action" | "drama" | "harem" | "mecha" | "ecchi" | "supernatural" | "super_power" | "mystery" | "magical_girl" | "horror" | "henshin" | "parasite" | "science_fiction" | "thriller" | "vampire" | "virtual_reality" | "zombie" | "detective" | "blackmail" | "anthropomorphism" | "anime_influenced" | "angst" | "ghost" | "slice_of_life" | "adventure" | "school_life" | EKitsuAnimeCategories )[]} categories
+   * @param {(TKitsuAnimeCategories | EKitsuAnimeCategories) | (TKitsuAnimeCategories | EKitsuAnimeCategories)[]}
    * @description The available categories of the anime.
    * @example
    * ```js
    * // Using string only
-   * anime.list({ categories: "drama"});
+   * anime.list({ categories: "drama" });
    *
    * // Using string[]
-   * anime.list({ categories: ["drama", "family"]);
+   * anime.list({ categories: ["drama", "family"] });
    *
    * // Using EKitsuAnimeCategories
-   * anime.list({ categories: EKitsuAnimeCategories.DRAMA});
+   * anime.list({ categories: EKitsuAnimeCategories.DRAMA });
    */
   categories?:
-    | (
-        | "comedy"
-        | "anti_war"
-        | "coming_of_age"
-        | "epidemic"
-        | "post_apocalypse"
-        | "war"
-        | "feudal_warfare"
-        | "navy"
-        | "family"
-        | "friendship"
-        | "gender_bender"
-        | "law_and_order"
-        | "shinsengumi"
-        | "air_force"
-        | "police"
-        | "conspiracy"
-        | "cooking"
-        | "crime"
-        | "assassin"
-        | "bounty_hunter"
-        | "mafia"
-        | "pirate"
-        | "thievery"
-        | "disaster"
-        | "countryside"
-        | "desert"
-        | "earth"
-        | "fantasy_world"
-        | "josei"
-        | "shoujo"
-        | "shounen"
-        | "kids"
-        | "seinen"
-        | "alternative_present"
-        | "space"
-        | "summer"
-        | "shipboard"
-        | "other_planet"
-        | "mars"
-        | "isekai"
-        | "island"
-        | "parallel_universe"
-        | "floating_island"
-        | "past"
-        | "alternative_past"
-        | "bakumatsu_meiji_period"
-        | "heian_period"
-        | "sengoku_period"
-        | "three_kingdoms"
-        | "tokugawa_period"
-        | "victorian_period"
-        | "world_war_ii"
-        | "future"
-        | "romance"
-        | "fantasy"
-        | "action"
-        | "drama"
-        | "harem"
-        | "mecha"
-        | "ecchi"
-        | "supernatural"
-        | "super_power"
-        | "mystery"
-        | "magical_girl"
-        | "horror"
-        | "henshin"
-        | "parasite"
-        | "science_fiction"
-        | "thriller"
-        | "vampire"
-        | "virtual_reality"
-        | "zombie"
-        | "detective"
-        | "blackmail"
-        | "anthropomorphism"
-        | "anime_influenced"
-        | "angst"
-        | "ghost"
-        | "slice_of_life"
-        | "adventure"
-        | "school_life"
-        | EKitsuAnimeCategories
-      )
-    | (
-        | "comedy"
-        | "anti_war"
-        | "coming_of_age"
-        | "epidemic"
-        | "post_apocalypse"
-        | "war"
-        | "feudal_warfare"
-        | "navy"
-        | "family"
-        | "friendship"
-        | "gender_bender"
-        | "law_and_order"
-        | "shinsengumi"
-        | "air_force"
-        | "police"
-        | "conspiracy"
-        | "cooking"
-        | "crime"
-        | "assassin"
-        | "bounty_hunter"
-        | "mafia"
-        | "pirate"
-        | "thievery"
-        | "disaster"
-        | "countryside"
-        | "desert"
-        | "earth"
-        | "fantasy_world"
-        | "josei"
-        | "shoujo"
-        | "shounen"
-        | "kids"
-        | "seinen"
-        | "alternative_present"
-        | "space"
-        | "summer"
-        | "shipboard"
-        | "other_planet"
-        | "mars"
-        | "isekai"
-        | "island"
-        | "parallel_universe"
-        | "floating_island"
-        | "past"
-        | "alternative_past"
-        | "bakumatsu_meiji_period"
-        | "heian_period"
-        | "sengoku_period"
-        | "three_kingdoms"
-        | "tokugawa_period"
-        | "victorian_period"
-        | "world_war_ii"
-        | "future"
-        | "romance"
-        | "fantasy"
-        | "action"
-        | "drama"
-        | "harem"
-        | "mecha"
-        | "ecchi"
-        | "supernatural"
-        | "super_power"
-        | "mystery"
-        | "magical_girl"
-        | "horror"
-        | "henshin"
-        | "parasite"
-        | "science_fiction"
-        | "thriller"
-        | "vampire"
-        | "virtual_reality"
-        | "zombie"
-        | "detective"
-        | "blackmail"
-        | "anthropomorphism"
-        | "anime_influenced"
-        | "angst"
-        | "ghost"
-        | "slice_of_life"
-        | "adventure"
-        | "school_life"
-        | EKitsuAnimeCategories
-      )[];
+    | (TKitsuAnimeCategories | EKitsuAnimeCategories)
+    | (TKitsuAnimeCategories | EKitsuAnimeCategories)[];
 }
 
-export { IKitsuAnimeFind, IKitsuAnimeList };
+export { IKitsuAnimeFind, IKitsuAnimeList, TKitsuAnimeCategories };

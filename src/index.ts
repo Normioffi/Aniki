@@ -1,3 +1,3 @@
-import { AnimeKitsu, EKitsu, MangaKitsu } from "./kitsu/index.js";
-export { AnimeKitsu, EKitsu, MangaKitsu };
-export default { AnimeKitsu, MangaKitsu, EKitsu };
+export * from "./kitsu/enums/index.js";
+export * from "./kitsu/index.js";
+export * from "./kitsu/interfaces/index.js";

@@ -1,3 +1,12 @@
+/**
+ *  @file This file contains all enums of AnimeKitsu and MangaKitsu method, can be exported for other purpose.
+ */
+
+/**
+ * @enum
+ * @description This enum contain all of manga categories that use Kitsu.app
+ * @since 1.3.0
+ */
 enum EKitsuMangaCategories {
   VIOLENCE = "violence",
   PLOT_CONTINUITY = "plot_continuity",
@@ -192,6 +201,12 @@ enum EKitsuMangaCategories {
   MUSIC = "music",
 }
 
+/**
+ * @enum
+ * @description This enum contain all of anime categories that use Kitsu.app
+ * @since 1.3.0
+ */
+
 enum EKitsuAnimeCategories {
   VIOLENCE = "violence",
   PLOT_CONTINUITY = "plot_continuity",
@@ -352,6 +367,11 @@ enum EKitsuAnimeCategories {
   SCHOOL_LIFE = "school_life",
   MUSIC = "music",
 }
+/**
+ * @enum
+ * @description This enum contain the basic seasons of the year.
+ * @since 1.3.0
+ */
 enum EKitsuSeason {
   Spring = "spring",
   Summer = "summer",
@@ -359,6 +379,12 @@ enum EKitsuSeason {
   Autumn = Fall,
   Winter = "winter",
 }
+
+/**
+ * @enum
+ * @description This enum contain all of streamers that is available.
+ * @since 1.3.0
+ */
 enum EKitsuAnimeStreamers {
   Crunchyroll = "Crunchyroll",
   Hulu = "Hulu",
@@ -372,17 +398,26 @@ enum EKitsuAnimeStreamers {
   AnimeLab = "AnimeLab",
   VRV = "VRV",
 }
+
+/**
+ * @enum
+ * @description This enum contain all of age rating categories that use Kitsu.app
+ * @since 1.3.0
+ */
 enum EKitsuAnimeAgeRating {
   G = "G",
-  R18 = "R18",
   PG = "PG",
   R = "R",
   ParentalGuidanceSuggested = PG,
   GeneralAudience = G,
   Restricted = R,
-  RestrictedForMajority = R18,
 }
 
+/**
+ * @enum
+ * @description This enum contain all of anime sub types categories that use Kitsu.app
+ * @since 1.3.0
+ */
 enum EKitsuAnimeSubTypes {
   ONA = "ONA",
   OVA = "OVA",
@@ -391,6 +426,12 @@ enum EKitsuAnimeSubTypes {
   Music = "music",
   Special = "Special",
 }
+
+/**
+ * @enum
+ * @description This enum contain all of manga sub types categories that use Kitsu.app
+ * @since 1.3.0
+ */
 enum EKitsuMangaSubTypes {
   manga = "manga",
   Roman = "roman",
@@ -400,6 +441,7 @@ enum EKitsuMangaSubTypes {
   Doujin = "doujin",
   AmeriManga = "oel",
 }
+
 export {
   EKitsuAnimeAgeRating,
   EKitsuAnimeCategories,
@@ -408,13 +450,4 @@ export {
   EKitsuMangaCategories,
   EKitsuMangaSubTypes,
   EKitsuSeason,
-};
-export default {
-  EKitsuAnimeCategories,
-  EKitsuSeason,
-  EKitsuAnimeStreamers,
-  EKitsuAnimeAgeRating,
-  EKitsuAnimeSubTypes,
-  EKitsuMangaCategories,
-  EKitsuMangaSubTypes,
 };
