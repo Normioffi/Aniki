@@ -4,6 +4,5 @@ dist
 ._.DS_Store
 .npmignore
 .eslintrc.json
-myanimelist
 pnpm-lock.yaml
 .vscode

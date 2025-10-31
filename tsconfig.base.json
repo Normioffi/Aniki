@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "rootDir": "./src",
-    "strict": true,
-    "moduleResolution": "node"
-  }
-}

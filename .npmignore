@@ -4,5 +4,5 @@ src
 .DS_Store
 .gitignore
 .eslintrc.json
-myanimelist
 .vscode
+CHANGELOG.md

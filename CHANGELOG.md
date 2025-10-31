@@ -1,94 +1,64 @@
 <div align="center">
 <h1>Aniki</h1>
 <h2>Change Logs</h2>
-In this file, you can see everything got changed.
+All updates (mostly patches) from the recent minor update (0.**1**.0) can be found in this file.
 </div>
 
 ## Bugs?
 
-If you get any bugs, please make an [Issue](https://github.com/Normioffi/Aniki/issues) here!
+I am sorry for any minor errors I might make in the future.
+Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
-# 1.3.5
+# 1.4.0
 
-1. Fixed an error while installing the package with PNPM.
-2. Modified some params description.
-3. Modified/added some results description.
-4. Edited module description.
-5. Added and edited methods in AnimeKitsu and MangaKitsu:
+1. Removed the use of the TS compiler.
+2. Fixing package.json `exports`.
+3. Types are now in `./types/`
+4. New `MyAnimeList` class, requiring a **CLIENT_ID** parameter, you can find one [**here**](https://myanimelist.net/apiconfig)
+5. New `.find()` overloads methods for `AnimeKitsu` and `MangaKitsu`.
+6. You can now use **access token** in `AnimeKitsu` and `MangaKitsu` constructors.
+7. `perPage` parameter is now `limit`.
+8. All parameters that can receive a single `string, number` or an array are now only array.
 
-- Added #episodes and #chapters
-- Edited #episode and #chapter
-
-6. Added enums informations.
-7. Added missing categories in IKitsuAnimeFind, IKitsuAnimeList, IKitsuMangaFind and IKitsuMangaList and moved them in a new type. (can be imported!)
-8. Fixed categories name with \_ (now using -)
-9. Fixed some import/export interfaces.
-10. Classes, enums will now be exported as normal and not by default, it means that you should change from `const aniki = require("aniki");` to `const { AnimeKitsu, MangaKitsu, EKitsuSeason } = require("aniki");`.
-11. Fixed duplicated `TKitsuHandleError, IKitsuError` type and interface.
-12. Removed `R18` in EKitsuAgeRating and in find/list params interfaces. (Because it returns nothing.)
-13. Fixed max size of `perPage` (30 to 20). + added verification. (return undefined + moduleError if greater than 20.)
-
-# 1.3.4
-
-1. Fixed offset/perPage isNaN errors!
-
-# 1.3.1
-
-1. Fixed createdAt and updatedAt types! (`string` to `Date`)
-2. Fixed AnimeKitsu#findById(id) description that showed a way to use the method with a string with an number inside (like "456") without the ability to do so, now should work properly with `"${number}"` and `number`.
-3. Fixed some import/export classes and interfaces?
-4. Modified some interfaces informations
-5. Fixed `year` parameters that used normal dates (such as "1907", etc...) instead of `number` | `${number}` | `${number}..` | `${number}..${number}`.
-6. Fixed some `number` only types on parameters, now able to use `number` or `"${number}"`. (Checking if value is number isn't required, the method will do so by itself.)
-7. Changed `@property` to `@param` for the parameters of methods.
-8. Fixed a mistake on the module description (added "[...] also for anime waifus." by error.) <small>(Well it was a future possible API to add for waifus, but due to the type of content... It will not.)</small>)
-9. Added better descriptions for some parameters.
-
-# 1.3.0
-
-1. Full support for **CJS**/**ESM** and **TS**.
-
-2. Created new following methods in:
-
-- AnimeKitsu: findById(id), episode(id)
-- MangaKitsu: findById(id), chapter(id)
-
-3. Created new interfaces for individuals methods parameters and **Promise** response! (Some properties may not have any description, i'll add them later!).
-4. There is a new way to handle errors, from now on, methods will have a new parameter named _handleError_, by using this parameter as a asynchronous function, you can now get errors with the corresponding type! Here is an example:
-
-```js
-anime
-  .find({ query: "Oshi no ko" }, async ({ apiError, moduleError }, status) => {
-    if (apiError) console.error(await apiError);
-    if (moduleError) console.error(await moduleError);
-  })
-  .then((r) => console.log(r));
+```javascript
+// Before
+anime.list({ categories: "isekai" }); // or categories: ["isekai"]
+// After
+anime.list({ categories: ["isekai"] }); // Only categories: [...] is allowed.
 ```
 
-It's not required but useful if you want to handle errors by yourself, if you're not using it at all, it will console unhandled errors.
+9. New `isSameArray()` function
+   It can be useful if you need to check if the values in an array are compatible with the valid one.
 
-5. For TS users, i made some enums table for seasons, categories, AgeRating (anime only), subtypes
+```javascript
+const { isSameArray } = require("aniki");
 
-Example:
+let array1 = ["a", "b", "c"];
+let array2 = ["x", "y", "z"];
 
-```ts
-import aniki from "aniki";
-import { EKitsuSeason } from "aniki/kitsu/enums";
+isSameArray(array1, array2); // return false, because they are not the same.
 
-const anime = new aniki.AnimeKitsu();
+isSameArray(array2, array2); // return true, because they are the same.
 
-anime
-  .find({ query: "Oshi no ko", season: EKitsuSeason.Fall }) // EKitsuSeason.Fall = "fall";
-  .then((r) => console.log(r.data));
+function getArray(array) {
+  const validArray = ["blabla", "bleble"];
+  if (!isSameArray(array, validArray)) throw new TypeError("Invalid value(s)!");
+
+  return array;
+
+  // ...
+}
 // ...
 ```
 
-<b>Available enums</b>
-
-- EKitsuAnimeAgeRating,
-- EKitsuAnimeCategories,
-- EKitsuAnimeStreamers,
-- EKitsuAnimeSubTypes,
-- EKitsuMangaCategories,
-- EKitsuMangaSubTypes,
-- EKitsuSeason,
+10. Error messages improvements.
+11. New usable constants. (Replacing enums.)
+12. Types descriptions improvements.
+13. New internal type verification, for string, numbers and array (using the new `isSameArray()` function.)
+14. Removed `@property` for all properties.
+15. All returned promises are now **Readonly**.
+16. Multiple little bug fixes.
+17. Fixed school life category.
+18. New interfaces.
+19. Fixed most of the duplicated properties and types.
+20. `@example` improvements.
