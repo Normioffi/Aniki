@@ -1,6 +1,5 @@
 package-lock.json
 node_modules
-src
 .DS_Store
 .gitignore
 .eslintrc.json

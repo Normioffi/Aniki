@@ -8,7 +8,6 @@ See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/normal/CHANGELOG.md) for
     <img alt="NPM Beta Version" src="https://img.shields.io/npm/v/aniki"/>
     <img alt="NPM Last update" src="https://img.shields.io/npm/last-update/aniki"/>
     <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/aniki">
-    <img alt="NPM Bundle size" src="https://img.shields.io/bundlephobia/min/aniki/1.4.0"/>
   </div>
 </div>
 
