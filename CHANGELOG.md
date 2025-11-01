@@ -9,6 +9,11 @@ All updates (mostly patches) from the recent minor update (0.**1**.0) can be fou
 I am sorry for any minor errors I might make in the future.
 Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
+# 1.4.2
+
+1. Fixing array type check.
+   I hate those kind of mistakes :(
+
 # 1.4.0
 
 1. Removed the use of the TS compiler.
