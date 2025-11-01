@@ -82,7 +82,7 @@ class AnimeKitsu {
     } else Object.assign(parameters, { "page[limit]": 10 });
 
     if (params.ageRating) {
-      if (Array.isArray(params.ageRating))
+      if (!Array.isArray(params.ageRating))
         throw new TypeError("params.ageRating must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
         throw new TypeError("Invalid value(s) in the 'ageRating' parameter.");
@@ -90,7 +90,7 @@ class AnimeKitsu {
     }
 
     if (params.subtype) {
-      if (Array.isArray(params.subtype))
+      if (!Array.isArray(params.subtype))
         throw new TypeError("params.subtype must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
         throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
@@ -98,7 +98,7 @@ class AnimeKitsu {
     }
 
     if (params.averageRating) {
-      if (Array.isArray(params.averageRating))
+      if (!Array.isArray(params.averageRating))
         throw new TypeError("params.averageRating must be an array.");
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
@@ -131,7 +131,7 @@ class AnimeKitsu {
     }
 
     if (params.season) {
-      if (Array.isArray(params.season))
+      if (!Array.isArray(params.season))
         throw new TypeError("params.season must be an array.");
       if (!isSameArray(params.season, KSeason))
         throw new TypeError("Invalid value(s) in the 'season' parameter.");
@@ -139,7 +139,7 @@ class AnimeKitsu {
     }
 
     if (params.year) {
-      if (Array.isArray(params.year))
+      if (!Array.isArray(params.year))
         throw new TypeError("params.year must be an array.");
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
@@ -168,7 +168,7 @@ class AnimeKitsu {
     }
 
     if (params.streamers) {
-      if (Array.isArray(params.streamers))
+      if (!Array.isArray(params.streamers))
         throw new TypeError("params.streamers must be an array.");
       if (!isSameArray(params.streamers, KStreamers))
         throw new TypeError("Invalid value(s) in the 'streamers' parameter.");
@@ -176,7 +176,7 @@ class AnimeKitsu {
     }
 
     if (params.categories) {
-      if (Array.isArray(params.categories))
+      if (!Array.isArray(params.categories))
         throw new TypeError("params.categories must be an array.");
       if (!isSameArray(params.categories, KACategories))
         throw new TypeError("Invalid value(s) in the 'categories' parameter.");
@@ -240,7 +240,7 @@ class AnimeKitsu {
     } else Object.assign(parameters, { "page[limit]": 10 });
 
     if (params.ageRating) {
-      if (Array.isArray(params.ageRating))
+      if (!Array.isArray(params.ageRating))
         throw new TypeError("params.ageRating must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
         throw new TypeError("Invalid value(s) in the 'ageRating' parameter.");
@@ -248,7 +248,7 @@ class AnimeKitsu {
     }
 
     if (params.subtype) {
-      if (Array.isArray(params.subtype))
+      if (!Array.isArray(params.subtype))
         throw new TypeError("params.subtype must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
         throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
@@ -256,7 +256,7 @@ class AnimeKitsu {
     }
 
     if (params.averageRating) {
-      if (Array.isArray(params.averageRating))
+      if (!Array.isArray(params.averageRating))
         throw new TypeError("params.averageRating must be an array.");
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
@@ -289,7 +289,7 @@ class AnimeKitsu {
     }
 
     if (params.season) {
-      if (Array.isArray(params.season))
+      if (!Array.isArray(params.season))
         throw new TypeError("params.season must be an array.");
       if (!isSameArray(params.season, KSeason))
         throw new TypeError("Invalid value(s) in the 'season' parameter.");
@@ -297,7 +297,7 @@ class AnimeKitsu {
     }
 
     if (params.year) {
-      if (Array.isArray(params.year))
+      if (!Array.isArray(params.year))
         throw new TypeError("params.year must be an array.");
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
@@ -326,7 +326,7 @@ class AnimeKitsu {
     }
 
     if (params.streamers) {
-      if (Array.isArray(params.streamers))
+      if (!Array.isArray(params.streamers))
         throw new TypeError("params.streamers must be an array.");
       if (!isSameArray(params.streamers, KStreamers))
         throw new TypeError("Invalid value(s) in the 'streamers' parameter.");
@@ -334,7 +334,7 @@ class AnimeKitsu {
     }
 
     if (params.categories) {
-      if (Array.isArray(params.categories))
+      if (!Array.isArray(params.categories))
         throw new TypeError("params.categories must be an array.");
       if (!isSameArray(params.categories, KACategories))
         throw new TypeError("Invalid value(s) in the 'categories' parameter.");
