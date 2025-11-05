@@ -2,7 +2,7 @@ node_modules
 dist
 .DS_Store
 ._.DS_Store
-.npmignore
 .eslintrc.json
 pnpm-lock.yaml
 .vscode
+package-lock.json
