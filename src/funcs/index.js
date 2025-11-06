@@ -1,11 +1,14 @@
 function isSameArray(value, valid) {
+  if (!value) throw new ReferenceError("'value' must be specified.");
+  if (!valid) throw new ReferenceError("'valid' must be specified.");
+
   if (!Array.isArray(value))
     throw new TypeError(
       `'value' (actual type: ${typeof value}) must be an array.`
     );
   if (!Array.isArray(valid))
     throw new TypeError(
-      `'valid' (actual type ${typeof valid}) must be an array.`
+      `'valid' (actual type: ${typeof valid}) must be an array.`
     );
 
   const invalidCategories = value.filter((c) => !valid.includes(c));
