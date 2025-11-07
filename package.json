@@ -1,6 +1,6 @@
 {
   "name": "aniki",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Aniki is an easy-to-use NPM module that gets information about your favorite anime and manga.",
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
@@ -61,5 +61,8 @@
   "homepage": "https://github.com/Normioffi/Aniki#readme",
   "dependencies": {
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.13"
   }
 }
