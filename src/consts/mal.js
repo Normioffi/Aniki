@@ -39,4 +39,38 @@ const MALHeaders = Object.freeze({
   "Content-Type": "application/json",
   Accept: "application/json",
 });
-module.exports = { MALFields, MALUrl, MALHeaders };
+
+const MALSeason = Object.freeze(["spring", "summer", "fall", "winter"]);
+
+const MALRankingType = Object.freeze([
+  "all",
+  "airing",
+  "upcoming",
+  "tv",
+  "ova",
+  "movie",
+  "special",
+  "bypopularity",
+  "favorite",
+]);
+
+const MMLRankingType = Object.freeze([
+  "all",
+  "manga",
+  "novels",
+  "oneshots",
+  "doujin",
+  "manhwa",
+  "manhua",
+  "bypopularity",
+  "favorite",
+]);
+
+module.exports = {
+  MALFields,
+  MALUrl,
+  MALHeaders,
+  MALSeason,
+  MALRankingType,
+  MMLRankingType,
+};
