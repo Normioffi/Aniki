@@ -26,15 +26,20 @@ declare namespace kitsu {
   /**
    * Array of all age ratings.
    *
-   * (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*)
+   * - `G` : *General Audiences*
+   * - `PG` : *Parental Guidance Suggested*
+   * - `R` : *Restricted*
    */
   const KAgeRating: Readonly<string[]>;
 
   /**
    * Array of all age ratings. (UR = **U**n**R**estricted.)
    *
-   * (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*)
-   */
+   * - `G` : *General Audiences*
+   * - `PG` : *Parental Guidance Suggested*
+   * - `R` : *Restricted*
+   * - `R18` : *Restricted for 18 years old or older*
+   * */
   const KAgeRatingUR: Readonly<string[]>;
 
   // Manga
@@ -55,7 +60,12 @@ declare namespace kitsu {
 
   // Main
   /**
-   * Array of all seasons.
+   * Array of all anime and manga year seasons.
+   *
+   * - `spring` : *April*, *May*, *June*
+   * - `summer` : *July*, *August*, *September*
+   * - `fall` : *October*, *November*, *December*
+   * - `winter` : *January*, *February*, *March*
    */
   const KSeason: Readonly<string[]>;
   /**
@@ -85,19 +95,62 @@ declare namespace kitsu {
     KUrl,
   };
 }
+
 /**
  * Namespace of all constants of MyAnimeList.
  */
 declare namespace myanimelist {
   /**
-   * Main URL for api.myanimelist.net
-   */
-  const MALUrl: Readonly<"https://api.myanimelist.net/v2">;
-
-  /**
    * Array of all available anime fields.
    */
   const MALFields: Readonly<string[]>;
+
+  /**
+   * Array of all anime ranking type.
+   *
+   * - `all` :	*Top Anime Series*
+   * - `airing` :	*Top Airing Anime*
+   * - `upcoming` :	*Top Upcoming Anime*
+   * - `tv` :	*Top Anime TV Series*
+   * - `ova` : *Top Anime OVA Series*
+   * - `movie` : *Top Anime Movies*
+   * - `special` : *Top Anime Specials*
+   * - `bypopularity` :	*Top Anime by Popularity*
+   * - `favorite` :	*Top Favorited Anime*
+   */
+  const MALRankingType: Readonly<string[]>;
+
+  /**
+   * Array of all manga ranking type.
+   *
+   * - `all`: *All*
+   * - `manga` :	*Top Manga*
+   * - `novels` :	*Top Novels*
+   * - `oneshots`: *Top One-shots*
+   * - `doujin`	: *Top Doujinshi*
+   * - `manhwa`	: *Top Manhwa*
+   * - `manhua`	: *Top Manhua*
+   * - `bypopularity` :	*Most Popular*
+   * - `favorite`	: *Most Favorited*
+   */
+  const MMLRankingType: Readonly<string[]>;
+
+  /**
+   * Array of all anime and manga year seasons.
+   *
+   * - `spring` : *April*, *May*, *June*
+   * - `summer` : *July*, *August*, *September*
+   * - `fall` : *October*, *November*, *December*
+   * - `winter` : *January*, *February*, *March*
+   */
+  const MALSeason: Readonly<string[]>;
+
+  // Main
+
+  /**
+   * Main URL for api.myanimelist.net
+   */
+  const MALUrl: Readonly<"https://api.myanimelist.net/v2">;
 
   /**
    * Main headers for api.myanimelist.net
@@ -107,7 +160,14 @@ declare namespace myanimelist {
     Accept: "application/json";
   }>;
 
-  export { MALFields, MALHeaders, MALUrl };
+  export {
+    MALFields,
+    MALHeaders,
+    MALUrl,
+    MALRankingType,
+    MMLRankingType,
+    MALSeason,
+  };
 }
 
 export { kitsu, myanimelist };
