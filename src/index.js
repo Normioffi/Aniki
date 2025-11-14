@@ -1,5 +1,5 @@
 const { AnimeKitsu, MangaKitsu } = require("./kitsu");
-const { MyAnimeList } = require("./myanimelist");
+const { MyAnimeList, MyMangaList } = require("./myanimelist");
 
 const { isSameArray } = require("./funcs");
 
@@ -10,6 +10,7 @@ module.exports = {
   MangaKitsu,
   isSameArray,
   MyAnimeList,
+  MyMangaList,
   kitsu,
   myanimelist,
 };
