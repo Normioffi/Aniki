@@ -38,10 +38,7 @@ class MangaKitsu {
       });
 
       if (!res.ok) {
-        await (handleError || this.#defaultHandleError)(
-          await res.json(),
-          res.status
-        );
+        await (handleError || this.#defaultHandleError)(await res.json(), res);
         return;
       }
 
@@ -50,7 +47,7 @@ class MangaKitsu {
 
     if (!params.query)
       throw new ReferenceError(
-        "Value 'query' in 'params' (params.query) is empty."
+        "Value 'query' in 'params' (params.query) must be specified."
       );
     if (typeof params.query !== "string")
       throw new TypeError(
@@ -92,7 +89,7 @@ class MangaKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'averageRating' parameter."
+          "First value (index 0) of the 'averageRating' parameter must be specified."
         );
 
       if (Number.isNaN(p[0]))
@@ -136,7 +133,7 @@ class MangaKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'year' parameter."
+          "First value (index 0) of the 'year' parameter must be specified."
         );
 
       if (Number.isNaN(p[0]))
@@ -173,17 +170,14 @@ class MangaKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
     return res.json();
   }
   async findById(id, handleError) {
-    if (!id) throw new ReferenceError("Parameter 'id' is empty.");
+    if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id)) throw new TypeError("Value 'id' must be a number.");
 
     const res = await fetch(`${KUrl}/manga/${id}`, {
@@ -191,10 +185,7 @@ class MangaKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
@@ -236,7 +227,7 @@ class MangaKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'averageRating' parameter."
+          "First value (index 0) of the 'averageRating' parameter must be specified."
         );
 
       if (Number.isNaN(p[0]))
@@ -280,7 +271,7 @@ class MangaKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'year' parameter."
+          "First value (index 0) of the 'year' parameter must be specified."
         );
 
       if (Number.isNaN(p[0]))
@@ -317,17 +308,14 @@ class MangaKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
     return res.json();
   }
   async chapter(id, handleError) {
-    if (!id) throw new ReferenceError("Parameter 'id' is empty.");
+    if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id)) throw new TypeError("Value 'id' must be a number.");
 
     const res = await fetch(`${KUrl}/chapters/${id}`, {
@@ -335,17 +323,15 @@ class MangaKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
     return res.json();
   }
   async chapters(mangaId, handleError) {
-    if (!mangaId) throw new ReferenceError("Parameter 'mangaId' is empty.");
+    if (!mangaId)
+      throw new ReferenceError("Parameter 'mangaId' must be specified.");
     if (Number.isNaN(mangaId))
       throw new TypeError("Value 'mangaId' must be a number.");
 
@@ -354,10 +340,7 @@ class MangaKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 

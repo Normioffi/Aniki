@@ -33,7 +33,8 @@ class AnimeKitsu {
   async find(params, handleError) {
     const parameters = {};
 
-    if (!params) throw new ReferenceError("Value 'param(s)' is empty.");
+    if (!params)
+      throw new ReferenceError("Value 'param(s)' must be specified.");
 
     if (typeof params === "number") {
       const res = await fetch(`${KUrl}/anime/${params}`, {
@@ -41,10 +42,7 @@ class AnimeKitsu {
       });
 
       if (!res.ok) {
-        await (handleError || this.#defaultHandleError)(
-          await res.json(),
-          res.status
-        );
+        await (handleError || this.#defaultHandleError)(await res.json(), res);
         return;
       }
 
@@ -53,7 +51,7 @@ class AnimeKitsu {
 
     if (!params.query)
       throw new ReferenceError(
-        "Value 'query' in 'params' (params.query) is empty."
+        "Value 'query' in 'params' (params.query) must be specified."
       );
     if (typeof params.query !== "string")
       throw new TypeError(
@@ -86,6 +84,7 @@ class AnimeKitsu {
         throw new TypeError("params.ageRating must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
         throw new TypeError("Invalid value(s) in the 'ageRating' parameter.");
+
       Object.assign(parameters, { "filter[ageRating]": params.ageRating });
     }
 
@@ -94,18 +93,20 @@ class AnimeKitsu {
         throw new TypeError("params.subtype must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
         throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
+
       Object.assign(parameters, { "filter[subtype]": params.subtype });
     }
 
     if (params.averageRating) {
       if (!Array.isArray(params.averageRating))
         throw new TypeError("params.averageRating must be an array.");
+
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'averageRating' parameter."
+          "First value (index 0) of the 'averageRating' parameter must be specified."
         );
       if (Number.isNaN(p[0]))
         throw new TypeError(
@@ -141,12 +142,13 @@ class AnimeKitsu {
     if (params.year) {
       if (!Array.isArray(params.year))
         throw new TypeError("params.year must be an array.");
+
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'year' parameter."
+          "First value (index 0) of the 'year' parameter must be specified."
         );
       if (Number.isNaN(p[0]))
         throw new TypeError(`Value year' index 0 (${p[0]}) must be a number.`);
@@ -191,17 +193,14 @@ class AnimeKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
     return res.json();
   }
   async findById(id, handleError) {
-    if (!id) throw new ReferenceError("Value 'id' is empty.");
+    if (!id) throw new ReferenceError("Value 'id' must be specified.");
     if (Number.isNaN(id)) throw new TypeError("Value 'id' must be a number.");
 
     const res = await fetch(`${KUrl}/anime/${id}`, {
@@ -209,10 +208,7 @@ class AnimeKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
@@ -244,6 +240,7 @@ class AnimeKitsu {
         throw new TypeError("params.ageRating must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
         throw new TypeError("Invalid value(s) in the 'ageRating' parameter.");
+
       Object.assign(parameters, { "filter[ageRating]": params.ageRating });
     }
 
@@ -252,18 +249,20 @@ class AnimeKitsu {
         throw new TypeError("params.subtype must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
         throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
+
       Object.assign(parameters, { "filter[subtype]": params.subtype });
     }
 
     if (params.averageRating) {
       if (!Array.isArray(params.averageRating))
         throw new TypeError("params.averageRating must be an array.");
+
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'averageRating' parameter."
+          "First value (index 0) of the 'averageRating' parameter must be specified."
         );
       if (Number.isNaN(p[0]))
         throw new TypeError(
@@ -293,21 +292,25 @@ class AnimeKitsu {
         throw new TypeError("params.season must be an array.");
       if (!isSameArray(params.season, KSeason))
         throw new TypeError("Invalid value(s) in the 'season' parameter.");
+
       Object.assign(parameters, { "filter[season]": params.season });
     }
 
     if (params.year) {
       if (!Array.isArray(params.year))
         throw new TypeError("params.year must be an array.");
+
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
 
       if (!p[0])
         throw new ReferenceError(
-          "Missing the first value (index 0) in the 'year' parameter."
+          "First value (index 0) of the 'year' parameter must be specified."
         );
+
       if (Number.isNaN(p[0]))
         throw new TypeError(`Value year' index 0 (${p[0]}) must be a number.`);
+
       if (Number.isNaN(sec))
         throw new TypeError(`Value 'year' index 1 (${sec}) must be a number.`);
 
@@ -330,6 +333,7 @@ class AnimeKitsu {
         throw new TypeError("params.streamers must be an array.");
       if (!isSameArray(params.streamers, KStreamers))
         throw new TypeError("Invalid value(s) in the 'streamers' parameter.");
+
       Object.assign(parameters, { "filter[streamers]": params.streamers });
     }
 
@@ -348,17 +352,14 @@ class AnimeKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
     return res.json();
   }
   async episode(id, handleError) {
-    if (!id) throw new ReferenceError("Parameter 'id' is empty.");
+    if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id)) throw new TypeError("Value 'id' must be a number.");
 
     const res = await fetch(`${KUrl}/episodes/${id}`, {
@@ -366,17 +367,15 @@ class AnimeKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
     return res.json();
   }
   async episodes(mediaId, handleError) {
-    if (!mediaId) throw new ReferenceError("Parameter 'mediaId' is empty.");
+    if (!mediaId)
+      throw new ReferenceError("Parameter 'mediaId' must be specified.");
     if (Number.isNaN(mediaId))
       throw new TypeError("Value 'mediaId' must be a number.");
 
@@ -385,10 +384,7 @@ class AnimeKitsu {
     });
 
     if (!res.ok) {
-      await (handleError || this.#defaultHandleError)(
-        await res.json(),
-        res.status
-      );
+      await (handleError || this.#defaultHandleError)(await res.json(), res);
       return;
     }
 
@@ -396,4 +392,4 @@ class AnimeKitsu {
   }
 }
 
-module.exports = { AnimeKitsu, KACategories, KASubtypes, KAgeRating };
+module.exports = { AnimeKitsu };
