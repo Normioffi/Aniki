@@ -1,8 +1,10 @@
 /**
  * @function
- * @param value - The array value that you want to check.
- * @param valid - The valid array that you want to use to check if the value is valid.
- * @returns Return a boolean if the two arrays are the same yes or not., `true` if valid, `false` if not valid.
+ * @param value The array value that you want to check.
+ * @param valid The valid array that will be used to check your value.
+ * @returns Returns a boolean that depends on whether the value is equal to the valid value.
+ * - `true` if it's valid.
+ * - `false` if it's not valid.
  * @example
  * ```js
  * const { isSameArray } = require("aniki");
