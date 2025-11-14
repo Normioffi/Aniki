@@ -1,3 +1,4 @@
 const { MyAnimeList } = require("./anime");
+const { MyMangaList } = require("./manga");
 
-module.exports = { MyAnimeList };
+module.exports = { MyAnimeList, MyMangaList };
