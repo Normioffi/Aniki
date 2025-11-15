@@ -189,7 +189,7 @@ class AnimeKitsu {
     const p = new URLSearchParams(parameters);
 
     const res = await fetch(`${KUrl}/anime?${p}`, {
-      headers: headers,
+      headers: this.#headers,
     });
 
     if (!res.ok) {

@@ -34,7 +34,7 @@ class MangaKitsu {
 
     if (typeof params === "number") {
       const res = await fetch(`${KUrl}/manga/${params}`, {
-        headers: headers,
+        headers: this.#headers,
       });
 
       if (!res.ok) {
