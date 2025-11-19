@@ -5,3 +5,4 @@ node_modules
 .eslintrc.json
 .vscode
 CHANGELOG.md
+tsconfig.json
