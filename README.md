@@ -5,9 +5,10 @@
 See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/normal/CHANGELOG.md) for new content.
 
   <div class="tags">
-    <img alt="NPM Beta Version" src="https://img.shields.io/npm/v/aniki"/>
+    <img alt="NPM Main Version" src="https://img.shields.io/npm/v/aniki"/>
     <img alt="NPM Last update" src="https://img.shields.io/npm/last-update/aniki"/>
     <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/aniki">
+    <img alt="GIT Last commit" src="https://img.shields.io/github/last-commit/Normioffi/Aniki">
   </div>
 </div>
 
@@ -30,6 +31,12 @@ pnpm i aniki@latest
 - Kitsu.app
 - MyAnimeList.net (Need a client ID? Check [here](https://myanimelist.net/apiconfig))
 
+## Authentification
+
+If you need to authenticate with the APIs, you have to make **your own** authentification system, and use the basic `fetch` to use the auth, once you have made your system, you can use the `access_token`s in the classes to make unrestricted requests.
+
+Otherwise, for the `MyAnimeList` and `MyMangaList`, you can still use the `client_id` but it is recommended for tests only if requests appears in the client side.
+
 # Usage
 
 Kitsu:
@@ -40,6 +47,7 @@ const { AnimeKitsu } = require("aniki");
 import { AnimeKitsu } from "aniki";
 
 const anime = new AnimeKitsu();
+
 // With an accessToken
 // If you have one, you'll be able to use the R18 rating category on the find and list age rating parameter.
 // I do not take any responsibility for users who use the unrestricted content.
@@ -81,8 +89,14 @@ With MyAnimeList:
 
 ```javascript
 const { MyAnimeList } = require("aniki");
+
 // ESM/TS
 import { MyAnimeList } from "aniki";
+
+const anime = new MyAnimeList("ClIENT_ID");
+// Or
+const anime = new MyAnimeList("ACCESS_TOKEN");
+// Both at the same time will not work.
 
 // Fiding an anime
 anime
@@ -93,14 +107,16 @@ anime
 anime.details(1200, ["id", "title"]).then((r) => console.log(r.id)); // Return anime details.
 ```
 
-I recommend you to make sure to add your fields depending on your needs, if you don't use the proper fields, some basic properties that return the API and the Promise will be undefined.
+I recommend you to make sure to add your fields depending on your needs, if you don't use the proper fields, some properties that return the API and the Promise will be undefined.
 Example:
 
 ```javascript
-anime.details(52991, ["id", "title"]).then((r) => console.log(r.id, r.title)); // 52991, Sousou no Frieren
+anime
+  .details(52991, ["created_at", "updated_at"])
+  .then((r) => console.log(r.id, r.title, r.created_at, r.updated_at)); // 52991, Sousou no Frieren, Date, Date
 anime
   .details(52991, ["alternative_titles", "background"])
-  .then((r) => console.log(r.id, r.title)); // undefined, undefined
+  .then((r) => console.log(r.id, r.title, r.mean)); // 52991, Sousou no Frieren, undefined.
 ```
 
 ## Best practices
