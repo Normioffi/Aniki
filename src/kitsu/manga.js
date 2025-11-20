@@ -166,7 +166,7 @@ class MangaKitsu {
 
     const p = new URLSearchParams(parameters);
     const res = await fetch(`${KUrl}/manga?${p}`, {
-      headers: headers,
+      headers: this.#headers,
     });
 
     if (!res.ok) {
