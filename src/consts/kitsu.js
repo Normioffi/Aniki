@@ -345,7 +345,9 @@ const KASubtypes = Object.freeze([
   "music",
   "special",
 ]);
+
 const KAgeRating = Object.freeze(["G", "PG", "R"]);
+
 const KAgeRatingUR = Object.freeze(["G", "PG", "R", "R18"]);
 
 // Manga

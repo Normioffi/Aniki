@@ -59,6 +59,7 @@ declare namespace kitsu {
   const KMSubtypes: Readonly<string[]>;
 
   // Main
+
   /**
    * Array of all anime and manga year seasons.
    *
@@ -68,10 +69,12 @@ declare namespace kitsu {
    * - `winter` : *January*, *February*, *March*
    */
   const KSeason: Readonly<string[]>;
+
   /**
    * Main url for Kitsu.app
    */
   const KUrl: Readonly<"https://kitsu.app/api/edge">;
+
   /**
    * Main headers for Kitsu.app
    */
@@ -104,6 +107,11 @@ declare namespace myanimelist {
    * Array of all available anime fields.
    */
   const MALFields: Readonly<string[]>;
+
+  /**
+   * Array of all available manga fields.
+   */
+  const MMLFields: Readonly<string[]>;
 
   /**
    * Array of all anime ranking type.
@@ -161,12 +169,13 @@ declare namespace myanimelist {
   }>;
 
   export {
-    MALFields,
-    MALHeaders,
     MALUrl,
+    MALHeaders,
+    MALFields,
+    MALSeason,
+    MMLFields,
     MALRankingType,
     MMLRankingType,
-    MALSeason,
   };
 }
 
