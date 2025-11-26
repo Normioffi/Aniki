@@ -5,6 +5,7 @@ const {
   KMSubtypes,
   KHeaders,
   KSeason,
+  KUrl,
 } = require("../consts/kitsu");
 const { isSameArray } = require("../funcs");
 
@@ -46,13 +47,9 @@ class MangaKitsu {
     }
 
     if (!params.query)
-      throw new ReferenceError(
-        "Value 'query' in 'params' (params.query) must be specified."
-      );
+      throw new ReferenceError("Value 'query' must be specified.");
     if (typeof params.query !== "string")
-      throw new TypeError(
-        "Value 'query' in 'params' (params.query) must be a string."
-      );
+      throw new TypeError("Value 'query' must be a string.");
 
     Object.assign(parameters, { "filter[text]": params.query });
 
@@ -75,7 +72,7 @@ class MangaKitsu {
 
     if (params.subtype) {
       if (!Array.isArray(params.subtype))
-        throw new TypeError("params.subtype must be an array.");
+        throw new TypeError("Value 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KMSubtypes))
         throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
       Object.assign(parameters, { "filter[subtype]": params.subtype });
@@ -83,7 +80,7 @@ class MangaKitsu {
 
     if (params.averageRating) {
       if (!Array.isArray(params.averageRating))
-        throw new TypeError("params.averageRating must be an array.");
+        throw new TypeError("Value 'averageRating' must be an array.");
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
 
@@ -119,7 +116,7 @@ class MangaKitsu {
 
     if (params.season) {
       if (!Array.isArray(params.season))
-        throw new TypeError("params.season must be an array.");
+        throw new TypeError("Value 'season' must be an array.");
       if (!isSameArray(params.season, KSeason))
         throw new TypeError("Invalid value(s) in the 'season' parameter.");
       Object.assign(parameters, { "filter[season]": params.season });
@@ -127,7 +124,7 @@ class MangaKitsu {
 
     if (params.year) {
       if (!Array.isArray(params.year))
-        throw new TypeError("params.year must be an array.");
+        throw new TypeError("Value 'year' must be an array.");
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
 
@@ -157,7 +154,7 @@ class MangaKitsu {
 
     if (params.categories) {
       if (!Array.isArray(params.categories))
-        throw new TypeError("params.categories must be an array.");
+        throw new TypeError("Value 'categories' must be an array.");
       if (!isSameArray(params.categories, KMCategoriesUR))
         throw new TypeError("Invalid value(s) in the 'categories' parameter.");
 
@@ -213,7 +210,7 @@ class MangaKitsu {
 
     if (params.subtype) {
       if (!Array.isArray(params.subtype))
-        throw new TypeError("params.subtype must be an array.");
+        throw new TypeError("'subtype' must be an array.");
       if (!isSameArray(params.subtype, KMSubtypes))
         throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
       Object.assign(parameters, { "filter[subtype]": params.subtype });
@@ -221,7 +218,7 @@ class MangaKitsu {
 
     if (params.averageRating) {
       if (!Array.isArray(params.averageRating))
-        throw new TypeError("params.averageRating must be an array.");
+        throw new TypeError("'averageRating' must be an array.");
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
 
@@ -257,7 +254,7 @@ class MangaKitsu {
 
     if (params.season) {
       if (!Array.isArray(params.season))
-        throw new TypeError("params.season must be an array.");
+        throw new TypeError("'season' must be an array.");
       if (!isSameArray(params.season, KSeason))
         throw new TypeError("Invalid value(s) in the 'season' parameter.");
       Object.assign(parameters, { "filter[season]": params.season });
@@ -265,7 +262,7 @@ class MangaKitsu {
 
     if (params.year) {
       if (!Array.isArray(params.year))
-        throw new TypeError("params.year must be an array.");
+        throw new TypeError("Value 'year' must be an array.");
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
 
@@ -295,7 +292,7 @@ class MangaKitsu {
 
     if (params.categories) {
       if (!Array.isArray(params.categories))
-        throw new TypeError("params.categories must be an array.");
+        throw new TypeError("'categories' must be an array.");
       if (!isSameArray(params.categories, KMCategoriesUR))
         throw new TypeError("Invalid value(s) in the 'categories' parameter.");
 
