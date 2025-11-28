@@ -47,32 +47,32 @@ class MangaKitsu {
     }
 
     if (!params.query)
-      throw new ReferenceError("Value 'query' must be specified.");
+      throw new ReferenceError("Parameter 'query' must be specified.");
     if (typeof params.query !== "string")
-      throw new TypeError("Value 'query' must be a string.");
+      throw new TypeError("Parameter 'query' must be a string.");
 
     Object.assign(parameters, { "filter[text]": params.query });
 
     if (params.offset) {
       if (Number.isNaN(params.offset))
-        throw new TypeError("Value 'offset' must be a number.");
+        throw new TypeError("Parameter 'offset' must be a number.");
 
       Object.assign(parameters, { "page[offset]": params.offset });
     } else Object.assign(parameters, { "page[offset]": 0 });
 
     if (params.limit) {
       if (Number.isNaN(params.limit))
-        throw new TypeError("Value 'limit' must be a number.");
+        throw new TypeError("Parameter 'limit' must be a number.");
 
       if (params.limit > 20)
-        throw new TypeError("Value 'limit' must be less or equal to 20.");
+        throw new TypeError("Parameter 'limit' must be less or equal to 20.");
 
       Object.assign(parameters, { "page[limit]": params.limit });
     } else Object.assign(parameters, { "page[limit]": 10 });
 
     if (params.subtype) {
       if (!Array.isArray(params.subtype))
-        throw new TypeError("Value 'subtype' must be an array.");
+        throw new TypeError("Parameter 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KMSubtypes))
         throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
       Object.assign(parameters, { "filter[subtype]": params.subtype });
@@ -80,7 +80,7 @@ class MangaKitsu {
 
     if (params.averageRating) {
       if (!Array.isArray(params.averageRating))
-        throw new TypeError("Value 'averageRating' must be an array.");
+        throw new TypeError("Parameter 'averageRating' must be an array.");
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
 
@@ -91,22 +91,22 @@ class MangaKitsu {
 
       if (Number.isNaN(p[0]))
         throw new TypeError(
-          `Value 'averageRating' index 0 (${p[0]}) must be a number.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`
         );
 
       if (Number.isNaN(sec))
         throw new TypeError(
-          `Value 'averageRating' index 1 (${sec}) must be a number.`
+          `Parameter 'averageRating' index 1 (${sec}) must be a number.`
         );
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Value 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
         );
 
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Value 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
         );
 
       Object.assign(parameters, {
@@ -116,7 +116,7 @@ class MangaKitsu {
 
     if (params.season) {
       if (!Array.isArray(params.season))
-        throw new TypeError("Value 'season' must be an array.");
+        throw new TypeError("Parameter 'season' must be an array.");
       if (!isSameArray(params.season, KSeason))
         throw new TypeError("Invalid value(s) in the 'season' parameter.");
       Object.assign(parameters, { "filter[season]": params.season });
@@ -124,7 +124,7 @@ class MangaKitsu {
 
     if (params.year) {
       if (!Array.isArray(params.year))
-        throw new TypeError("Value 'year' must be an array.");
+        throw new TypeError("Parameter 'year' must be an array.");
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
 
@@ -134,18 +134,22 @@ class MangaKitsu {
         );
 
       if (Number.isNaN(p[0]))
-        throw new TypeError(`Value 'year' index 0 (${p[0]}) must be a number.`);
+        throw new TypeError(
+          `Parameter 'year' index 0 (${p[0]}) must be a number.`
+        );
 
       if (Number.isNaN(sec))
-        throw new TypeError(`Value 'year' index 1 (${sec}) must be a number.`);
+        throw new TypeError(
+          `Parameter 'year' index 1 (${sec}) must be a number.`
+        );
 
       if (p[0] < 1862 || p[0] > 2027)
         throw new RangeError(
-          `Value 'year' index 0 (${p[0]}) is lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) is lower than 1862 or greater than 2027.`
         );
       if (sec < 1862 || sec > 2027)
         throw new RangeError(
-          `Value 'year' index 1 (${sec}) is lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) is lower than 1862 or greater than 2027.`
         );
       Object.assign(parameters, {
         "filter[year]": `${p[0]}..${sec}`,
@@ -154,7 +158,7 @@ class MangaKitsu {
 
     if (params.categories) {
       if (!Array.isArray(params.categories))
-        throw new TypeError("Value 'categories' must be an array.");
+        throw new TypeError("Parameter 'categories' must be an array.");
       if (!isSameArray(params.categories, KMCategoriesUR))
         throw new TypeError("Invalid value(s) in the 'categories' parameter.");
 
@@ -175,7 +179,8 @@ class MangaKitsu {
   }
   async findById(id, handleError) {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
-    if (Number.isNaN(id)) throw new TypeError("Value 'id' must be a number.");
+    if (Number.isNaN(id))
+      throw new TypeError("Parameter 'id' must be a number.");
 
     const res = await fetch(`${KUrl}/manga/${id}`, {
       headers: this.#headers,
@@ -193,17 +198,17 @@ class MangaKitsu {
 
     if (params.offset) {
       if (Number.isNaN(params.offset))
-        throw new TypeError("Value 'offset' must be a number.");
+        throw new TypeError("Parameter 'offset' must be a number.");
 
       Object.assign(parameters, { "page[offset]": params.offset });
     } else Object.assign(parameters, { "page[offset]": 0 });
 
     if (params.limit) {
       if (Number.isNaN(params.limit))
-        throw new TypeError("Value 'limit' must be a number.");
+        throw new TypeError("Parameter 'limit' must be a number.");
 
       if (params.limit > 20)
-        throw new TypeError("Value 'limit' must be less or equal to 20.");
+        throw new TypeError("Parameter 'limit' must be less or equal to 20.");
 
       Object.assign(parameters, { "page[limit]": params.limit });
     } else Object.assign(parameters, { "page[limit]": 10 });
@@ -229,22 +234,22 @@ class MangaKitsu {
 
       if (Number.isNaN(p[0]))
         throw new TypeError(
-          `Value 'averageRating' index 0 (${p[0]}) must be a number.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`
         );
 
       if (Number.isNaN(sec))
         throw new TypeError(
-          `Value 'averageRating' index 1 (${sec}) must be a number.`
+          `Parameter 'averageRating' index 1 (${sec}) must be a number.`
         );
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Value 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
         );
 
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Value 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
         );
 
       Object.assign(parameters, {
@@ -262,7 +267,7 @@ class MangaKitsu {
 
     if (params.year) {
       if (!Array.isArray(params.year))
-        throw new TypeError("Value 'year' must be an array.");
+        throw new TypeError("Parameter 'year' must be an array.");
       let p = params.year;
       let sec = p[1] ? p[1] : 2027;
 
@@ -272,18 +277,22 @@ class MangaKitsu {
         );
 
       if (Number.isNaN(p[0]))
-        throw new TypeError(`Value 'year' index 0 (${p[0]}) must be a number.`);
+        throw new TypeError(
+          `Parameter 'year' index 0 (${p[0]}) must be a number.`
+        );
 
       if (Number.isNaN(sec))
-        throw new TypeError(`Value 'year' index 1 (${sec}) must be a number.`);
+        throw new TypeError(
+          `Parameter 'year' index 1 (${sec}) must be a number.`
+        );
 
       if (p[0] < 1862 || p[0] > 2027)
         throw new RangeError(
-          `Value 'year' index 0 (${p[0]}) is lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) is lower than 1862 or greater than 2027.`
         );
       if (sec < 1862 || sec > 2027)
         throw new RangeError(
-          `Value 'year' index 1 (${sec}) is lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) is lower than 1862 or greater than 2027.`
         );
       Object.assign(parameters, {
         "filter[year]": `${p[0]}..${sec}`,
@@ -313,7 +322,8 @@ class MangaKitsu {
   }
   async chapter(id, handleError) {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
-    if (Number.isNaN(id)) throw new TypeError("Value 'id' must be a number.");
+    if (Number.isNaN(id))
+      throw new TypeError("Parameter 'id' must be a number.");
 
     const res = await fetch(`${KUrl}/chapters/${id}`, {
       headers: this.#headers,
@@ -330,7 +340,7 @@ class MangaKitsu {
     if (!mangaId)
       throw new ReferenceError("Parameter 'mangaId' must be specified.");
     if (Number.isNaN(mangaId))
-      throw new TypeError("Value 'mangaId' must be a number.");
+      throw new TypeError("Parameter 'mangaId' must be a number.");
 
     const res = await fetch(`${KUrl}/chapters?filter[manga_id]=${mangaId}`, {
       headers: this.#headers,
