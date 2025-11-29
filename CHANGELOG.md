@@ -1,18 +1,55 @@
 <div align="center">
 <h1>Aniki</h1>
 <h2>Change Logs</h2>
-All updates (mostly patches) from the recent minor update (0.**1**.0) can be found in this file.
+All updates (mostly patches) from the recent minor update (0.<b>1</b>.0) can be found in this file.
 </div>
 
-## Bugs?
+## Bugs/Suggestions?
 
-I am sorry for any minor errors I might make in the future.
 Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
+
+If you want to suggest me anything, please also make an issue with the "enhancement" label.
+
+# 1.4.3
+
+1. Adding the `MyMangaList` class.
+2. New methods on `MyAnimeList` and `MyMangaList`.
+   - `ranking(params, handleError)`
+   - `seasonal(params, handleError)` (only in MyAnimeList)
+3. `MyAnimeList` and `MyMangaList` now support the `access_token` parameter, you must use either `access_token` or `client_id` (API KEY) to use it, both in the same time will not work.
+4. All methods with a `fields` parameter will now return an adapted response depending on your choice.
+
+```javascript
+anime
+  .details({ anime_id: 3022, fields: ["background"] })
+  .then((r) => console.log(r.id, r.title, r.background, r.source)); // 3022, (insert_title), (insert_something), undefined
+
+anime
+  .details({ anime_id: 3022, fields: ["background", "source"] })
+  .then((r) => console.log(r.id, r.title, r.background, r.source)); // 3022, (insert_title), (insert_something), manga
+```
+
+5. Fixing missing **:** in a TypeError and adding new `ReferenceError`s in the `isSameArray()` function.
+6. Improvements on some types, interfaces, properties, methods and classes descriptions.
+7. The `handleError` function now return the error using `res.json()` and the fetch basic `Response` interface.
+
+```javascript
+anime.find({ query: "Oshi no ko", offset: 0, limit: 2 }, async (error, res) => {
+  if (res.status !== 200) throw new Error(await error);
+  // ...
+});
+```
+
+8. Improvements on some errors message.
+9. Fixing a missing this.#headers in `AnimeKitsu` and `MangaKitsu`.
+10. The `details` method parameters are inside of an object: `details({ anime_id: 2929, fields: ["..."] }, handleError)` instead of two separated parameters.
+11. New types and interfaces.
+
+<small>Some new interfaces and types may not have a description... Only because i don't know what to say. Please help.</small>
 
 # 1.4.2
 
 1. Fixing array type check.
-   I hate those kind of mistakes :(
 
 # 1.4.0
 
