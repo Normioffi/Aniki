@@ -1,290 +1,908 @@
-/**
- 
- * @description This interface is used as the error handler.
- * @since 1.4.0
- */
-type IMALError = { error: string; message: string };
+import { Response } from "node-fetch";
 
 /**
- 
- * @description This interface is used as the error handler.
+ * Basic `MyAnimeList`/`MyMangaList` error response.
+ * @since 1.4.0
+ */
+interface IMALError {
+  /**
+   * Error type.
+   */
+  error: string;
+  /**
+   * Error message.
+   */
+  message: string;
+}
+
+/**
+ * Basic `MyAnimeList`/`MyMangaList` error handler.
  * @since 1.4.0
  */
 type IMALHandleError = (
   /**
-   * @param errors - The errors that return the API.
+   * Any error that return the API.
    */
-  errors: Promise<Readonly<IMALError>>,
+  error: Promise<Readonly<IMALError>>,
   /**
-   * @param status - Return the status of the API error.
+   * Basic fetch `Response`.
    */
-  status: number
+  res: Response
 ) => Promise<void>;
-/**
- 
- * @description The MyAnimeList fields that you can use to return a list or a specific data when requesting them.
- * @since 1.4.0
- */
-type TMALFields =
-  | "id"
-  | "title"
-  | "main_picture"
-  | "alternative_titles"
-  | "start_date"
-  | "end_date"
-  | "synopsis"
-  | "mean"
-  | "rank"
-  | "popularity"
-  | "num_list_users"
-  | "num_scoring_users"
-  | "nsfw"
-  | "created_at"
-  | "updated_at"
-  | "media_type"
-  | "status"
-  | "genres"
-  | "my_list_status"
-  | "num_episodes"
-  | "start_season"
-  | "broadcast"
-  | "source"
-  | "average_episode_duration"
-  | "rating"
-  | "pictures"
-  | "background"
-  | "related_anime"
-  | "related_manga"
-  | "recommendations"
-  | "studios"
-  | "statistics";
 
 /**
- 
- * @description The type for the MyAnimeList#find method parameters.
+ * Anime or manga fields depending on the T choosen.
  * @since 1.4.0
  */
-type TMALFind = {
-  query?: string;
-  limit?: number;
-  offset?: number;
-  fields?: TMALFields[];
-};
+type TMALFields<T extends IMALAnime | IMALManga> = Exclude<
+  keyof T,
+  "id" | "title" | "main_picture"
+>;
 
 /**
- 
- * @description The type for the MyAnimeList#details method parameters.
- * @since 1.4.0
+ * Anime ranking types.
+ *
+ * - `all` :	*Top Anime Series*
+ * - `airing` :	*Top Airing Anime*
+ * - `upcoming` :	*Top Upcoming Anime*
+ * - `tv` :	*Top Anime TV Series*
+ * - `ova` : *Top Anime OVA Series*
+ * - `movie` : *Top Anime Movies*
+ * - `special` : *Top Anime Specials*
+ * - `bypopularity` :	*Top Anime by Popularity*
+ * - `favorite` :	*Top Favorited Anime*
+ * @since 1.4.3
  */
-type TMALDetails = {
+type TMALRankingType =
+  | "all"
+  | "airing"
+  | "upcoming"
+  | "tv"
+  | "ova"
+  | "movie"
+  | "special"
+  | "bypopularity"
+  | "favorite";
+
+/**
+ * Manga ranking types.
+ *
+ * - `all`: *All*
+ * - `manga` :	*Top Manga*
+ * - `novels` :	*Top Novels*
+ * - `oneshots`: *Top One-shots*
+ * - `doujin`	: *Top Doujinshi*
+ * - `manhwa`	: *Top Manhwa*
+ * - `manhua`	: *Top Manhua*
+ * - `bypopularity` :	*Most Popular*
+ * - `favorite`	: *Most Favorited*
+ * @since 1.4.3
+ */
+type TMMLRankingType =
+  | "all"
+  | "manga"
+  | "novels"
+  | "oneshots"
+  | "doujin"
+  | "manhwa"
+  | "manhua"
+  | "bypopularity"
+  | "favorite";
+
+/**
+ * All seasons in the year.
+ *
+ * - `spring` : *April*, *May*, *June*
+ * - `summer` : *July*, *August*, *September*
+ * - `fall` : *October*, *November*, *December*
+ * - `winter` : *January*, *February*, *March*
+ * @since 1.4.3
+ */
+type TMALSeason = "spring" | "summer" | "fall" | "winter";
+
+/**
+ * Anime age rating categories.
+ *
+ * - `g` : *All Ages*
+ * - `pg` : *Children*
+ * - `pg_13` : *Teens 13 and Older*
+ * - `r` : *17+ (violence & profanity)*
+ * - `r+` : *Profanity & Mild Nudity*
+ * - `rx`	: *Hentai*
+ * @since 1.4.3
+ */
+type TMALRating = "g" | "pg" | "pg_13" | "r" | "r+" | "rx";
+
+/**
+ * Anime / Manga NSFW categories.
+ *
+ * - `white` : *This work is safe for work*
+ * - `gray` : *This work may be not safe for work*
+ * - `black` : *This work is not safe for work*
+ * @since 1.4.3
+ */
+type TMALNsfwCategories = "white" | "grey" | "black";
+
+/**
+ * Anime media types.
+ * @since 1.4.3
+ */
+type TMALMediaTypes =
+  | "unknown"
+  | "tv"
+  | "ova"
+  | "movie"
+  | "special"
+  | "ona"
+  | "music";
+
+/**
+ * Manga media types.
+ * @since 1.4.3
+ */
+type TMMLMediaTypes =
+  | "manga"
+  | "novel"
+  | "one_shot"
+  | "doujinshi"
+  | "manhwa"
+  | "manhua"
+  | "oel";
+
+/**
+ * Anime status.
+ * @since 1.4.3
+ */
+type TMALStatus = "finished_airing" | "currently_airing" | "not_yet_aired";
+
+/**
+ * Manga status.
+ * @since 1.4.3
+ */
+type TMMStatus = "finished" | "currently_plublishing" | "not_yet_published";
+
+/**
+ * User anime status.
+ * @since 1.4.3
+ */
+type TMALUserStatus =
+  | "watching"
+  | "completed"
+  | "on_hold"
+  | "dropped"
+  | "plan_to_watch";
+
+/**
+ * User manga status.
+ * @since 1.4.3
+ */
+type TMMLUserStatus =
+  | "reading"
+  | "completed"
+  | "on_hold"
+  | "dropped"
+  | "plan_to_read";
+
+/**
+ * Content related to the anime or manga.
+ * @since 1.4.3
+ */
+type TMALRelationNode =
+  | "sequel"
+  | "prequel"
+  | "alternative_setting"
+  | "alternative_version"
+  | "side_story"
+  | "parent_story"
+  | "summary"
+  | "full_story";
+
+/**
+ * Anime / Manga sources.
+ * @since 1.4.3
+ */
+type TMALSources =
+  | "other"
+  | "original"
+  | "manga"
+  | "4_koma_manga"
+  | "web_manga"
+  | "digital_manga"
+  | "novel"
+  | "light_novel"
+  | "visual_novel"
+  | "game"
+  | "card_game"
+  | "book"
+  | "picture_book"
+  | "radio"
+  | "music";
+
+// Interfaces
+
+/**
+ * Basic parameters of the API.
+ * @since 1.4.3
+ */
+interface IMALBasicParams {
   /**
-   * The unique id of the anime.
+   * Pagination system.
+   * - `0` : First page
+   * - `1` : Second page
+   * - `2` : Third page
+   * - . . .
+   */
+  offset?: number | `${number}`;
+  /**
+   * Limiting the results.
+   * - `MyAnimeList#find`
+   *    - Default: `100`
+   *    - Maximum: `100`
+   * - `MyAnimeList#ranking`
+   *    - Default: `100`
+   *    - Maximum: `500`
+   * - `MyAnimeList#seasonal`
+   *    - Default: `100`
+   *    - Maximum: `500`
+   *
+   * These limits also apply on the `MyMangaList` methods.
+   */
+  limit?: number | `${number}`;
+}
+
+/**
+ * Interface parameter for `find` methods.
+ * @since 1.4.0
+ */
+interface IMALFind extends IMALBasicParams {
+  /**
+   * Finding anime or manga based on a query.
+   */
+  q: string;
+}
+
+/**
+ * Interface parameter for `MyAnimeList#details` method.
+ * @since 1.4.0
+ */
+interface IMALDetails {
+  /**
+   * Unique ID of the anime.
    */
   anime_id: number;
-  fields: TMALFields[];
-};
+}
 
 /**
- 
+ * Interface parameter for `MyMangaList#details` method.
+ * @since 1.4.3
+ */
+interface IMMLDetails {
+  /**
+   * Unique ID of the manga.
+   */
+  manga_id: number;
+}
+
+/**
+ * Interface parameter for `MyAnimeList#ranking` method.
+ * @since 1.4.3
+ */
+interface IMALRanking extends IMALBasicParams {
+  /**
+   * Listing animes based on any ranking category.
+   *
+   * - `all` :	*Top Anime Series*
+   * - `airing` :	*Top Airing Anime*
+   * - `upcoming` :	*Top Upcoming Anime*
+   * - `tv` :	*Top Anime TV Series*
+   * - `ova` : *Top Anime OVA Series*
+   * - `movie` : *Top Anime Movies*
+   * - `special` : *Top Anime Specials*
+   * - `bypopularity` :	*Top Anime by Popularity*
+   * - `favorite` :	*Top Favorited Anime*
+   */
+  ranking_type: TMALRankingType;
+}
+
+/**
+ * Interface parameter for `MyAnimeList#seasonal` method.
+ * @since 1.4.3
+ */
+interface IMALSeason extends IMALBasicParams {
+  /**
+   * Listing animes based on the year of publication.
+   */
+  year: number;
+  /**
+   * Listing animes based on the season of publication.
+   *
+   * - `spring` : *April*, *May*, *June*
+   * - `summer` : *July*, *August*, *September*
+   * - `fall` : *October*, *November*, *December*
+   * - `winter` : *January*, *February*, *March*
+   */
+  season: TMALSeason;
+  /**
+   * Sort animes.
+   */
+  sort?: "anime_score" | "anime_num_list_users";
+}
+
+/**
+ * Interface parameter for `MyMangaList#ranking` method.
+ * @since 1.4.3
+ */
+interface IMMLRanking extends IMALBasicParams {
+  /**
+   * Listing animes based on a ranking type.
+   *
+   * - `all`: *All*
+   * - `manga` :	*Top Manga*
+   * - `novels` :	*Top Novels*
+   * - `oneshots`: *Top One-shots*
+   * - `doujin`	: *Top Doujinshi*
+   * - `manhwa`	: *Top Manhwa*
+   * - `manhua`	: *Top Manhua*
+   * - `bypopularity` :	*Most Popular*
+   * - `favorite`	: *Most Favorited*
+   */
+  ranking_type: TMMLRankingType;
+}
+
+/**
+ * Anime statistics status.
+ * @since 1.4.3
+ */
+interface IMALStatisticsStatus {
+  watching: number;
+  completed: number;
+  on_hold: number;
+  dropped: number;
+  plan_to_watch: number;
+}
+
+/**
+ * Anime statistics
+ * @since 1.4.3
+ */
+interface IMALStatistics {
+  status: IMALStatisticsStatus;
+  num_list_users: number;
+}
+
+/**
+ * @since 1.4.3
+ */
+interface IMALMyListStatus {
+  status: TMALUserStatus;
+  score: number;
+  num_episodes_watched: number;
+  is_rewatching: boolean;
+  start_date: Date | null;
+  finish_date: Date | null;
+  priority: number;
+  num_times_rewatched: number;
+  rewatch_value: number;
+  tags: string[];
+  comments: string;
+  updated_at: Date;
+}
+
+/**
+ * @since 1.4.3
+ */
+interface IMMLMyListStatus {
+  status: TMMLUserStatus | null;
+  score: number;
+  num_volumes_read: number;
+  num_chapters_read: number;
+  is_rereading: boolean;
+  start_date: Date | null;
+  finish_date: Date | null;
+  priority: number;
+  num_times_reread: number;
+  reread_value: number;
+  tags: string[];
+  comments: string;
+  updated_at: Date;
+}
+
+/**
+ * @since 1.4.3
+ */
+interface IMALBroadCast {
+  day_of_the_week: string;
+  start_time: string | null;
+}
+
+/**
+ * @since 1.4.3
+ */
+interface IMALMainPicture {
+  medium: string;
+  large: string | null;
+}
+
+/**
+ * The available alternative titles.
+ * - `synonyms` : *One Punch Man 3rd Season*, *OPM 3*
+ * - `ja` : *ワンパンマン 3*
+ * - `en` : *One-Punch Man Season 3*
+ * @since 1.4.3
+ */
+interface IMALAlternativeTitles {
+  synonyms: string[] | null;
+  ja: string | null;
+  en: string | null;
+}
+/**
+ * The MyAnimeList "node".
  * @since 1.4.0
- * @description The MyAnimeList "node".
  */
 interface IMALNode {
   node: {
     id: number;
     title: string;
-    main_picture: {
-      medium: string;
-      large: string;
-    };
+    main_picture: IMALMainPicture;
   };
-  relation_type: string;
+  relation_type: TMALRelationNode;
   relation_type_formatted: string;
-  num_recommendations: number;
+  role: string | null;
+  num_recommendations: number | null;
 }
+
 /**
- 
- * @since 1.4.0
- * @description The interface of the MyAnimeList API response list.
+ * The additional interface of the MyAnimeList/MyMangaList#ranking method.
+ * @since 1.4.3
  */
-interface IMALAnimeList {
-  data: IMALNode[];
-  paging: {
-    next: string;
+interface IMALRankingRes {
+  ranking: {
+    rank: number;
+    previous_rank: number | null;
   };
 }
+
 /**
- 
+ * The additional interface of the MyAnimeList#seasonal method.
+ * @since 1.4.3
+ */
+interface IMALSeasonRes {
+  season: {
+    year: number;
+    season: TMALSeason;
+  };
+}
+
+/**
+ * @since 1.4.3
+ */
+interface IMALNameAndId {
+  id?: number;
+  name?: string;
+}
+/**
+ * Basic JSON response of an anime.
  * @since 1.4.0
- * @description The interface of the MyAnimeList API response details, used by the MyAnimeList#details method.
  */
 interface IMALAnime {
   id: number;
   title: string;
-  main_picture: {
-    medium: string;
-    large: string;
-  };
-  alternative_titles?: {
-    synonyms?: string[];
-    en?: string;
-    ja?: string;
-  };
-  start_date?: string;
-  end_date?: string;
-  synopsis?: string;
-  mean?: number;
-  rank?: number;
-  popularity?: number;
-  num_list_users?: number;
-  num_scoring_users?: number;
-  nsfw?: "white" | "grey" | "black";
-  created_at?: Date;
-  updated_at?: Date;
-  media_type?: "unknown" | "tv" | "ova" | "movie" | "special" | "ona" | "music";
-  status?: "finished_airing" | "currently_airing" | "not_yet_aired";
-  genres?: [
-    {
-      id?: number;
-      name?: string;
-    }
-  ];
-  /*
-  my_list_status?: {
-    status?: string;
-    score?: number;
-    num_episodes_watched?: number;
-    is_rewatching?: boolean;
-    updated_at?: Date;
-  };
-  */
-  num_episodes?: number;
-  start_season?: {
-    year?: number;
-    season?: "winter" | "spring" | "summer" | "fall";
-  };
-  broadcast?: {
-    day_of_the_week?: string;
-    start_time?: string;
-  };
-  source?: string;
-  average_episode_duration?: number;
-  rating?: string;
-  pictures?: [
-    {
-      medium?: string;
-      large?: string;
-    }
-  ];
-  background?: string;
-  related_anime?: IMALNode[];
-  related_manga?: IMALNode[];
-  recommendations?: IMALNode[];
-  studios?: [
-    {
-      id?: number;
-      name?: string;
-    }
-  ];
-  statistics?: {
-    status?: {
-      watching?: number;
-      completed?: number;
-      on_hold?: number;
-      dropped?: number;
-      plan_to_watch?: number;
-    };
-    num_list_users?: number;
-  };
+  main_picture: IMALMainPicture;
+  alternative_titles: IMALAlternativeTitles;
+  start_date: string | null;
+  end_date: string | null;
+  synopsis: string | null;
+  mean: number | null;
+  rank: number | null;
+  popularity: number | null;
+  num_list_users: number;
+  num_scoring_users: number;
+  /**
+   * The different NSFW categories of MyAnimeList.
+   *
+   * - `white` : *This work is safe for work*
+   * - `gray` : *This work may be not safe for work*
+   * - `black` : *This work is not safe for work*
+   */
+  nsfw: TMALNsfwCategories | null;
+  created_at: Date;
+  updated_at: Date;
+  media_type: TMALMediaTypes;
+  status: TMALStatus;
+  genres: IMALNameAndId[];
+  my_list_status: IMALMyListStatus | null;
+  num_episodes: number;
+  start_season: {
+    year: number;
+    season: TMALSeason;
+  } | null;
+  broadcast: IMALBroadCast | null;
+  source: TMALSources | null;
+  average_episode_duration: number | null;
+  /**
+   * The different rating categories of MyAnimeList.
+   *
+   * - `g` : *All Ages*
+   * - `pg` : *Children*
+   * - `pg_13` : *Teens 13 and Older*
+   * - `r` : *17+ (violence & profanity)*
+   * - `r+` : *Profanity & Mild Nudity*
+   * - `rx`	: *Hentai*
+   * */
+  rating: TMALRating;
+  pictures: IMALMainPicture[];
+  background: string | null;
+  related_anime: IMALNode[];
+  related_manga: IMALNode[];
+  recommendations: IMALNode[];
+  studios: IMALNameAndId[];
+  statistics: IMALStatistics | null;
 }
+
+/**
+ * @since 1.4.3
+ */
+interface IMALManga {
+  id: number;
+  title: string;
+  main_picture: IMALMainPicture;
+  alternative_titles: IMALAlternativeTitles;
+  start_date: string | null;
+  end_date: string | null;
+  synopsis: string | null;
+  mean: number | null;
+  rank: number | null;
+  popularity: number | null;
+  num_list_users: number;
+  num_scoring_users: number;
+  /**
+   * The different NSFW categories of MyAnimeList.
+   *
+   * - `white` : *This work is safe for work*
+   * - `gray` : *This work may be not safe for work*
+   * - `black` : *This work is not safe for work*
+   */
+  nsfw: TMALNsfwCategories | null;
+  created_at: Date;
+  updated_at: Date;
+  media_type: TMMLMediaTypes;
+  status: TMMStatus;
+  genres: IMALNameAndId[];
+  my_list_status: IMMLMyListStatus | null;
+  num_volumes: number;
+  num_chapters: number;
+  authors: {
+    node: {
+      id: number;
+      first_name: string;
+      last_name: string;
+    };
+  }[];
+  broadcast: {
+    day_of_the_week: string;
+    start_time: string | null;
+  };
+  source: string;
+  average_episode_duration: number;
+  pictures: {
+    medium: string;
+    large: string | null;
+  }[];
+  background: string | null;
+  related_anime: IMALNode[];
+  related_manga: IMALNode[];
+  recommendations: IMALNode[];
+  serialization: IMALNode[];
+}
+
+/**
+ * @template M - A readonly model type extending either `IMALAnime` or `IMALManga`.
+ *               Determines the shape of each media node.
+ *
+ * @template F - A readonly array of keys from `M` (filtered through `TMALFields`),
+ *               specifying which additional fields should be included for each node.
+ *               These fields are picked dynamically and merged into the node.
+ *
+ * @template A - An optional readonly metadata object extending ranking, seasonal,
+ *               or any custom response properties. Used to enrich the response
+ *               with extra contextual information.
+ *
+ * @since 1.4.3
+ */
+type IMALList<
+  M extends Readonly<IMALAnime | IMALManga>,
+  F extends readonly TMALFields<M>[],
+  A extends Readonly<IMALRankingRes | IMALSeasonRes | {}>
+> = {
+  data: {
+    node: Pick<M, F[number]> & {
+      id: number;
+      title: string;
+      main_picture: IMALMainPicture;
+    };
+  }[];
+  paging: {
+    next: string | null;
+    previous: string | null;
+  };
+} & A;
+
 /**
  * @class
- * @since 1.4.0
- * @description MyAnimeList is a class that's using the MAL.app API, with this class you can find animes informations in different ways.
- *
+ * @description A client class for interacting with the MyAnimeList API to retrieve anime information.
  * @constructor
- * @param CLIENT_ID - The MyAnimeList client ID.
+ *
  * @example
- * Basic usage:
- * ```js
  * // CJS
  * const { MyAnimeList } = require("aniki");
- * // JS ESM or TS
+ * // ESM / TS
  * import { MyAnimeList } from "aniki";
  *
- * const anime = new MyAnimeList({ CLIENT_ID: "ABcDEFghIJk123456789"});
+ * // Using your client id.
+ * new MyAnimeList({ client_id: "ABcDEFghIJk123456789" });
  *
- * // Normal
- * anime.find({ query: "Oshi no ko", limit: 10 }).then(r => console.log(r));
- * ```
+ * // Using an access token with your own authentification system.
+ * new MyAnimeList({ access_token: "abCDeFGhiJK123456" });
+ *
+ * // Do not use both at the same time.
+ * new MyAnimeList({ client_id: "ABcDEFghIJk123456789", access_token: "abCDeFGhiJK123456" }); // Error.
+ *
+ *
+ * // Finding anime
+ * anime.find({ q: "Oshi no ko", limit: 10 }).then(r => console.log(r));
+ *
+ * // Finding one anime and get the details.
+ * anime.details({ anime_id: 272 }).then(r => console.log(r));
+ *
+ * // Listing anime by a rank.
+ * anime.ranking({ ranking_type: "tv" }).then(r => console.log(r); // Will return the top TV anime series.
+ *
+ * // Listing anime by a year and the season.
+ * anime.seasonal({ year: 2020, season: "fall"}).then(r => console.log(r); // Will return anime that have been published at this year and season.
+ *
+ * @since 1.4.0
  */
 declare class MyAnimeList {
   private headers: {};
   private defaultHandleError: IMALHandleError;
-  constructor({ CLIENT_ID }: { CLIENT_ID: string });
+
+  constructor({
+    client_id,
+  }: {
+    /**
+     *  Your MyAnimeList API `client_id` (https://myanimelist.net/apiconfig)
+     */
+    client_id: string;
+  });
+  constructor({
+    access_token,
+  }: {
+    /**
+     *  An `access_token` belonging to an authenticated user.
+     */
+    access_token: string;
+  });
 
   /**
    * @method
-   * @param params - The parameters for the request.
-   * @description The find method is used to find animes with different parameters.
-   * @returns Returns a Promise with the IMALAnime interface.
-   * @example
-   * ```js
-   * // Searching an anime
-   * anime.find({ query: "Oshi no ko", offset: 0 }).then(r=> console.log(r.data[0]))
-   * ```
+   * @description Searches for anime using the provided parameters.
+   *
+   * @param params The search parameters for the request.
+   * @template F A list of additional fields to include from the `IMALAnime` type.
+   * @returns A promise containing the search results, or `undefined` if an error occurs.
+   *
    * @since 1.4.0
    */
-  find(
-    params: TMALFind,
+  find<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
+    params: IMALFind & { fields?: F },
     handleError?: IMALHandleError
-  ): Promise<Readonly<IMALAnimeList> | undefined>;
+  ): Promise<Readonly<IMALList<IMALAnime, F, {}>> | undefined>;
+
   /**
    * @method
-   * @param anime_id - The ID of the anime.
-   * @param fields - The fields that the API would return. If nothing is referenced in fields, by default it will return the **id**, **title**, **main picture**, start and end date, synopsis, media type and status.
-   * Bold fields mean that they would return themselves even if you don't select them.
-   * @description Get anime details with its ID.
-   * @returns Return a Promise.
-   * @example
-   * ```js
-   * anime.details(30, ["synopsis"]).then(r => console.log(r));
-   * ```
-   * Would return:
-   * ```json
-   * {
-   *  "id": 52991,
-   *  "title": "Sousou no Frieren",
-   *  "main_picture": {
-   *    "medium": "URL",
-   *    "large": "URL"
-   *  },
-   *  "synopsis": "During their decade-long quest to defeat the Demon King, the members of the hero's party—Himmel himself, the priest Heiter, the dwarf warrior Eisen, and the elven mage Frieren—forge bonds through adventures and battles, creating unforgettable precious memories for most of them.\n" +
-   *  "\n" +
-   *  "However, the time that Frieren spends with her comrades is equivalent to merely a fraction of her life, which has lasted over a thousand years. When the party disbands after their victory, Frieren casually returns to her "usual" routine of collecting spells across the continent. Due to her different sense of time, she seemingly holds no strong feelings toward the experiences she went through.\n" +
-   *  "\n" +
-   *  "As the years pass, Frieren gradually realizes how her days in the hero's party truly impacted her. Witnessing the deaths of two of her former companions, Frieren begins to regret having taken their presence for granted; she vows to better understand humans and create real personal connections. Although the story of that once memorable journey has long ended, a new tale is about to begin.\n" +
-   *  "\n" +
-   *  "[Written by MAL Rewrite]"
-   * }
-   * ```
+   * @description Retrieves detailed information for a specific anime.
+   *
+   * @param params The fetch parameters for the request.
+   * @template F A list of additional fields to include from the `IMALAnime` type.
+   * @returns A promise containing the anime details, or `undefined` if an error occurs.
+   *
    * @since 1.4.0
    */
-  details(
-    anime_id: number,
-    fields?: TMALFields[],
+  details<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
+    params: IMALDetails & { fields?: F },
     handleError?: IMALHandleError
-  ): Promise<Readonly<IMALAnime> | undefined>;
+  ): Promise<
+    | Readonly<
+        Pick<IMALAnime, F[number]> & {
+          id: number;
+          title: string;
+          main_picture: {
+            medium: string;
+            large: string;
+          };
+        }
+      >
+    | undefined
+  >;
+  /**
+   * @method
+   * @description Retrieves a ranked list of anime based on the provided ranking type.
+   *
+   * @param params The ranking parameters for the request.
+   * @template F A list of additional fields to include from the `IMALAnime` type.
+   * @returns A promise containing the ranking list response, or `undefined` if an error occurs.
+   *
+   * @since 1.4.3
+   */
+  ranking<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
+    params: IMALRanking & { fields?: F },
+    handleError?: IMALHandleError
+  ): Promise<Readonly<IMALList<IMALAnime, F, IMALRankingRes>> | undefined>;
+
+  /**
+   * @method
+   * @description Retrieves seasonal anime for a given year and season.
+   *
+   * @param params The parameters for the request.
+   * @template F A list of additional fields to include from the `IMALAnime` type.
+   * @returns A promise containing the seasonal list response, or `undefined` if an error occurs.
+   *
+   * @since 1.4.3
+   */
+  seasonal<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
+    params: IMALSeason & { fields?: F },
+    handleError?: IMALHandleError
+  ): Promise<Readonly<IMALList<IMALAnime, F, IMALSeasonRes>> | undefined>;
 }
 
-export {
+/**
+ * @class
+ * @description A client class for interacting with the MyAnimeList API to retrieve manga information.
+ * @constructor
+ *
+ * @example
+ * // CJS
+ * const { MyMangaList } = require("aniki");
+ *
+ * // ESM / TS
+ * import { MyMangaList } from "aniki";
+ *
+ * // Using your client ID.
+ * new MyMangaList({ client_id: "ABcDEFghIJk123456789" });
+ *
+ * // Using an access token from your own authentication system
+ * new MyMangaList({ access_token: "abCDeFGhiJK123456" });
+ *
+ * // Do not use the two at the same time.
+ * new MyMangaList({ client_id: "ABcDEFghIJk123456789", access_token: "abCDeFGhiJK123456" }); // Error.
+ *
+ *
+ * // Searching for any manga
+ * manga.find({ q: "Oshi no ko", limit: 10 }).then(r => console.log(r));
+ *
+ * // Fetching a specific manga
+ * manga.details({ manga_id: 212 }).then(r => console.log(r));
+ *
+ * // Listing manga by ranking.
+ * manga.ranking({ ranking_type: "favorite" }).then(r => console.log(r);
+ *
+ * @since 1.4.3
+ */
+declare class MyMangaList {
+  private headers: {};
+  private defaultHandleError: IMALHandleError;
+  constructor({
+    client_id,
+  }: {
+    /**
+     *  Your MyAnimeList API `client_id` (https://myanimelist.net/apiconfig)
+     */
+    client_id: string;
+  });
+  constructor({
+    access_token,
+  }: {
+    /**
+     *  An `access_token` belonging to an authenticated user.
+     */
+    access_token: string;
+  });
+
+  /**
+   * @method
+   * @description Searches for manga using the provided parameters.
+   *
+   * @param params The search parameters for the request.
+   * @template F A list of additional fields to include from the `IMALManga` type.
+   * @returns A promise containing the search results, or `undefined` if an error occurs.
+   *
+   * @since 1.4.3
+   */
+  find<F extends readonly TMALFields<IMALManga>[] = readonly []>(
+    params: IMALFind & { fields?: F },
+    handleError?: IMALHandleError
+  ): Promise<Readonly<IMALList<IMALManga, F, {}>> | undefined>;
+
+  /**
+   * @method
+   * @description Retrieves almost all informations for a specific manga.
+   *
+   * @param params The fetch parameters for the request.
+   * @template F A list of additional fields to include from the `IMALManga` type.
+   * @returns A promise containing the manga details, or `undefined` if an error occurs.
+   *
+   * @since 1.4.3
+   */
+  details<F extends readonly TMALFields<IMALManga>[] = readonly []>(
+    params: IMMLDetails & { fields?: F },
+    handleError?: IMALHandleError
+  ): Promise<
+    | Readonly<
+        Pick<IMALManga, F[number]> & {
+          id: number;
+          title: string;
+          main_picture: {
+            medium: string;
+            large: string;
+          };
+        }
+      >
+    | undefined
+  >;
+
+  /**
+   * @method
+   * @description Retrieves a ranked list of manga based on the provided ranking type.
+   *
+   * @param params The ranking request parameters.
+   * @template F A list of additional fields to include from the `IMALManga` type.
+   * @returns A promise containing the ranking list response, or `undefined` if an error occurs.
+   *
+   * @since 1.4.3
+   */
+  ranking<F extends readonly TMALFields<IMALManga>[] = readonly []>(
+    params: IMMLRanking & { fields?: F },
+    handleError?: IMALHandleError
+  ): Promise<Readonly<IMALList<IMALManga, F, IMALRankingRes>> | undefined>;
+}
+
+export { MyAnimeList, MyMangaList };
+
+export type {
+  IMALAlternativeTitles,
   IMALAnime,
-  IMALAnimeList,
+  IMALBasicParams,
+  IMALBroadCast,
+  IMALDetails,
   IMALError,
+  IMALFind,
   IMALHandleError,
+  IMALList,
+  IMALMainPicture,
+  IMALManga,
+  IMALMyListStatus,
   IMALNode,
-  MyAnimeList,
-  TMALDetails,
+  IMALRanking,
+  IMALRankingRes,
+  IMALSeason,
+  IMALSeasonRes,
+  IMALStatistics,
+  IMALStatisticsStatus,
+  IMMLDetails,
+  IMMLMyListStatus,
+  IMMLRanking,
   TMALFields,
-  TMALFind,
+  TMALMediaTypes,
+  TMALNsfwCategories,
+  TMALRankingType,
+  TMALRating,
+  TMALRelationNode,
+  TMALSeason,
+  TMALSources,
+  TMALStatus,
+  TMALUserStatus,
+  TMMLMediaTypes,
+  TMMLRankingType,
+  TMMLUserStatus,
+  TMMStatus,
 };
