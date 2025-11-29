@@ -1,49 +1,67 @@
-// Since enums are "bad", i replaced them with consts.
-
 // Handling errors
+
+import { Response } from "node-fetch";
+
 /**
- 
- * @description This interface is the JSON response of Kitsu.app errors.
+ * This interface is the JSON response of Kitsu.app errors.
  * @since 1.3.0
  */
 interface IKitsuError {
+  /**
+   * The error list.
+   */
   errors: [
     {
+      /**
+       * The error title.
+       */
       title: string;
+      /**
+       * The error detail.
+       */
       detail?: string;
+      /**
+       * The error code.
+       */
       code?: string;
+      /**
+       * The status code of the error (404, 500, ...)
+       */
       status: string;
     }
   ];
 }
+
 /**
- 
- * @description This type returns errors from the Kitsu.app API.
+ * This type returns errors from the Kitsu.app API.
  * @since 1.3.0
  */
 type TKitsuHandleError = (
   /**
-   * @param errors - The error(s) that return the API.
+   * The one or multiple errors that return the API if something went wrong with the request.
    */
   errors: Promise<Readonly<IKitsuError>>,
   /**
-   * @param status - Return the status of the API error.
+   * Return the basic fetch `Response`.
    */
-  status: number
+  res: Response
 ) => Promise<void>;
 
 // Types for parameters and results
 
 /**
- 
- * @description This type contain all of the seasons of the year.
+ * Type based on the season of publications.
+ *
+ * - `spring` : *April*, *May*, *June*
+ * - `summer` : *July*, *August*, *September*
+ * - `fall` : *October*, *November*, *December*
+ * - `winter` : *January*, *February*, *March*
  * @since 1.4.0
  */
 type TKitsuSeason = "winter" | "spring" | "summer" | "fall";
 
 /**
- 
- * @description This type contain all of Kitsu.app anime categories.
+ * This type contain all of Kitsu.app anime categories.
  * @since 1.3.5
  */
 type TKitsuAnimeCategories =
@@ -207,8 +225,7 @@ type TKitsuAnimeCategories =
   | "music";
 
 /**
- 
- * @description This type contain all of Kitsu.app anime categories.
+ * This type contain all of Kitsu.app anime categories including R18. (UR = **U**n**R**estricted)
  * @since 1.3.5
  */
 type TKitsuAnimeCategoriesUR =
@@ -374,8 +391,7 @@ type TKitsuAnimeCategoriesUR =
   | "music";
 
 /**
- 
- * @description This type contain all of available streamers that Kitsu.app is referencing.
+ * This type contain all of available streamers that Kitsu.app is referencing.
  * @since 1.4.0
  */
 type TKitsuAnimeStreamers =
@@ -392,29 +408,32 @@ type TKitsuAnimeStreamers =
   | "VRV";
 
 /**
- 
- * @description This type contain a few age rating category.
+ * This type contain a few age rating category.
+ * - `G` : *General Audiences*
+ * - `PG` : *Parental Guidance Suggested*
+ * - `R` : *Restricted*
  * @since 1.4.0
  */
 type TKitsuAnimeAgeRating = "G" | "PG" | "R";
 
 /**
- 
- * @descriptio This type contain all of the rating categories. (including **R18**)
+ * This type contain all of the rating categories. (including **R18**)
+ * - `G` : *General Audiences*
+ * - `PG` : *Parental Guidance Suggested*
+ * - `R` : *Restricted*
+ * - `R18` : *Restricted for 18 years old or older*
  * @since 1.4.0
  */
 type TKitsuAnimeAgeRatingUR = "G" | "PG" | "R" | "R18";
 
 /**
- 
- * @description This type contain all of the subtypes.
+ * This type contain all of the subtypes.
  * @since 1.4.0
  */
 type TKitsuAnimeSubtypes = "ONA" | "OVA" | "TV" | "movie" | "music" | "special";
 
 /**
- 
- * @description This type contain all of the basic anime statues.
+ * This type contain all of the basic anime statues.
  *
  * tba = **T**o **B**e **A**nnounced.
  * @since 1.4.0
@@ -422,8 +441,7 @@ type TKitsuAnimeSubtypes = "ONA" | "OVA" | "TV" | "movie" | "music" | "special";
 type TKitsuStatus = "current" | "finished" | "tba" | "unreleased" | "upcoming";
 
 /**
- 
- * @description Used as array parameter for the `MangaKitsu#find` and `MangaKitsu#list` methods. (params.categories)
+ * Used as array parameter for the `MangaKitsu#find` and `MangaKitsu#list` methods. (params.categories)
  * @since 1.3.5
  */
 type TKitsuMangaCategories =
@@ -620,8 +638,8 @@ type TKitsuMangaCategories =
   | "music";
 
 /**
- 
- * @description Used as array parameter for the `MangaKitsu#find` and `MangaKitsu#list` methods. (params.categories)
+ * Used as array parameter for the `MangaKitsu#find` and `MangaKitsu#list` methods. (params.categories)
+ *
  * This is the **U**n**R**estricted version of the type `TKitsuMangaCategories`.
  * @since 1.4.0
  */
@@ -821,8 +839,7 @@ type TKitsuMangaCategoriesUR =
   | "music";
 
 /**
- 
- * @description This type contain a few subtypes.
+ * This type contain a few subtypes.
  * @since 1.4.0
  */
 type TKitsuMangaSubtypes =
@@ -832,444 +849,275 @@ type TKitsuMangaSubtypes =
   | "oneshot"
   | "doujin"
   | "oel";
+
 // Main types for parameters.
+
 // Anime
 /**
- 
- * @description The parameters for the AnimeKitsu#find method.
- * @template AT - The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and change the appropriate properties.
+ * The parameters for the AnimeKitsu#find method.
+ * @template AT The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and change the appropriate properties.
  * @since 1.3.0
  */
 type TKitsuAnimeFind<AT extends string = ""> = {
   /**
-   * @param
-   * @description Finding anime based on a query.
-   * @example
-   * ```js
-   * anime.find({ query: "Oshi no ko" }).then(r => console.log(r));
-   * ```
+   * Finding animes based on a query.
    */
   query?: string;
   /**
-   * @param
-   * @description The offset for pagination. (offset 0 = first page, offset 1 = second page and so on.)
-   * @example
-   * ```js
-   * anime.find({ offset: "33" }).then(r => console.log(r));
-   * ```
+   * Using the offset for pagination.
+   * - `0` : First page
+   * - `1` : Second page
+   * - `2` : Third page
+   * - . . .
    */
   offset?: number | `${number}`;
   /**
-   * @param
-   * @description Finding anime and add a limit of results. (default: **10**, max: **20**)
-   * @example
-   * ```js
-   * // Default value
-   * anime.find({ query: "One Piece", limit: 10 });
-   *
-   * // Maximum value
-   * anime.find({ query: "One Piece", limit: 20 });
-   * // ...
-   * ```
+   * Finding and limiting the results.
+   * - Default : `10`
+   * - Maximum : `20`
    */
   limit?: number | `${number}`;
   /**
-   * @param
-   * @description Finding anime based on the season of publication.
-   * @example
-   * ```js
-   * // Simple way
-   * anime.find({ query: "Oshi no ko", season: ["fall"] });
-   * ```
+   * Finding animes based on the season of publication.
+   *
+   * - `spring` : *April*, *May*, *June*
+   * - `summer` : *July*, *August*, *September*
+   * - `fall` : *October*, *November*, *December*
+   * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
   /**
-   * @param
-   * @description Finding anime based on the year of publication. (min **1907**, max **2027**)
-   * @example
-   * ```js
-   * // Basic usage
-   * anime.find({ year: [1907, 2027] });
+   * Finding animes based on the year of publication.
    *
-   * // Using only one number
-   * anime.find({ year: [1907] });
-   * ```
+   * - Minimum : `1907`
+   * - Maximum : `2027`
    */
   year?: [number, number?];
   /**
-   * @param
-   * @description Finding anime based on the streamer of publication. (better using AnimeKitsu#list method)
-   * @example
-   * ```js
-   * // Simple way
-   * anime.find({ streamers: ["Funanimation", "Hulu"] });
-   * ```
+   * Finding animes based on the streamer of publication. (better using AnimeKitsu#list method)me.find({ streamers: ["Funanimation", "Hulu"] });
    */
   streamers?: TKitsuAnimeStreamers[];
   /**
-   * @param
-   * @description Finding anime based on the age rating category. (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*)
+   * Finding animes based on the age rating category.
+   * - `G`: *General Audiences*
+   * - `PG`: *Parental Guidance Suggested*
+   * - `R`: *Restricted*
+   * - `R18`: *Restricted for 18 years old or older*
+   *
    * Using an access token in the AnimeKitsu constructor will allow you to use the R18 rating.
-   * @example
-   * ```js
-   *
-   * // Simple way
-   * anime.find({ query: "Oshi no ko", ageRating: ["G", "PG"] });
-   *
-   * // if you have an accessToken
-   * anime.find({ query: "Boku" ageRating: ["R18"] });
-   * ```
    */
   ageRating?: AT extends "" ? TKitsuAnimeAgeRating[] : TKitsuAnimeAgeRatingUR[];
   /**
-   * @param
-   * @description Finding anime based on the average rating. (min **5**%, max **100**%)
-   * @example
-   * ```js
-   * // Basic usage
-   * anime.find({ averageRating: [5, 100] });
-   *
-   * // Using one number only
-   * anime.find({ averageRating: [35] });
-   * ```
+   * Finding animes based on the average rating. (min `5`%, max `100`%)
    */
   averageRating?: [number, number?];
   /**
-   * @param
-   * @description Finding anime based on any categories.
-   * @example
-   * ```js
-   * // Main example
-   * anime.find({ query: "Oshi no ko", categories: ["drama", "family"] });
-   * ```
+   * Finding animes based on any categories.
    */
   categories?: AT extends ""
     ? TKitsuAnimeCategories[]
     : TKitsuAnimeCategoriesUR[];
-
   /**
-   * @param
-   * @description Finding anime based on subtypes.
-   * @example
-   * ```js
-   * // Main example
-   * anime.find({ query: "Oshi no ko", subtype: ["TV"] });
+   * Finding animes based on subtypes.
    */
   subtype?: TKitsuAnimeSubtypes[];
 };
 
 /**
- 
- * @description The parameters for the AnimeKitsu#list method.
- * @template AT - The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
+ * The parameters for the AnimeKitsu#list method.
+ * @template AT The **A**ccess**T**oken generic type is to check if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
  * @since 1.3.0
  */
 type TKitsuAnimeList<AT extends string = ""> = {
   /**
-   * @param
-   * @description The offset for pagination. (offset 0 = first page, offset 1 = second page and so on.)
-   * @example
-   * ```js
-   * anime.list({ offset: "33" }).then(r => console.log(r));
-   * ```
+   * Using the offset for pagination.
+   * - `0` : First page
+   * - `1` : Second page
+   * - `2` : Third page
+   * - . . .
    */
   offset?: number | `${number}`;
   /**
-   * @param
-   * @description The limit of anime that will return the API. (default: **10**, max: **20**)
-   * @example
-   * ```js
-   * // Default value
-   * anime.list({ query: "One Piece", limit: 10 });
-   *
-   * // Maximum value
-   * anime.list({ query: "One Piece", limit: 20 });
-   * // ...
-   * ```
+   * Finding and limiting the results.
+   * - Default : `10`
+   * - Maximum : `20`
    */
   limit?: number | `${number}`;
   /**
-   * @param
-   * @description Listing anime based on the season of publication.
-   * @example
-   * ```js
-   * // Simple way
-   * anime.list({ query: "Oshi no ko", season: ["fall"] });
-   * ```
+   * Listing animes based on the season of publication.
+   *
+   * - `spring` : *April*, *May*, *June*
+   * - `summer` : *July*, *August*, *September*
+   * - `fall` : *October*, *November*, *December*
+   * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
   /**
-   * @param
-   * @description Listing anime based on the year of publication. (min **1907**, max **2027**)
-   * @example
-   * ```js
-   * // Basic usage
-   * anime.list({ year: [1907, 2027] });
+   * Listing animes based on the year of publication.
    *
-   * // Using only one number
-   * anime.list({ year: [1907] });
-   * ```
+   * - Minimum : `1907`
+   * - Maximum : `2027`
    */
   year?: [number, number?];
   /**
-   * @param
-   * @description Listing anime based on the streamer of publication. (better using AnimeKitsu#list method)
-   * @example
-   * ```js
-   * // Simple way
-   * anime.list({ streamers: ["Funanimation", "Hulu"] });
-   * ```
-   */
-  streamers?: TKitsuAnimeStreamers[];
-  /**
-   * @param
-   * @description Listing anime based on the age rating category. (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*)
-   * Using an access token in the AnimeKitsu constructor will allow you to use the R18 rating.
-   * @example
-   * ```js
-   *
-   * // Simple way
-   * anime.list({ query: "Oshi no ko", ageRating: ["G", "PG"] });
-   *
-   * // if you have an accessToken
-   * anime.list({ query: "Boku" ageRating: ["R18"] });
-   * ```
-   */
-  ageRating?: AT extends "" ? TKitsuAnimeAgeRating[] : TKitsuAnimeAgeRatingUR[];
-  /**
-   * @param
-   * @description Listing anime based on the average rating. (min **5**%, max **100**%)
-   * @example
-   * ```js
-   * // Basic usage
-   * anime.list({ averageRating: [5, 100] });
-   *
-   * // Using one number only
-   * anime.list({ averageRating: [35] });
-   * ```
+   * Listing anime based on the average rating.
+   * - Minimum : `5`
+   * - Maximum : `100`
    */
   averageRating?: [number, number?];
   /**
-   * @param
-   * @description Listing anime based on any categories.
-   * @example
-   * ```js
-   * // Main example
-   * anime.list({ query: "Oshi no ko", categories: ["drama", "family"] });
-   * ```
+   * Listing anime based on the streamer of publication. (better using AnimeKitsu#list method)
+   */
+  streamers?: TKitsuAnimeStreamers[];
+  /**
+   * Listing animes based on the age rating category.
+   * - `G`: *General Audiences*
+   * - `PG`: *Parental Guidance Suggested*
+   * - `R`: *Restricted*
+   * - `R18`: *Restricted for 18 years old or older*
+   *
+   * Using an access token in the AnimeKitsu constructor will allow you to use the R18 rating.
+   */
+  ageRating?: AT extends "" ? TKitsuAnimeAgeRating[] : TKitsuAnimeAgeRatingUR[];
+  /**
+   * Listing anime based on any categories.
    */
   categories?: AT extends ""
     ? TKitsuAnimeCategories[]
     : TKitsuAnimeCategoriesUR[];
-
   /**
-   * @param
-   * @description Listing anime based on subtypes.
-   * @example
-   * ```js
-   * // Main example
-   * anime.list({ query: "Oshi no ko", subtype: ["TV"] });
+   * Listing anime based on subtypes.
    */
   subtype?: TKitsuAnimeSubtypes[];
 };
 // Manga
 /**
- 
- * @description The parameters for the MangaKitsu#find method.
- * @template AT - The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
+ * The parameters for the MangaKitsu#find method.
+ * @template AT The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
  * @since 1.3.0
  */
 type TKitsuMangaFind<AT extends string = ""> = {
   /**
-   * @param
-   * @description Finding manga based on a query.
-   * @example
-   * ```js
-   * manga.find({ query: "Oshi no ko" }).then(r => console.log(r));
-   * ```
+   * Finding manga based on a query.
    */
   query?: string;
   /**
-   * @param
-   * @description The offset for pagination. (offset 0 = first page, offset 1 = second page and so on.)
-   * @example
-   * ```js
-   * manga.find({ offset: "33" }).then(r => console.log(r));
-   * ```
+   * Using the offset for pagination.
+   * - `0` : First page
+   * - `1` : Second page
+   * - `2` : Third page
+   * - . . .
    */
   offset?: number | `${number}`;
   /**
-   * @param
-   * @description The limit of the manga that will return the API. (default: **10**, max: **20**)
-   * @example
-   * ```js
-   * // Default value
-   * manga.find({ query: "One Piece", limit: 10 });
-   *
-   * // Maximum value
-   * manga.find({ query: "One Piece", limit: 20 });
-   * // ...
-   * ```
+   * Finding and limiting the results.
+   * - Default : `10`
+   * - Maximum : `20`
    */
   limit?: number | `${number}`;
   /**
-   * @param
-   * @description Finding manga based on the season of publication.
-   * @example
-   * ```js
-   * // Simple way
-   * manga.find({ query: "Oshi no ko", season: ["fall"] });
-   * ```
+   * Finding manga based on the season of publication.
+   *
+   * - `spring` : *April*, *May*, *June*
+   * - `summer` : *July*, *August*, *September*
+   * - `fall` : *October*, *November*, *December*
+   * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
   /**
-   * @param
-   * @description Finding manga based on the year of publication. (min **1862**, max **2027**)
-   * @example
-   * ```js
-   * // Basic usage
-   * manga.find({ year: [1862, 2027] });
-   *
-   * // Using only one number
-   * manga.find({ year: [1862] });
-   * ```
+   * Finding manga based on the year of publication.
+   * - Minimum : `1862`
+   * - Maximum : `2027`
    */
   year?: [number, number?];
   /**
-   * @param
-   * @description Listing manga based on the average rating. (min **5**%, max **100**%)
-   * @example
-   * ```js
-   * // Basic usage
-   * manga.find({ averageRating: [5, 100] });
-   *
-   * // Using one number only
-   * manga.find({ averageRating: [35] });
-   * ```
+   * Finding manga based on the average rating.
+   * - Minimum : `5`
+   * - Maximum : `100`
    */
   averageRating?: [number, number?];
   /**
-   * @param
-   * @description Listing manga based on any categories.
-   * @example
-   * ```js
-   * // Basic usage
-   * manga.find({ query: "Oshi no ko", categories: ["drama", "family"]);
-   * ```
+   * Listing manga based on any categories.
    */
   categories?: AT extends ""
     ? TKitsuMangaCategories[]
     : TKitsuMangaCategoriesUR[];
-
   /**
-   * @param
-   * @description Listing manga based on subtypes.
-   * @example
-   * ```js
-   * // Main example
-   * manga.find({ query: "Oshi no ko", subtype: ["TV"] });
+   * Listing manga based on subtypes.
    */
   subtype?: TKitsuMangaSubtypes[];
 };
 
 /**
- 
- * @description The parameters for the MangaKitsu#list method.
- * @template AT - The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
+ * The parameters for the MangaKitsu#list method.
+ * @template AT The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
  * @since 1.3.0
  */
 type TKitsuMangaList<AT extends string = ""> = {
   /**
-   * @param
-   * @description The offset for pagination. (offset 0 = first page, offset 1 = second page and so on.)
-   * @example
-   * ```js
-   * manga.find({ offset: "33" }).then(r => console.log(r));
-   * ```
+   * Using the offset for pagination.
+   * - `0` : First page
+   * - `1` : Second page
+   * - `2` : Third page
+   * - . . .
    */
   offset?: number | `${number}`;
   /**
-   * @param
-   * @description The limit of the manga that will return the API. (default: **10**, max: **20**)
-   * @example
-   * ```js
-   * // Default value
-   * manga.find({ query: "One Piece", limit: 10 });
-   *
-   * // Maximum value
-   * manga.find({ query: "One Piece", limit: 20 });
-   * // ...
-   * ```
+   * Finding and limiting the results.
+   * - Default : `10`
+   * - Maximum : `20`
    */
   limit?: number | `${number}`;
   /**
-   * @param
-   * @description Listing manga based on the season of publication.
-   * @example
-   * ```js
-   * // Simple way
-   * manga.find({ query: "Oshi no ko", season: ["fall"] });
-   * ```
+   * Listing manga based on the season of publication.
+   *
+   * - `spring` : *April*, *May*, *June*
+   * - `summer` : *July*, *August*, *September*
+   * - `fall` : *October*, *November*, *December*
+   * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
   /**
-   * @param
-   * @description Listing manga based on the year of publication. (min **1862**, max **2027**)
-   * @example
-   * ```js
-   * // Basic usage
-   * manga.find({ year: [1862, 2027] });
-   *
-   * // Using only one number
-   * manga.find({ year: [1862] });
-   * ```
+   * Listing manga based on the year of publication.
+   * - Minimum : `1862`
+   * - Maximum : `2027`
    */
   year?: [number, number?];
   /**
-   * @param
-   * @description Listing manga based on the average rating. (min **5**%, max **100**%)
-   * @example
-   * ```js
-   * // Basic usage
-   * manga.find({ averageRating: [5, 100] });
-   *
-   * // Using one number only
-   * manga.find({ averageRating: [35] });
-   * ```
+   * Listing manga based on the average rating.
+   * - Minimum : `5`
+   * - Maximum : `100`
    */
   averageRating?: [number, number?];
   /**
-   * @param
-   * @description Listing manga based on any categories.
-   * @example
-   * ```js
-   * // Basic usage
-   * manga.find({ query: "Oshi no ko", categories: ["drama", "family"]);
-   * ```
+   * Listing manga based on any categories.
    */
   categories?: AT extends ""
     ? TKitsuMangaCategories[]
     : TKitsuMangaCategoriesUR[];
 
   /**
-   * @param
-   * @description Listing manga based on subtypes.
-   * @example
-   * ```js
-   * // Main example
-   * manga.find({ query: "Oshi no ko", subtype: ["TV"] });
+   * Listing manga based on subtypes.
    */
   subtype?: TKitsuMangaSubtypes[];
 };
 
-// Anime
-
 /**
- 
- * @description This interface is the list of titles in different languages.
+ * @since 1.4.3
+ */
+interface IKitsuBasicLinks {
+  self: string;
+  related?: string;
+  next?: string;
+  prev?: string;
+  first?: string;
+  last?: string;
+}
+/**
+ * This interface is the list of titles in different languages.
  * @since 1.4.0
  */
-interface IKitsuAnimeTitles {
+interface IKitsuTitles {
   /**
    * Title in english version.
    */
@@ -1285,8 +1133,25 @@ interface IKitsuAnimeTitles {
 }
 
 /**
- 
- * @description This interface is the main attributes of the selected anime.
+ * This interface is the list of titles in different languages for any manga.
+ * @since 1.4.3
+ */
+interface IKitsuMangaTitles extends IKitsuTitles {
+  /**
+   * Title in Thai. (like "เกิดใหม่เป็นลูกโอชิ")
+   */
+  th_th?: string;
+  /**
+   * Title in Korean.
+   */
+  ko_kr?: string;
+  /**
+   * Title in Russian.
+   */
+  ru_ru?: string;
+}
+/**
+ * This interface is the main attributes of the selected anime.
  */
 interface IKitsuAnimeAttributes {
   /**
@@ -1311,13 +1176,14 @@ interface IKitsuAnimeAttributes {
   description: string;
   /**
    * The top offset of the cover image.
+   *
    * Seems deprecated but some animes have it so...
    */
   coverImageTopOffset: number;
   /**
    * Titles in different languages.
    */
-  titles: IKitsuAnimeTitles;
+  titles: IKitsuTitles;
   /**
    * Canonical title (mostly used for SEO)
    */
@@ -1351,9 +1217,13 @@ interface IKitsuAnimeAttributes {
   popularityRank: number;
   ratingRank: number;
   /**
-   * Age rating of the anime. (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*.)
+   * The age rating of the anime.
+   * - `G`: *General Audiences*
+   * - `PG`: *Parental Guidance Suggested*
+   * - `R`: *Restricted*
+   * - `R18`: *Restricted for 18 years old or older*
    */
-  ageRating: "G" | "PG" | "R";
+  ageRating: TKitsuAnimeAgeRatingUR;
   ageRatingGuide: string | null;
   /**
    * The type of the anime (can be a movie, a TV serie or OVA episode, etc...)
@@ -1394,6 +1264,10 @@ interface IKitsuAnimeAttributes {
   showType: string;
   nsfw: boolean;
 }
+
+/**
+ * @since 1.4.0
+ */
 interface IKitsuAnimeRelationShips {
   genres: IKitsuLinks;
   categories: IKitsuLinks;
@@ -1414,8 +1288,7 @@ interface IKitsuAnimeRelationShips {
 }
 
 /**
- 
- * @description This interface is the JSON response of the AnimeKitsu#find Promise.
+ * This interface is the JSON response of the AnimeKitsu#find Promise.
  * @since 1.3.0
  */
 interface IKitsuAnime {
@@ -1435,9 +1308,7 @@ interface IKitsuAnime {
      * The type of the requested content (in logic: anime)
      */
     type: string;
-    links: {
-      self: string;
-    };
+    links: IKitsuBasicLinks;
     /**
      * The main attributes (anime informations)
      * @example
@@ -1450,8 +1321,7 @@ interface IKitsuAnime {
   }[];
 }
 /**
- 
- * @description This interface is the JSON response of the AnimeKitsu#findById Promise (single object)
+ * This interface is the JSON response of the AnimeKitsu#findById Promise (single object)
  * @since 1.3.0
  */
 interface IKitsuAnimeSingle {
@@ -1471,9 +1341,7 @@ interface IKitsuAnimeSingle {
      * The type of the requested content (in logic: anime)
      */
     type: string;
-    links: {
-      self: string;
-    };
+    links: IKitsuBasicLinks;
     /**
      * The main attributes (anime informations)
      * @example
@@ -1489,37 +1357,30 @@ interface IKitsuAnimeSingle {
 // Episodes
 
 /**
- 
- * @since 1.4.0
- * @description This interface contain the attributes of the AnimeKitsu#episode response
+ * This interface contain the attributes of the AnimeKitsu#episode response
  * @example
  * ```js
  * anime.find({ query: "oshi no ko", offset: 0}).then(r=> console.log(r.data[0].attributes)) // { data: { id: "3332", type: "episode", links: { self: "..." }, attributes: ... } }
  * ```
+ * @since 1.4.0
  */
 interface IKitsuEpisodeAttributes {
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   synopsis: string;
   description: string;
-  titles: IKitsuAnimeTitles;
+  titles: IKitsuTitles;
   canonicalTitle: string;
   seasonNumber: number;
   number: number;
   relativeNumber: number;
   airdate: string;
   length: number;
-  thumbnail: {
-    original: string;
-    meta: {
-      dimensions: object;
-    };
-  };
+  thumbnail: IKitsuImages;
 }
 /**
- 
  * @since 1.4.0
- * @description This interface is the main relationships of the anime, such as the videos and medias.
+ * This interface is the main relationships of the anime, such as the videos and medias.
  */
 interface IKitsuEpisodeRelationShips {
   media: IKitsuLinks;
@@ -1529,7 +1390,7 @@ interface IKitsuEpisodeRelationShips {
 /**
  
  * @since 1.3.0
- * @description This interface is the JSON response of the AnimeKitsu#episode Promise (data is a object!).
+ * This interface is the JSON response of the AnimeKitsu#episode Promise (data is a object!).
  */
 interface IKitsuEpisode {
   /**
@@ -1548,9 +1409,7 @@ interface IKitsuEpisode {
      * The type of the requested content. (in logic: episode)
      */
     type: string;
-    links: {
-      self: string;
-    };
+    links: IKitsuBasicLinks;
     /**
      * The main attributes. (episode informations)
      * @example
@@ -1567,9 +1426,8 @@ interface IKitsuEpisode {
 }
 
 /**
- 
  * @since 1.4.0
- * @description This interface is the main response of the AnimeKitsu#episodes API Promise.
+ * This interface is the main response of the AnimeKitsu#episodes API Promise.
  */
 interface IKitsuEpisodes {
   /**
@@ -1589,9 +1447,7 @@ interface IKitsuEpisodes {
        * The type of the requested content (in logic: episode)
        */
       type: string;
-      links: {
-        self: string;
-      };
+      links: IKitsuBasicLinks;
       /**
        * The main attributes (episode informations)
        * @example
@@ -1608,20 +1464,14 @@ interface IKitsuEpisodes {
   ];
 }
 /**
- 
- * @description This interface return the basic result of links, most of returned properties (relationships) uses this interface.
+ * This interface return the basic result of links, most of returned properties (relationships) uses this interface.
  * @since 1.4.0
  */
 interface IKitsuLinks {
-  links: {
-    self: string;
-    related?: string;
-  };
+  links: IKitsuBasicLinks;
 }
 
 /**
- 
- * @description
  * @since 1.4.0
  */
 interface IKitsuRatingFrequencies {
@@ -1647,46 +1497,36 @@ interface IKitsuRatingFrequencies {
 }
 
 /**
- 
- * @description This interface contain the different properties of images with different sizes.
+ * Basic image sizes object.
+ * @since 1.4.3
+ */
+interface IKitsuBasicImages {
+  width: number;
+  height: number;
+}
+/**
+ * This interface contain the different properties of images with different sizes.
  * @since 1.4.0
  */
 interface IKitsuImages {
-  tiny: string;
-  small: string;
+  tiny?: string;
+  small?: string;
   medium?: string;
   large?: string;
   original: string;
   meta: {
     dimensions: {
-      tiny: {
-        width: number;
-        height: number;
-      };
-      small: {
-        width: number;
-        height: number;
-      };
-      medium?: {
-        width: number;
-        height: number;
-      };
-      large?: {
-        width: number;
-        height: number;
-      };
-      original: {
-        width: number;
-        height: number;
-      };
+      tiny?: IKitsuBasicImages;
+      small?: IKitsuBasicImages;
+      medium?: IKitsuBasicImages;
+      large?: IKitsuBasicImages;
+      original: IKitsuBasicImages;
     };
   };
 }
 
 // Manga
 /**
- 
- * @description
  * @since 1.4.0
  */
 interface IKitsuMangaAttributes {
@@ -1718,32 +1558,7 @@ interface IKitsuMangaAttributes {
   /**
    * Titles in different languages.
    */
-  titles: {
-    /**
-     * Title in english version.
-     */
-    en: string;
-    /**
-     * Title in japanese but in readable version. (like "Oshi no ko")
-     */
-    en_jp: string;
-    /**
-     * Title in japanese. (like "推しの子")
-     */
-    ja_jp: string;
-    /**
-     * Title in Thai. (like "เกิดใหม่เป็นลูกโอชิ")
-     */
-    th_th?: string;
-    /**
-     * Title in Korean.
-     */
-    ko_kr?: string;
-    /**
-     * Title in Russian.
-     */
-    ru_ru?: string;
-  };
+  titles: IKitsuMangaTitles;
   /**
    * Canonical title. (mostly used for SEO)
    */
@@ -1776,7 +1591,7 @@ interface IKitsuMangaAttributes {
   /**
    * Age rating of the manga. (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*.)
    */
-  ageRating: "G" | "PG" | "R";
+  ageRating: TKitsuAnimeAgeRatingUR;
   ageRatingGuide: string | null;
   subtype: TKitsuMangaSubtypes;
   /**
@@ -1807,24 +1622,17 @@ interface IKitsuMangaAttributes {
 }
 
 /**
- 
- * @description
  * @since 1.4.0
  */
 interface IKitsuMangaLinks {
-  data: Array<{
+  data: {
     id: string;
     type: string;
-  }>;
-  links: {
-    self: string;
-    related: string;
-  };
+  }[];
+  links: IKitsuBasicLinks;
 }
 
 /**
- 
- * @description
  * @since 1.4.0
  */
 interface IKitsuMangaRelationShips {
@@ -1840,8 +1648,7 @@ interface IKitsuMangaRelationShips {
 }
 
 /**
- 
- * @description This interface is the JSON response of the MangaKitsu#find and MangaKitsu#list Promise.
+ * This interface is the JSON response of the MangaKitsu#find and MangaKitsu#list Promise.
  * @since 1.3.0
  */
 interface IKitsuManga {
@@ -1852,34 +1659,29 @@ interface IKitsuManga {
    * manga.find({ query: "oshi no ko", offset: 0 }).then(r => console.log(r.data[0])) // Calling the first result with [0].
    * ```
    */
-  data: [
-    {
-      /**
-       * The identifiant (ID) of the manga.
-       */
-      id: string;
-      /**
-       * The type of the requested content (in logic: manga)
-       */
-      type: string;
-      links: {
-        self: string;
-      };
-      /**
-       * The main attributes (manga informations)
-       * @example
-       * ```js
-       * manga.find({ query: "oshi no ko", offset: 0}).then(r=> console.log(r.data[0].attributes)) // { ... }
-       * ```
-       */
-      attributes: IKitsuMangaAttributes;
-      relationships: IKitsuMangaRelationShips;
-    }
-  ];
+  data: {
+    /**
+     * The identifiant (ID) of the manga.
+     */
+    id: string;
+    /**
+     * The type of the requested content (in logic: manga)
+     */
+    type: string;
+    links: IKitsuBasicLinks;
+    /**
+     * The main attributes (manga informations)
+     * @example
+     * ```js
+     * manga.find({ query: "oshi no ko", offset: 0}).then(r=> console.log(r.data[0].attributes)) // { ... }
+     * ```
+     */
+    attributes: IKitsuMangaAttributes;
+    relationships: IKitsuMangaRelationShips;
+  }[];
 }
 /**
- 
- * @description This interface is the JSON response of the MangaKitsu#findById Promise (single object).
+ * This interface is the JSON response of the MangaKitsu#findById Promise (single object).
  * @since 1.3.0
  */
 
@@ -1900,9 +1702,7 @@ interface IKitsuMangaSingle {
      * The type of the requested content (in logic: manga)
      */
     type: string;
-    links: {
-      self: string;
-    };
+    links: IKitsuBasicLinks;
     /**
      * The main attributes (manga informations)
      * @example
@@ -1916,27 +1716,6 @@ interface IKitsuMangaSingle {
 }
 
 /**
- 
- * @description
- * @since 1.4.0
- */
-interface IKitsuChapterTitles {
-  /**
-   * Title in english version.
-   */
-  en: string;
-  /**
-   * Title in japanese but in readable version. (like "Oshi no ko")
-   */
-  en_jp: string;
-  /**
-   * Title in japanese. (like "推しの子")
-   */
-  ja_jp: string;
-}
-/**
- 
- * @description
  * @since 1.4.0
  */
 interface IKitsuChapterAttributes {
@@ -1959,24 +1738,17 @@ interface IKitsuChapterAttributes {
   /**
    * Titles in different languages.
    */
-  titles: IKitsuChapterTitles;
+  titles: IKitsuTitles;
   canonicalTitle: string;
   seasonNumber: number;
   number: number;
   relativeNumber: number;
   airdate: string;
   length: number;
-  thumbnail: {
-    original: string;
-    meta: {
-      dimensions: object;
-    };
-  };
+  thumbnail: IKitsuImages;
 }
 
 /**
- 
- * @description
  * @since 1.4.0
  */
 interface IKitsuChapterRelationShips {
@@ -1985,92 +1757,67 @@ interface IKitsuChapterRelationShips {
 }
 
 /**
- 
- * @description The JSON response of the request from MangaKitsu#chapter
+ * The JSON response of the request from MangaKitsu#chapter
  * @since 1.3.0
  */
 interface IKitsuChapter {
   data: {
     /**
-     * The identifiant (ID) of the manga.
+     * The identifiant (ID) of the chapter.
      */
     id: string;
     /**
-     * The type of the requested content (in logic: manga)
+     * The type of the requested content (in logic: chapter)
      */
     type: string;
-    links: {
-      self: string;
-    };
+    links: IKitsuBasicLinks;
     attributes: IKitsuChapterAttributes;
-
     relationships: IKitsuChapterRelationShips;
   };
 }
 
 /**
- 
- * @description The JSON response of the request from MangaKitsu#chapter
+ * The JSON response of the request from MangaKitsu#chapter
  * @since 1.3.0
  */
 interface IKitsuChapters {
-  data: [
-    {
-      /**
-       * The identifiant (ID) of the manga.
-       */
-      id: string;
-      /**
-       * The type of the requested content (in logic: manga)
-       */
-      type: string;
-      links: {
-        self: string;
-      };
-      attributes: IKitsuChapterAttributes;
-      relationships: IKitsuChapterRelationShips;
-    }
-  ];
+  data: {
+    /**
+     * The identifiant (ID) of the chapter.
+     */
+    id: string;
+    /**
+     * The type of the requested content (in logic: chapter)
+     */
+    type: string;
+    links: IKitsuBasicLinks;
+    attributes: IKitsuChapterAttributes;
+    relationships: IKitsuChapterRelationShips;
+  }[];
 }
+
 // Main classes.
 /**
  * @class
- * @since 1.0.2
- * @description An class that use the Kitsu.app API to receive anime informations by using different methods.
+ * @description A class using the Kitsu.app API to retrieve anime information with multiple methods.
+ * @constructor
+ *
+ * @template AT A token-type flag that switches certain API response types between restricted and unrestricted variants.
+ *
  * @example
- * Basic usage:
- * ```js
  * // CJS
- * const { AnimeKitsu } = require("aniki")
- * // JS ESM or TS
+ * const { AnimeKitsu } = require("aniki");
+ * // ESM / TS
  * import { AnimeKitsu } from "aniki";
  *
  * const anime = new AnimeKitsu();
- * // If you have made an authentication and get the "accessToken", put it in the constructor.
- * const anime = new AnimeKitsu("abcdefghijk12345");
- * 
- * // Normal
- * anime.find({ query: "Oshi no Ko" }).then(a => console.log(a.data[0]));
+ * const anime = new AnimeKitsu("accessToken123");
+ *
+ * anime.find({ query: "Oshi no Ko" }).then(a => console.log(a.data[0]));
  * anime.find(3163).then(a => console.log(a.data));
- * // Find by an id
  * anime.findById(3600).then(a => console.log(a.data));
  *
- * // Handling API errors
- * 
- * anime.find({ query: "Oshi no ko" }, async (apiError, status) => {
- *    if (apiError) console.error(await apiError);
- *  });
-
- *
- * // Best practice to avoid using multiple awaits
- * async function getAll() {
- *  const a = anime.find({query: ""});
- *  const b = anime.list({});
- *  const [A, B] = await Promise.all([a, b]);
- * 
- *  return [A, B];
- * }
- * ```
+ * @since 1.0.2
  */
 declare class AnimeKitsu<AT extends string = ""> {
   private defaultHandleError: TKitsuHandleError;
@@ -2084,18 +1831,12 @@ declare class AnimeKitsu<AT extends string = ""> {
 
   /**
    * @method
-   * @param params - The parameter(s) for the request. (query required!)
-   * @param handleError - Used for handling errors from the method and the API.
-   * @description The find method is used to find animes with different parameters, including an ID option.
-   * @returns - Returns a Promise with the IKitsuAnime or IKitsuAnimeSingle interface.
-   * @example
-   * ```js
-   * // Searching an anime
-   * anime.find({ query: "Oshi no ko", offset: 0 }).then(r => console.log(r.data[0].attributes))
+   * @description Searches for anime using the provided parameters.
    *
-   * // Searching an anime with an ID
-   * anime.find(4238).then(r => console.log(r.data.attributes))
-   * ```
+   * @param params The search parameters for the request.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the anime results, or `undefined` if an error occurs.
+   *
    * @since 1.0.2
    */
   find(
@@ -2104,52 +1845,27 @@ declare class AnimeKitsu<AT extends string = ""> {
   ): Promise<Readonly<IKitsuAnime> | undefined>;
   /**
    * @method
-   * @param param - The parameter (ID) for the request. (example: 1267)
-   * @param handleError - Used for handling errors from the method and the API.
-   * @description The find method is used to find animes with different parameters, including an ID option.
-   * @returns - Returns a Promise with the IKitsuAnime or IKitsuAnimeSingle interface.
-   * @example
-   * ```js
-   * // Searching an anime with an ID
-   * anime.find(4238).then(r => console.log(r.data.attributes))
-   * ```
+   * @description Fetch a specific anime using an ID.
+   *
+   * @param param The anime ID.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the single anime result, or `undefined` if an error occurs.
+   *
    * @since 1.0.2
    */
   find(
     param: number,
     handleError?: TKitsuHandleError
   ): Promise<Readonly<IKitsuAnimeSingle> | undefined>;
-  /**
-   * @method
-   * @param params - The parameter(s) for the request. (Object or number (as ID.))
-   * @param handleError - Used for handling errors from the method and the API.
-   * @description The find method is used to find animes with different parameters, including an ID option.
-   * @returns - Returns a Promise with the IKitsuAnime or IKitsuAnimeSingle interface.
-   * @example
-   * ```js
-   * // Searching an anime
-   * anime.find({ query: "Oshi no ko", offset: 0 }).then(r => console.log(r.data[0].attributes))
-   *
-   * // Searching an anime with an ID
-   * anime.find(4238).then(r => console.log(r.data.attributes))
-   * ```
-   * @since 1.0.2
-   */
-  find(
-    params: TKitsuAnimeFind<AT> | number,
-    handleError?: TKitsuHandleError
-  ): Promise<Readonly<IKitsuAnime | IKitsuAnimeSingle> | undefined>;
 
   /**
    * @method
-   * @param id - The ID of the anime.
-   * @param handleError - Used for handling errors from the method and the API.
-   * @description Get an anime with the ID.
-   * @returns Return a Promise.
-   * @example
-   * ```js
-   * anime.findById(30).then(r => console.log(r.data.id));
-   * ```
+   * @description Retrieves an anime by its ID.
+   *
+   * @param id The anime ID.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the single anime result, or `undefined` if an error occurs.
+   *
    * @since 1.3.0
    */
   findById(
@@ -2160,14 +1876,12 @@ declare class AnimeKitsu<AT extends string = ""> {
   /**
    *
    * @method
-   * @param params - The parameters for the request.
-   * @param handleError - Used for handling errors from the method and the API.
-   * @description Get an list of animes, you can choose the page, and the number of animes per page.
-   * @returns Return a Promise.
-   * @example
-   * ```js
-   * anime.list({ offset: 0, limit: 10 }).then(a => console.log(a));
-   * ```
+   * @description Retrieves a list of anime using different parameters.
+   * 
+   * @param params The parameters for the request.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the anime list, or `undefined` if an error occurs.
+
    * @since 1.0.2
    *
    */
@@ -2178,14 +1892,12 @@ declare class AnimeKitsu<AT extends string = ""> {
 
   /**
    * @method
-   * @param id - The parameters to find a specific episode of an anime using the episode ID.
-   * @param handleError - Used for handling errors from the method and the API.
-   * @description Get an episode with the ID.
-   * @returns Return a IKitsuEpisode Promise interface or undefined if it has no result.
-   * @example
-   * ```js
-   * anime.episode(30).then(r => console.log(r.data.attributes.titles.en));
-   * ```
+   * @description Retrieves a specific anime episode using its episode ID.
+   *
+   * @param id The episode ID.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the episode data, or `undefined` if an error occurs.
+   *
    * @since 1.3.0
    */
   episode(
@@ -2195,14 +1907,12 @@ declare class AnimeKitsu<AT extends string = ""> {
 
   /**
    * @method
-   * @param mediaId - The parameters to find all episodes of an anime using its ID.
-   * @param handleError - Used for handling errors from the method and the API.
-   * @description Get an episode with the ID.
-   * @returns Return a IKitsuEpisode Promise interface or undefined if it has no result.
-   * @example
-   * ```js
-   * anime.episodes(7442).then(r => console.log(r.data.attributes.titles.en));
-   * ```
+   * @description Retrieves all episodes for a given anime using its media ID.
+   *
+   * @param mediaId The parameters to find all episodes of an anime using its ID.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing all episodes for the anime, or `undefined` if an error occurs.
+   *
    * @since 1.3.5
    */
   episodes(
@@ -2213,43 +1923,19 @@ declare class AnimeKitsu<AT extends string = ""> {
 
 /**
  * @class
- * @description MangaKitsu is a class that's using the Kitsu.app API, with this class you can find Mangas informations in different ways
+ * @description A class using the Kitsu.app API to retrieve manga information with multiple methods.
+ * @constructor
+ *
  * @example
- * Basic usage:
- * ```js
  * // CJS
- * const { MangaKitsu } = require("aniki")
- * // JS ESM or TS
+ * const { MangaKitsu } = require("aniki");
+ * // ESM / TS
  * import { MangaKitsu } from "aniki";
  *
  * const manga = new MangaKitsu();
+ * manga.find({ query: "Oshi no Ko" }).then(m => console.log(m.data[0]));
+ * manga.findById(3600).then(m => console.log(m.data));
  *
- * // Normal
- * manga.find({ query: "Oshi no Ko" }).then(a => console.log(a.data[0]));
- *
- * // Find by an id
- * manga.findById(3600).then(a => console.log(a.data));
- *
- * // Handling errors
- *
- * manga.find(
- *  { query: "Oshi no ko" },
- *  async (error, status) => {
- *    if (error) console.error(await error);
- * });
- *
- *
- * // Best practice to avoid using .then() method is by using asynchronous functions
- *
- * async function getManga(query) {
- *
- * // Tip to avoid multiple awaits
- *  const a = manga.find({query: ""});
- *  const b = manga.list({});
- *  const [A, B] = await Promise.all([a, b]);
- * }
- *
- * ```
  * @since 1.0.2
  */
 declare class MangaKitsu<AT extends string = ""> {
@@ -2265,84 +1951,58 @@ declare class MangaKitsu<AT extends string = ""> {
   // Methods
   /**
    * @method
-   * @param params - The parameters for the request. (query required.)
-   * @param handleError - Handling errors with an async function, you can access them with the first function parameter and the status as the second parameter.
-   * @description The find method is used to find mangas with different parameters.
-   * @returns Returns a Promise with the IKitsuManga interface.
-   * @example
-   * ```js
-   * manga.find({ query: "Oshi no ko", offset: 0 }).then(a => console.log(a)); // offset is optional.
-   * ```
+   * @description Searches for manga using the provided parameters.
+   *
+   * @param params The search parameters for the request.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the manga list.
+   *
    * @since 1.0.2
    */
   find(
     params: TKitsuMangaFind<AT>,
     handleError?: TKitsuHandleError
   ): Promise<Readonly<IKitsuManga> | undefined>;
+
   /**
    * @method
-   * @param params - The ID for the request. (example: 1265)
-   * @param handleError - Handling errors with an async function, you can access them with the first function parameter and the status as the second parameter.
-   * @description The find method is used to find mangas with different parameters.
-   * @returns Returns a Promise with the IKitsuManga interface.
-   * @example
-   * ```js
-   * manga.find({ query: "Oshi no ko", offset: 0 }).then(a => console.log(a)); // offset is optional.
-   * ```
+   * @description Get a specific manga with its id.
+   *
+   * @param params The ID for the request. (example: 1265)
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the single manga result, or `undefined` if an error occurs.
+   *
    * @since 1.0.2
    */
   find(
     param: number,
     handleError?: TKitsuHandleError
   ): Promise<Readonly<IKitsuMangaSingle> | undefined>;
+
   /**
    * @method
-   * @param params - The parameters for the request.
-   * @param handleError - Handling errors with an async function, you can access them with the first function parameter and the status as the second parameter.
-   * @description The find method is used to find mangas with different parameters.
-   * @returns Returns a Promise with the IKitsuManga interface.
-   * @example
-   * ```js
-   * manga.find({ query: "Oshi no ko", offset: 0 }).then(a => console.log(a)); // offset is optional.
-   * ```
-   * @since 1.0.2
-   */
-  find(
-    params: TKitsuMangaFind<AT> | number,
-    handleError?: TKitsuHandleError
-  ): Promise<Readonly<IKitsuManga | IKitsuMangaSingle> | undefined>;
-  /**
-   * @method
-   * @param id - The ID of the manga.
-   * @param handleError - Handling errors with an async function, you can access them with the first function parameter and the status as the second parameter.
-   * @description Get an Manga with the ID.
-   * @returns Return a Promise.
-   * @example
-   * ```js
-   * manga.findById(30).then(r => console.log(r.data.id));
+   * @description Retrieves a manga by its ID.
    *
-   * // Or
-   * manga.findById("30").then(r => console.log(r.data.id));
-   * ```
+   * @param id The manga ID.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the single manga, or `undefined` if an error occurs.
+   *
    * @since 1.3.0
    */
   findById(
     id: number | `${number}`,
     handleError?: TKitsuHandleError
   ): Promise<Readonly<IKitsuMangaSingle> | undefined>;
+
   /**
-   *
    * @method
-   * @param params - The parameters for the request.
-   * @param handleError - Handling errors with an async function, you can access them with the first function parameter and the status as the second parameter.
-   * @description Get an list of Mangas, you can choose the page, and the number of Mangas per page.
-   * @returns Return a Promise.
-   * @example
-   * ```js
-   * manga.list({ offset: 0, limit: 10 }).then(a => console.log(a));
-   * ```
-   * @since 1.0.2
+   * @description Retrieves a list of anime.
    *
+   * @param params The parameters for the request.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the manga list.
+   *
+   * @since 1.0.2
    */
   list(
     params: TKitsuMangaList<AT>,
@@ -2351,29 +2011,27 @@ declare class MangaKitsu<AT extends string = ""> {
 
   /**
    * @method
-   * @param id - The parameters to find a specific chapter of a manga using the chapter ID.
-   * @param handleError - Handling errors with an async function, you can access them with the first function parameter and the status as the second parameter.
-   * @description Get an chapter with the ID.
-   * @returns Return a IKitsuChapter Promise interface or undefined if it has no result.
-   * @example
-   * ```js
-   * manga.chapter(30).then(r => console.log(r.data.attributes.titles.en));
-   * ```
+   * @description Retrieves a manga chapter by its ID.
+   *
+   * @param id The chapter ID.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing the chapter.
+   *
    * @since 1.3.0
    */
   chapter(
     id: number | `${number}`,
     handleError?: TKitsuHandleError
   ): Promise<Readonly<IKitsuChapter> | undefined>;
+
   /**
    * @method
-   * @param mangaId - The parameters to find all chapters of an manga using its ID.
-   * @param handleError - Handling errors with an async function, you can access them with the first function parameter and the status as the second parameter.
-   * @returns Return a IKitsuChapters Promise interface or undefined if it has no result.
-   * @example
-   * ```js
-   * manga.chapters(7442).then(r => console.log(r.data.attributes.titles.en));
-   * ```
+   * @description
+   *
+   * @param mangaId Retrieves all chapters for a manga by its ID.
+   * @param handleError Custom async error handler.
+   * @returns A Promise containing all chapters for the manga.
+   *
    * @since 1.3.5
    */
   chapters(
@@ -2381,7 +2039,9 @@ declare class MangaKitsu<AT extends string = ""> {
     handleError?: TKitsuHandleError
   ): Promise<Readonly<IKitsuChapters> | undefined>;
 }
+
 export { AnimeKitsu, MangaKitsu };
+
 export type {
   TKitsuAnimeAgeRating,
   TKitsuAnimeAgeRatingUR,
