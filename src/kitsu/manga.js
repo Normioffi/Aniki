@@ -19,7 +19,7 @@ class MangaKitsu {
   constructor(accessToken) {
     if (accessToken)
       if (typeof accessToken !== "string")
-        throw new TypeError("'accessToken' must be a string.");
+        throw new TypeError("Parameter 'accessToken' must be a string.");
 
     this.#headers = !accessToken
       ? KHeaders
@@ -65,7 +65,9 @@ class MangaKitsu {
         throw new TypeError("Parameter 'limit' must be a number.");
 
       if (params.limit > 20)
-        throw new TypeError("Parameter 'limit' must be less or equal to 20.");
+        throw new ReferenceError(
+          "Parameter 'limit' must be less or equal to 20."
+        );
 
       Object.assign(parameters, { "page[limit]": params.limit });
     } else Object.assign(parameters, { "page[limit]": 10 });
@@ -74,7 +76,9 @@ class MangaKitsu {
       if (!Array.isArray(params.subtype))
         throw new TypeError("Parameter 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KMSubtypes))
-        throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'subtype' parameter."
+        );
       Object.assign(parameters, { "filter[subtype]": params.subtype });
     }
 
@@ -118,7 +122,7 @@ class MangaKitsu {
       if (!Array.isArray(params.season))
         throw new TypeError("Parameter 'season' must be an array.");
       if (!isSameArray(params.season, KSeason))
-        throw new TypeError("Invalid value(s) in the 'season' parameter.");
+        throw new ReferenceError("Invalid value(s) in the 'season' parameter.");
       Object.assign(parameters, { "filter[season]": params.season });
     }
 
@@ -160,7 +164,9 @@ class MangaKitsu {
       if (!Array.isArray(params.categories))
         throw new TypeError("Parameter 'categories' must be an array.");
       if (!isSameArray(params.categories, KMCategoriesUR))
-        throw new TypeError("Invalid value(s) in the 'categories' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'categories' parameter."
+        );
 
       Object.assign(parameters, { "filter[categories]": params.categories });
     }
@@ -208,22 +214,26 @@ class MangaKitsu {
         throw new TypeError("Parameter 'limit' must be a number.");
 
       if (params.limit > 20)
-        throw new TypeError("Parameter 'limit' must be less or equal to 20.");
+        throw new ReferenceError(
+          "Parameter 'limit' must be less or equal to 20."
+        );
 
       Object.assign(parameters, { "page[limit]": params.limit });
     } else Object.assign(parameters, { "page[limit]": 10 });
 
     if (params.subtype) {
       if (!Array.isArray(params.subtype))
-        throw new TypeError("'subtype' must be an array.");
+        throw new TypeError("Parameter 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KMSubtypes))
-        throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'subtype' parameter."
+        );
       Object.assign(parameters, { "filter[subtype]": params.subtype });
     }
 
     if (params.averageRating) {
       if (!Array.isArray(params.averageRating))
-        throw new TypeError("'averageRating' must be an array.");
+        throw new TypeError("Parameter 'averageRating' must be an array.");
       let p = params.averageRating;
       let sec = p[1] ? p[1] : 100;
 
@@ -259,9 +269,9 @@ class MangaKitsu {
 
     if (params.season) {
       if (!Array.isArray(params.season))
-        throw new TypeError("'season' must be an array.");
+        throw new TypeError("Parameter 'season' must be an array.");
       if (!isSameArray(params.season, KSeason))
-        throw new TypeError("Invalid value(s) in the 'season' parameter.");
+        throw new ReferenceError("Invalid value(s) in the 'season' parameter.");
       Object.assign(parameters, { "filter[season]": params.season });
     }
 
@@ -301,9 +311,11 @@ class MangaKitsu {
 
     if (params.categories) {
       if (!Array.isArray(params.categories))
-        throw new TypeError("'categories' must be an array.");
+        throw new TypeError("Parameter 'categories' must be an array.");
       if (!isSameArray(params.categories, KMCategoriesUR))
-        throw new TypeError("Invalid value(s) in the 'categories' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'categories' parameter."
+        );
 
       Object.assign(parameters, { "filter[categories]": params.categories });
     }

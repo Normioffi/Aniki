@@ -68,7 +68,9 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'limit' must be a number.");
 
       if (params.limit > 20)
-        throw new TypeError("Parameter 'limit' must be less or equal to 20.");
+        throw new ReferenceError(
+          "Parameter 'limit' must be less or equal to 20."
+        );
 
       Object.assign(parameters, { "page[limit]": params.limit });
     } else Object.assign(parameters, { "page[limit]": 10 });
@@ -77,7 +79,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.ageRating))
         throw new TypeError("Parameter 'ageRating' must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
-        throw new TypeError("Invalid value(s) in the 'ageRating' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'ageRating' parameter."
+        );
 
       Object.assign(parameters, { "filter[ageRating]": params.ageRating });
     }
@@ -86,7 +90,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.subtype))
         throw new TypeError("Parameter 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
-        throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'subtype' parameter."
+        );
 
       Object.assign(parameters, { "filter[subtype]": params.subtype });
     }
@@ -129,7 +135,7 @@ class AnimeKitsu {
       if (!Array.isArray(params.season))
         throw new TypeError("Parameter 'season' must be an array.");
       if (!isSameArray(params.season, KSeason))
-        throw new TypeError("Invalid value(s) in the 'season' parameter.");
+        throw new ReferenceError("Invalid value(s) in the 'season' parameter.");
       Object.assign(parameters, { "filter[season]": params.season });
     }
 
@@ -171,7 +177,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.streamers))
         throw new TypeError("Parameter 'streamers' must be an array.");
       if (!isSameArray(params.streamers, KStreamers))
-        throw new TypeError("Invalid value(s) in the 'streamers' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'streamers' parameter."
+        );
       Object.assign(parameters, { "filter[streamers]": params.streamers });
     }
 
@@ -179,7 +187,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.categories))
         throw new TypeError("Parameter 'categories' must be an array.");
       if (!isSameArray(params.categories, KACategories))
-        throw new TypeError("Invalid value(s) in the 'categories' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'categories' parameter."
+        );
 
       Object.assign(parameters, { "filter[categories]": params.categories });
     }
@@ -229,7 +239,9 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'limit' must be a number.");
 
       if (params.limit > 20)
-        throw new TypeError("Parameter 'limit' must be less or equal to 20.");
+        throw new ReferenceError(
+          "Parameter 'limit' must be less or equal to 20."
+        );
 
       Object.assign(parameters, { "page[limit]": params.limit });
     } else Object.assign(parameters, { "page[limit]": 10 });
@@ -238,7 +250,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.ageRating))
         throw new TypeError("Parameter 'ageRating' must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
-        throw new TypeError("Invalid value(s) in the 'ageRating' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'ageRating' parameter."
+        );
 
       Object.assign(parameters, { "filter[ageRating]": params.ageRating });
     }
@@ -247,7 +261,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.subtype))
         throw new TypeError("Parameter 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
-        throw new TypeError("Invalid value(s) in the 'subtype' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'subtype' parameter."
+        );
 
       Object.assign(parameters, { "filter[subtype]": params.subtype });
     }
@@ -290,7 +306,7 @@ class AnimeKitsu {
       if (!Array.isArray(params.season))
         throw new TypeError("Parameter 'season' must be an array.");
       if (!isSameArray(params.season, KSeason))
-        throw new TypeError("Invalid value(s) in the 'season' parameter.");
+        throw new ReferenceError("Invalid value(s) in the 'season' parameter.");
 
       Object.assign(parameters, { "filter[season]": params.season });
     }
@@ -335,7 +351,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.streamers))
         throw new TypeError("Parameter 'streamers' must be an array.");
       if (!isSameArray(params.streamers, KStreamers))
-        throw new TypeError("Invalid value(s) in the 'streamers' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'streamers' parameter."
+        );
 
       Object.assign(parameters, { "filter[streamers]": params.streamers });
     }
@@ -344,7 +362,9 @@ class AnimeKitsu {
       if (!Array.isArray(params.categories))
         throw new TypeError("Parameter 'categories' must be an array.");
       if (!isSameArray(params.categories, KACategories))
-        throw new TypeError("Invalid value(s) in the 'categories' parameter.");
+        throw new ReferenceError(
+          "Invalid value(s) in the 'categories' parameter."
+        );
 
       Object.assign(parameters, { "filter[categories]": params.categories });
     }
