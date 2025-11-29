@@ -37,11 +37,17 @@ If you need to authenticate with the APIs, you have to make **your own** authent
 
 Otherwise, for the `MyAnimeList` and `MyMangaList`, you can still use the `client_id` but it is recommended for tests only if requests appears in the client side.
 
+## Bugs/Suggestions?
+
+Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
+
+If you want to suggest me anything, please also make an issue with the "enhancement" label.
+
 # Usage
 
 Kitsu:
 
-```javascript
+```js
 const { AnimeKitsu } = require("aniki");
 // ESM/TS
 import { AnimeKitsu } from "aniki";
@@ -79,7 +85,7 @@ anime.episode(2302).then((result) => {
 
 // Handling API errors
 anime
-  .find({ query: "Oshi no ko" }, async (apiError, status) => {
+  .find({ query: "Oshi no ko" }, async (apiError, res) => {
     if (apiError) console.error(await apiError);
   })
   .then((r) => console.log(r));
@@ -87,15 +93,17 @@ anime
 
 With MyAnimeList:
 
-```javascript
+```js
 const { MyAnimeList } = require("aniki");
 
 // ESM/TS
 import { MyAnimeList } from "aniki";
 
-const anime = new MyAnimeList("ClIENT_ID");
-// Or
-const anime = new MyAnimeList("ACCESS_TOKEN");
+// Using authentification
+// Client ID.
+const anime = new MyAnimeList({ client_id: "ClIENT_ID" });
+// Access token
+const anime = new MyAnimeList({ access_token: "ACCESS_TOKEN" });
 // Both at the same time will not work.
 
 // Fiding an anime
@@ -104,16 +112,28 @@ anime
   .then((r) => console.log(r.data[0])); // Return nodes.
 
 // Getting the details of an anime
-anime.details(1200, ["id", "title"]).then((r) => console.log(r.id)); // Return anime details.
+anime.details({ anime_id: 363 }).then((r) => console.log(r.id)); // Return anime details.
+// Listing animes based on a specific rank
+anime
+  .ranking({ ranking_type: "tv", offset: 0, limit: 16 })
+  .then((r) => console.log(r.data[0])); // Return nodes.
+
+// Listing animes based on a year and a season of publication.
+anime
+  .seasonal({ year: 2009, season: "fall", offset: 0, limit: 16 })
+  .then((r) => console.log(r.data[0])); // Return nodes.
+
+// Almost the same for MyMangaList!
 ```
 
 I recommend you to make sure to add your fields depending on your needs, if you don't use the proper fields, some properties that return the API and the Promise will be undefined.
 Example:
 
-```javascript
+```js
 anime
   .details(52991, ["created_at", "updated_at"])
   .then((r) => console.log(r.id, r.title, r.created_at, r.updated_at)); // 52991, Sousou no Frieren, Date, Date
+
 anime
   .details(52991, ["alternative_titles", "background"])
   .then((r) => console.log(r.id, r.title, r.mean)); // 52991, Sousou no Frieren, undefined.
@@ -121,7 +141,7 @@ anime
 
 ## Best practices
 
-Avoiding multiple awaits (only in **async** `functions`/`methods`!!)
+Avoiding multiple awaits (only in **async**!!)
 
 ```js
 async function getAnimes(query, offset, limit) {
