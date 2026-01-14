@@ -17,7 +17,6 @@ class AnimeKitsu {
     if (error)
       console.error("Aniki: Unhandled API error:", (await error).errors);
   };
-
   constructor(accessToken) {
     if (accessToken)
       if (typeof accessToken !== "string")
@@ -31,7 +30,6 @@ class AnimeKitsu {
           Authorization: `Bearer ${accessToken}`,
         };
   }
-
   async find(params, handleError) {
     const parameters = {};
 
@@ -121,11 +119,11 @@ class AnimeKitsu {
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
         );
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
         );
 
       Object.assign(parameters, {
@@ -163,11 +161,11 @@ class AnimeKitsu {
 
       if (p[0] < 1907 || p[0] > 2027)
         throw new RangeError(
-          `Parameter 'year' index 0 (${p[0]}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) is lower than 1907 or greater than 2027.`
         );
       if (sec < 1907 || sec > 2027)
         throw new RangeError(
-          `Parameter 'year' index 1 (${sec}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) is lower than 1907 or greater than 2027.`
         );
 
       Object.assign(parameters, {
@@ -209,7 +207,6 @@ class AnimeKitsu {
 
     return res.json();
   }
-
   async findById(id, handleError) {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id))
@@ -293,11 +290,11 @@ class AnimeKitsu {
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
         );
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
         );
 
       Object.assign(parameters, {
@@ -338,11 +335,11 @@ class AnimeKitsu {
 
       if (p[0] < 1907 || p[0] > 2027)
         throw new RangeError(
-          `Parameter 'year' index 0 (${p[0]}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) is lower than 1907 or greater than 2027.`
         );
       if (sec < 1907 || sec > 2027)
         throw new RangeError(
-          `Parameter 'year' index 1 (${sec}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) is lower than 1907 or greater than 2027.`
         );
 
       Object.assign(parameters, {
@@ -384,7 +381,6 @@ class AnimeKitsu {
 
     return res.json();
   }
-
   async episode(id, handleError) {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id))
@@ -401,7 +397,6 @@ class AnimeKitsu {
 
     return res.json();
   }
-
   async episodes(mediaId, handleError) {
     if (!mediaId)
       throw new ReferenceError("Parameter 'mediaId' must be specified.");

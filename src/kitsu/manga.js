@@ -105,12 +105,12 @@ class MangaKitsu {
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
         );
 
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
         );
 
       Object.assign(parameters, {
@@ -149,11 +149,11 @@ class MangaKitsu {
 
       if (p[0] < 1862 || p[0] > 2027)
         throw new RangeError(
-          `Parameter 'year' index 0 (${p[0]}) must be lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) is lower than 1862 or greater than 2027.`
         );
       if (sec < 1862 || sec > 2027)
         throw new RangeError(
-          `Parameter 'year' index 1 (${sec}) must be lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) is lower than 1862 or greater than 2027.`
         );
       Object.assign(parameters, {
         "filter[year]": `${p[0]}..${sec}`,
@@ -183,7 +183,6 @@ class MangaKitsu {
 
     return res.json();
   }
-
   async findById(id, handleError) {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id))
@@ -200,7 +199,6 @@ class MangaKitsu {
 
     return res.json();
   }
-
   async list(params, handleError) {
     const parameters = {};
 
@@ -256,12 +254,12 @@ class MangaKitsu {
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) is lower than 5 or greater than 100.`
         );
 
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) is lower than 5 or greater than 100.`
         );
 
       Object.assign(parameters, {
@@ -300,11 +298,11 @@ class MangaKitsu {
 
       if (p[0] < 1862 || p[0] > 2027)
         throw new RangeError(
-          `Parameter 'year' index 0 (${p[0]}) must be lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) is lower than 1862 or greater than 2027.`
         );
       if (sec < 1862 || sec > 2027)
         throw new RangeError(
-          `Parameter 'year' index 1 (${sec}) must be lower than 1862 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) is lower than 1862 or greater than 2027.`
         );
       Object.assign(parameters, {
         "filter[year]": `${p[0]}..${sec}`,
@@ -334,7 +332,6 @@ class MangaKitsu {
 
     return res.json();
   }
-
   async chapter(id, handleError) {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id))
@@ -351,7 +348,6 @@ class MangaKitsu {
 
     return res.json();
   }
-
   async chapters(mangaId, handleError) {
     if (!mangaId)
       throw new ReferenceError("Parameter 'mangaId' must be specified.");
