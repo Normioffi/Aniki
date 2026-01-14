@@ -966,7 +966,7 @@ type TKitsuAnimeList<AT extends string = ""> = {
    */
   averageRating?: [number, number?];
   /**
-   * Listing anime based on the streamer of publication. (better using AnimeKitsu#list method)
+   * Listing anime based on the streamer of publication. (using the `AnimeKitsu#list` method is recommended.)
    */
   streamers?: TKitsuAnimeStreamers[];
   /**
@@ -992,8 +992,8 @@ type TKitsuAnimeList<AT extends string = ""> = {
 };
 // Manga
 /**
- * The parameters for the MangaKitsu#find method.
- * @template AT The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
+ * The parameters for the `MangaKitsu#find` method.
+ * @template AT The AT generic type is to verify if there is an Access Token in the `AnimeKitsu` constructor and modify the appropriate properties.
  * @since 1.3.0
  */
 type TKitsuMangaFind<AT extends string = ""> = {
@@ -1050,7 +1050,7 @@ type TKitsuMangaFind<AT extends string = ""> = {
 
 /**
  * The parameters for the MangaKitsu#list method.
- * @template AT The AT generic type is to verify if there is an Access Token in the AnimeKitsu constructor and modify the appropriate properties.
+ * @template AT The AT generic type is to verify if there is an Access Token in the `v` constructor and modify the appropriate properties.
  * @since 1.3.0
  */
 type TKitsuMangaList<AT extends string = ""> = {
@@ -1633,6 +1633,7 @@ interface IKitsuMangaLinks {
 }
 
 /**
+ * The relationships of the manga.
  * @since 1.4.0
  */
 interface IKitsuMangaRelationShips {
@@ -1648,7 +1649,7 @@ interface IKitsuMangaRelationShips {
 }
 
 /**
- * This interface is the JSON response of the MangaKitsu#find and MangaKitsu#list Promise.
+ * This interface is the JSON response of the `MangaKitsu#find` and `MangaKitsu#list` Promise.
  * @since 1.3.0
  */
 interface IKitsuManga {
@@ -1665,26 +1666,25 @@ interface IKitsuManga {
      */
     id: string;
     /**
-     * The type of the requested content (in logic: manga)
+     * The type of the requested content. (in logic: manga)
      */
     type: string;
     links: IKitsuBasicLinks;
     /**
-     * The main attributes (manga informations)
-     * @example
-     * ```js
-     * manga.find({ query: "oshi no ko", offset: 0}).then(r=> console.log(r.data[0].attributes)) // { ... }
-     * ```
+     * The main attributes. (manga informations)
      */
     attributes: IKitsuMangaAttributes;
+    /**
+     * The relationships of the manga.
+     */
     relationships: IKitsuMangaRelationShips;
   }[];
 }
+
 /**
- * This interface is the JSON response of the MangaKitsu#findById Promise (single object).
+ * This interface is the JSON response of the `MangaKitsu#findById` Promise (single object).
  * @since 1.3.0
  */
-
 interface IKitsuMangaSingle {
   /**
    * Get the content of the request (starting only with data)
@@ -1699,18 +1699,17 @@ interface IKitsuMangaSingle {
      */
     id: string;
     /**
-     * The type of the requested content (in logic: manga)
+     * The type of the requested content. (in logic: manga)
      */
     type: string;
     links: IKitsuBasicLinks;
     /**
-     * The main attributes (manga informations)
-     * @example
-     * ```js
-     * manga.find({ query: "oshi no ko", offset: 0}).then(r=> console.log(r.data[0].attributes)) // { ... }
-     * ```
+     * The main attributes. (manga informations)
      */
     attributes: IKitsuMangaAttributes;
+    /**
+     * The relationships of the manga.
+     */
     relationships: IKitsuMangaRelationShips;
   };
 }
@@ -1739,16 +1738,35 @@ interface IKitsuChapterAttributes {
    * Titles in different languages.
    */
   titles: IKitsuTitles;
+  /**
+   * A title for refering the content.
+   */
   canonicalTitle: string;
   seasonNumber: number;
+  /**
+   * The chapter number.
+   */
   number: number;
+  /**
+   * A relative number?
+   */
   relativeNumber: number;
+  /**
+   * The date of the publication.
+   */
   airdate: string;
+  /**
+   * How long the chapter is.
+   */
   length: number;
+  /**
+   * A thumbnail as preview.
+   */
   thumbnail: IKitsuImages;
 }
 
 /**
+ * The basic Relationships for any chapter.
  * @since 1.4.0
  */
 interface IKitsuChapterRelationShips {
@@ -1757,7 +1775,7 @@ interface IKitsuChapterRelationShips {
 }
 
 /**
- * The JSON response of the request from MangaKitsu#chapter
+ * The JSON response of the request from `MangaKitsu#chapter`
  * @since 1.3.0
  */
 interface IKitsuChapter {
@@ -1777,7 +1795,7 @@ interface IKitsuChapter {
 }
 
 /**
- * The JSON response of the request from MangaKitsu#chapter
+ * The JSON response of the request from `MangaKitsu#chapter`
  * @since 1.3.0
  */
 interface IKitsuChapters {
@@ -2043,15 +2061,42 @@ declare class MangaKitsu<AT extends string = ""> {
 export { AnimeKitsu, MangaKitsu };
 
 export type {
+  IKitsuAnime,
+  IKitsuAnimeAttributes,
+  IKitsuAnimeRelationShips,
+  IKitsuAnimeSingle,
+  IKitsuBasicImages,
+  IKitsuBasicLinks,
+  IKitsuChapter,
+  IKitsuChapterAttributes,
+  IKitsuChapterRelationShips,
+  IKitsuChapters,
+  IKitsuEpisode,
+  IKitsuEpisodeAttributes,
+  IKitsuEpisodeRelationShips,
+  IKitsuEpisodes,
+  IKitsuError,
+  IKitsuImages,
+  IKitsuLinks,
+  IKitsuManga,
+  IKitsuMangaAttributes,
+  IKitsuMangaLinks,
+  IKitsuMangaRelationShips,
+  IKitsuMangaSingle,
+  IKitsuMangaTitles,
+  IKitsuRatingFrequencies,
+  IKitsuTitles,
   TKitsuAnimeAgeRating,
   TKitsuAnimeAgeRatingUR,
   TKitsuAnimeCategories,
+  TKitsuAnimeCategoriesUR,
   TKitsuAnimeFind,
   TKitsuAnimeList,
   TKitsuAnimeStreamers,
   TKitsuAnimeSubtypes,
   TKitsuHandleError,
   TKitsuMangaCategories,
+  TKitsuMangaCategoriesUR,
   TKitsuMangaFind,
   TKitsuMangaList,
   TKitsuMangaSubtypes,
