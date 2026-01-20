@@ -772,6 +772,7 @@ const KMSubtypes = Object.freeze([
   "doujin",
   "oel",
 ]);
+
 // Main
 const KSeason = Object.freeze(["winter", "spring", "summer", "fall"]);
 
