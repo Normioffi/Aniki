@@ -110,13 +110,23 @@ class AnimeKitsu {
         throw new ReferenceError(
           "First value (index 0) of the 'averageRating' parameter must be specified."
         );
+
       if (Number.isNaN(p[0]))
         throw new TypeError(
           `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`
         );
+      else if (!Number.isInteger(p[0]))
+        throw new TypeError(
+          `Parameter 'averageRating' index 0 (${p[0]}) must be an integer.`
+        );
+
       if (Number.isNaN(sec))
         throw new TypeError(
           `Parameter 'averageRating' index 1 (${sec}) must be a number.`
+        );
+      else if (!Number.isInteger(p[0]))
+        throw new TypeError(
+          `Parameter 'averageRating' index 1 (${sec}) must be an integer.`
         );
 
       if (p[0] < 5 || p[0] > 100)
@@ -152,13 +162,23 @@ class AnimeKitsu {
         throw new ReferenceError(
           "First value (index 0) of the 'year' parameter must be specified."
         );
+
       if (Number.isNaN(p[0]))
         throw new TypeError(
           `Parameter 'year' index 0 (${p[0]}) must be a number.`
         );
+      else if (!Number.isInteger(p[0]))
+        throw new TypeError(
+          `Parameter 'year' index 0 (${p[0]}) must be an integer.`
+        );
+
       if (Number.isNaN(sec))
         throw new TypeError(
           `Parameter 'year' index 1 (${sec}) must be a number.`
+        );
+      else if (!Number.isInteger(sec))
+        throw new TypeError(
+          `Parameter 'year' index 1 (${sec}) must be an integer.`
         );
 
       if (p[0] < 1907 || p[0] > 2027)
@@ -214,6 +234,8 @@ class AnimeKitsu {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id))
       throw new TypeError("Parameter 'id' must be a number.");
+    else if (!Number.isInteger(id))
+      throw new TypeError("Parameter 'id' must be an integer.");
 
     const res = await fetch(`${KUrl}/anime/${id}`, {
       headers: this.#headers,
@@ -282,13 +304,23 @@ class AnimeKitsu {
         throw new ReferenceError(
           "First value (index 0) of the 'averageRating' parameter must be specified."
         );
+
       if (Number.isNaN(p[0]))
         throw new TypeError(
           `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`
         );
+      else if (!Number.isInteger(p[0]))
+        throw new TypeError(
+          `Parameter 'averageRating' index 0 (${p[0]}) must be an integer.`
+        );
+
       if (Number.isNaN(sec))
         throw new TypeError(
           `Parameter 'averageRating' index 1 (${sec}) must be a number.`
+        );
+      else if (!Number.isInteger(p[0]))
+        throw new TypeError(
+          `Parameter 'averageRating' index 1 (${sec}) must be an integer.`
         );
 
       if (p[0] < 5 || p[0] > 100)
@@ -330,10 +362,18 @@ class AnimeKitsu {
         throw new TypeError(
           `Parameter 'year' index 0 (${p[0]}) must be a number.`
         );
+      else if (!Number.isInteger(p[0]))
+        throw new TypeError(
+          `Parameter 'year' index 0 (${p[0]}) must be an integer.`
+        );
 
       if (Number.isNaN(sec))
         throw new TypeError(
           `Parameter 'year' index 1 (${sec}) must be a number.`
+        );
+      else if (!Number.isInteger(sec))
+        throw new TypeError(
+          `Parameter 'year' index 1 (${sec}) must be an integer.`
         );
 
       if (p[0] < 1907 || p[0] > 2027)
@@ -389,6 +429,8 @@ class AnimeKitsu {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id))
       throw new TypeError("Parameter 'id' must be a number.");
+    else if (!Number.isInteger(id))
+      throw new TypeError("Parameter 'id' must be an integer.");
 
     const res = await fetch(`${KUrl}/episodes/${id}`, {
       headers: this.#headers,
@@ -407,6 +449,8 @@ class AnimeKitsu {
       throw new ReferenceError("Parameter 'mediaId' must be specified.");
     if (Number.isNaN(mediaId))
       throw new TypeError("Parameter 'mediaId' must be a number.");
+    else if (!Number.isInteger(mediaId))
+      throw new TypeError("Parameter 'mediaId' must be an integer.");
 
     const res = await fetch(`${KUrl}/episodes?filter[media_id]=${mediaId}`, {
       headers: this.#headers,
