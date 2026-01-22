@@ -28,7 +28,7 @@ interface IKitsuError {
        * The status code of the error (404, 500, ...)
        */
       status: string;
-    }
+    },
   ];
 }
 
@@ -863,6 +863,7 @@ type TKitsuAnimeFind<AT extends string = ""> = {
    * Finding animes based on a query.
    */
   query?: string;
+
   /**
    * Using the offset for pagination.
    * - `0` : First page
@@ -871,12 +872,14 @@ type TKitsuAnimeFind<AT extends string = ""> = {
    * - . . .
    */
   offset?: number | `${number}`;
+
   /**
    * Finding and limiting the results.
    * - Default : `10`
    * - Maximum : `20`
    */
   limit?: number | `${number}`;
+
   /**
    * Finding animes based on the season of publication.
    *
@@ -886,6 +889,7 @@ type TKitsuAnimeFind<AT extends string = ""> = {
    * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
+
   /**
    * Finding animes based on the year of publication.
    *
@@ -893,10 +897,12 @@ type TKitsuAnimeFind<AT extends string = ""> = {
    * - Maximum : `2027`
    */
   year?: [number, number?];
+
   /**
    * Finding animes based on the streamer of publication. (better using AnimeKitsu#list method)me.find({ streamers: ["Funanimation", "Hulu"] });
    */
   streamers?: TKitsuAnimeStreamers[];
+
   /**
    * Finding animes based on the age rating category.
    * - `G`: *General Audiences*
@@ -907,16 +913,19 @@ type TKitsuAnimeFind<AT extends string = ""> = {
    * Using an access token in the AnimeKitsu constructor will allow you to use the R18 rating.
    */
   ageRating?: AT extends "" ? TKitsuAnimeAgeRating[] : TKitsuAnimeAgeRatingUR[];
+
   /**
    * Finding animes based on the average rating. (min `5`%, max `100`%)
    */
   averageRating?: [number, number?];
+
   /**
    * Finding animes based on any categories.
    */
   categories?: AT extends ""
     ? TKitsuAnimeCategories[]
     : TKitsuAnimeCategoriesUR[];
+
   /**
    * Finding animes based on subtypes.
    */
@@ -937,12 +946,14 @@ type TKitsuAnimeList<AT extends string = ""> = {
    * - . . .
    */
   offset?: number | `${number}`;
+
   /**
    * Finding and limiting the results.
    * - Default : `10`
    * - Maximum : `20`
    */
   limit?: number | `${number}`;
+
   /**
    * Listing animes based on the season of publication.
    *
@@ -952,6 +963,7 @@ type TKitsuAnimeList<AT extends string = ""> = {
    * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
+
   /**
    * Listing animes based on the year of publication.
    *
@@ -959,16 +971,19 @@ type TKitsuAnimeList<AT extends string = ""> = {
    * - Maximum : `2027`
    */
   year?: [number, number?];
+
   /**
    * Listing anime based on the average rating.
    * - Minimum : `5`
    * - Maximum : `100`
    */
   averageRating?: [number, number?];
+
   /**
    * Listing anime based on the streamer of publication. (using the `AnimeKitsu#list` method is recommended.)
    */
   streamers?: TKitsuAnimeStreamers[];
+
   /**
    * Listing animes based on the age rating category.
    * - `G`: *General Audiences*
@@ -979,12 +994,14 @@ type TKitsuAnimeList<AT extends string = ""> = {
    * Using an access token in the AnimeKitsu constructor will allow you to use the R18 rating.
    */
   ageRating?: AT extends "" ? TKitsuAnimeAgeRating[] : TKitsuAnimeAgeRatingUR[];
+
   /**
    * Listing anime based on any categories.
    */
   categories?: AT extends ""
     ? TKitsuAnimeCategories[]
     : TKitsuAnimeCategoriesUR[];
+
   /**
    * Listing anime based on subtypes.
    */
@@ -1001,6 +1018,7 @@ type TKitsuMangaFind<AT extends string = ""> = {
    * Finding manga based on a query.
    */
   query?: string;
+
   /**
    * Using the offset for pagination.
    * - `0` : First page
@@ -1009,12 +1027,14 @@ type TKitsuMangaFind<AT extends string = ""> = {
    * - . . .
    */
   offset?: number | `${number}`;
+
   /**
    * Finding and limiting the results.
    * - Default : `10`
    * - Maximum : `20`
    */
   limit?: number | `${number}`;
+
   /**
    * Finding manga based on the season of publication.
    *
@@ -1024,24 +1044,28 @@ type TKitsuMangaFind<AT extends string = ""> = {
    * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
+
   /**
    * Finding manga based on the year of publication.
    * - Minimum : `1862`
    * - Maximum : `2027`
    */
   year?: [number, number?];
+
   /**
    * Finding manga based on the average rating.
    * - Minimum : `5`
    * - Maximum : `100`
    */
   averageRating?: [number, number?];
+
   /**
    * Listing manga based on any categories.
    */
   categories?: AT extends ""
     ? TKitsuMangaCategories[]
     : TKitsuMangaCategoriesUR[];
+
   /**
    * Listing manga based on subtypes.
    */
@@ -1062,12 +1086,14 @@ type TKitsuMangaList<AT extends string = ""> = {
    * - . . .
    */
   offset?: number | `${number}`;
+
   /**
    * Finding and limiting the results.
    * - Default : `10`
    * - Maximum : `20`
    */
   limit?: number | `${number}`;
+
   /**
    * Listing manga based on the season of publication.
    *
@@ -1077,18 +1103,21 @@ type TKitsuMangaList<AT extends string = ""> = {
    * - `winter` : *January*, *February*, *March*
    */
   season?: TKitsuSeason[];
+
   /**
    * Listing manga based on the year of publication.
    * - Minimum : `1862`
    * - Maximum : `2027`
    */
   year?: [number, number?];
+
   /**
    * Listing manga based on the average rating.
    * - Minimum : `5`
    * - Maximum : `100`
    */
   averageRating?: [number, number?];
+
   /**
    * Listing manga based on any categories.
    */
@@ -1103,6 +1132,7 @@ type TKitsuMangaList<AT extends string = ""> = {
 };
 
 /**
+ * Basic link interface.
  * @since 1.4.3
  */
 interface IKitsuBasicLinks {
@@ -1122,10 +1152,12 @@ interface IKitsuTitles {
    * Title in english version.
    */
   en: string;
+
   /**
    * Title in japanese but in readable version. (like "Oshi no ko")
    */
   en_jp: string;
+
   /**
    * Title in japanese (like "推しの子")
    */
@@ -1141,10 +1173,12 @@ interface IKitsuMangaTitles extends IKitsuTitles {
    * Title in Thai. (like "เกิดใหม่เป็นลูกโอชิ")
    */
   th_th?: string;
+
   /**
    * Title in Korean.
    */
   ko_kr?: string;
+
   /**
    * Title in Russian.
    */
@@ -1158,44 +1192,54 @@ interface IKitsuAnimeAttributes {
    * The creation date of the data from Kitsu.io (ISO 8601)
    */
   createdAt: Date;
+
   /**
    * The update date of the data from Kitsu.io. (ISO 8601)
    */
   updatedAt: Date;
+
   /**
    * The title with - (oshi-no-ko)
    */
   slug: string;
+
   /**
    * The synopsis (description) of the anime
    */
   synopsis: string;
+
   /**
    * The description of the anime.
    */
   description: string;
+
   /**
    * The top offset of the cover image.
    *
    * Seems deprecated but some animes have it so...
    */
   coverImageTopOffset: number;
+
   /**
    * Titles in different languages.
    */
   titles: IKitsuTitles;
+
   /**
    * Canonical title (mostly used for SEO)
    */
   canonicalTitle: string;
+
   /**
    * Abbreviated titles (like Roshidere)
    */
   abbreviatedTitles: string[];
+
   /**
    * The average rating of the anime in %
    */
   averageRating: string | null;
+
   ratingFrequencies: IKitsuRatingFrequencies;
   userCount: number;
   favoritesCount: number;
@@ -1203,19 +1247,24 @@ interface IKitsuAnimeAttributes {
    * The official anime start date.
    */
   startDate: string;
+
   /**
    * The official anime end date.
    */
   endDate: string;
+
   /**
    * The approximate date of the next release.
    */
   nextRelease: string | null;
+
   /**
    * The popularity rank of the anime. (used for Kitsu.app)
    */
   popularityRank: number;
+
   ratingRank: number;
+
   /**
    * The age rating of the anime.
    * - `G`: *General Audiences*
@@ -1224,43 +1273,54 @@ interface IKitsuAnimeAttributes {
    * - `R18`: *Restricted for 18 years old or older*
    */
   ageRating: TKitsuAnimeAgeRatingUR;
+
   ageRatingGuide: string | null;
+
   /**
    * The type of the anime (can be a movie, a TV serie or OVA episode, etc...)
    */
   subtype: TKitsuAnimeSubtypes;
+
   /**
    * the actual status of the anime.
    */
   status: TKitsuStatus;
+
   /**
    * If the anime is **t**o **b**e **a**nnounced.
    */
   tba: string | null;
+
   /**
    * the poster image (aka main image) of the anime. Available in different sizes.
    */
   posterImage: IKitsuImages;
+
   /**
    * The cover image of the anime, mostly used as background image. Available in different sizes.
    */
   coverImage: IKitsuImages;
+
   /**
    * Number of episodes planned.
    */
   episodeCount: number;
+
   /**
    * Approximative episodes length. (such as 24 mins)
    */
   episodeLength: number;
+
   /**
    * Total length of all episodes.
    */
   totalLength: number;
+
   /**
    * Official (or unofficial) Youtube video ID of the trailer/presentation (like https://youtu.be/lpiB2wMc49g)
    */
   youtubeVideoId: string;
+
   showType: string;
   nsfw: boolean;
 }
@@ -1304,11 +1364,14 @@ interface IKitsuAnime {
      * The identifiant (ID) of the anime.
      */
     id: string;
+
     /**
      * The type of the requested content (in logic: anime)
      */
     type: string;
+
     links: IKitsuBasicLinks;
+
     /**
      * The main attributes (anime informations)
      * @example
@@ -1317,6 +1380,7 @@ interface IKitsuAnime {
      * ```
      */
     attributes: IKitsuAnimeAttributes;
+
     relationships: IKitsuAnimeRelationShips;
   }[];
 }
@@ -1337,11 +1401,14 @@ interface IKitsuAnimeSingle {
      * The identifiant (ID) of the anime.
      */
     id: string;
+
     /**
      * The type of the requested content (in logic: anime)
      */
     type: string;
+
     links: IKitsuBasicLinks;
+
     /**
      * The main attributes (anime informations)
      * @example
@@ -1350,6 +1417,7 @@ interface IKitsuAnimeSingle {
      * ```
      */
     attributes: IKitsuAnimeAttributes;
+
     relationships: IKitsuAnimeRelationShips;
   };
 }
@@ -1405,11 +1473,14 @@ interface IKitsuEpisode {
      * The identifiant (ID) of the episode.
      */
     id: string;
+
     /**
      * The type of the requested content. (in logic: episode)
      */
     type: string;
+
     links: IKitsuBasicLinks;
+
     /**
      * The main attributes. (episode informations)
      * @example
@@ -1418,6 +1489,7 @@ interface IKitsuEpisode {
      * ```
      */
     attributes: IKitsuEpisodeAttributes;
+
     /**
      * The main relationships of the episode, such as the videos and medias.
      */
@@ -1443,11 +1515,14 @@ interface IKitsuEpisodes {
        * The identifiant (ID) of the episode.
        */
       id: string;
+
       /**
        * The type of the requested content (in logic: episode)
        */
       type: string;
+
       links: IKitsuBasicLinks;
+
       /**
        * The main attributes (episode informations)
        * @example
@@ -1456,11 +1531,12 @@ interface IKitsuEpisodes {
        * ```
        */
       attributes: IKitsuEpisodeAttributes;
+
       /**
        * The main relationships of the episode, such as the videos and medias.
        */
       relationships: IKitsuEpisodeRelationShips;
-    }
+    },
   ];
 }
 /**
@@ -1472,6 +1548,7 @@ interface IKitsuLinks {
 }
 
 /**
+ * Rating frequencies.
  * @since 1.4.0
  */
 interface IKitsuRatingFrequencies {
@@ -1534,90 +1611,113 @@ interface IKitsuMangaAttributes {
    * The creation date of the data from Kitsu.app (ISO 8601)
    */
   createdAt: Date;
+
   /**
    * The update date of the data from Kitsu.app. (ISO 8601)
    */
   updatedAt: Date;
+
   /**
    * The title with - (oshi-no-ko)
    */
   slug: string;
+
   /**
    * The synopsis (description) of the manga
    */
   synopsis: string;
+
   /**
    * The description of the manga.
    */
   description: string;
+
   /**
    * The top offset of the cover image.
    * Seems deprecated in docs but some mangas have it so...
    */
   coverImageTopOffset: number;
+
   /**
    * Titles in different languages.
    */
   titles: IKitsuMangaTitles;
+
   /**
    * Canonical title. (mostly used for SEO)
    */
   canonicalTitle: string;
+
   /**
    * Abbreviated titles. (like Roshidere)
    */
   abbreviatedTitles: string[];
+
   averageRating: string | null;
   ratingFrequencies: IKitsuRatingFrequencies;
   userCount: number;
   favoritesCount: number;
+
   /**
    * The official manga start date.
    */
   startDate: string;
+
   /**
    * The official manga end date.
    */
   endDate: string;
+
   /**
    * The approximate date of the next release.
    */
   nextRelease: string | null;
+
   /**
    * The popularity rank of the manga. (used for Kitsu.app)
    */
   popularityRank: number;
+
   ratingRank: number;
+
   /**
    * Age rating of the manga. (**G**: *General Audiences*, **PG**: *Parental Guidance Suggested*, **R**: *Restricted*, **R18**: *Restricted for 18 years old or older*.)
    */
   ageRating: TKitsuAnimeAgeRatingUR;
+
   ageRatingGuide: string | null;
   subtype: TKitsuMangaSubtypes;
+
   /**
    * the actual status of the manga.
    */
   status: TKitsuStatus;
+
   /**
    * If the manga is **t**o **b**e **a**nnounced.
    */
   tba: string | null;
+
   /**
    * the poster image (aka main image) of the manga. Available in different sizes.
    */
   posterImage: IKitsuImages;
+
   /**
    * The cover image of the manga, mostly used as background image. Available in different sizes.
    */
   coverImage: IKitsuImages;
+
   /**
    * Number of chapters planned.
    */
   chapterCount: number;
+
   /**
    * Number of volumes planned.
    */
   volumeCount: number;
+
   serialization: string;
 }
 
@@ -1665,15 +1765,19 @@ interface IKitsuManga {
      * The identifiant (ID) of the manga.
      */
     id: string;
+
     /**
      * The type of the requested content. (in logic: manga)
      */
     type: string;
+
     links: IKitsuBasicLinks;
+
     /**
      * The main attributes. (manga informations)
      */
     attributes: IKitsuMangaAttributes;
+
     /**
      * The relationships of the manga.
      */
@@ -1698,15 +1802,19 @@ interface IKitsuMangaSingle {
      * The identifiant (ID) of the manga.
      */
     id: string;
+
     /**
      * The type of the requested content. (in logic: manga)
      */
     type: string;
+
     links: IKitsuBasicLinks;
+
     /**
      * The main attributes. (manga informations)
      */
     attributes: IKitsuMangaAttributes;
+
     /**
      * The relationships of the manga.
      */
@@ -1722,45 +1830,56 @@ interface IKitsuChapterAttributes {
    * The creation date of the data from Kitsu.app (ISO 8601)
    */
   createdAt: Date;
+
   /**
    * The update date of the data from Kitsu.app. (ISO 8601)
    */
   updatedAt: Date;
+
   /**
    * The synopsis (description) of the chapter
    */
   synopsis: string;
+
   /**
    * The description of the chapter.
    */
   description: string;
+
   /**
    * Titles in different languages.
    */
   titles: IKitsuTitles;
+
   /**
    * A title for refering the content.
    */
   canonicalTitle: string;
+
   seasonNumber: number;
+
   /**
    * The chapter number.
    */
   number: number;
+
   /**
    * A relative number?
    */
   relativeNumber: number;
+
   /**
    * The date of the publication.
    */
   airdate: string;
+
   /**
    * How long the chapter is.
    */
   length: number;
+
   /**
-   * A thumbnail as preview.
+   * A thumbnail as a preview.
    */
   thumbnail: IKitsuImages;
 }
@@ -1770,7 +1889,13 @@ interface IKitsuChapterAttributes {
  * @since 1.4.0
  */
 interface IKitsuChapterRelationShips {
+  /**
+   * Media related to the chapter.
+   */
   media: IKitsuLinks;
+  /**
+   * Videos related to the chapter.
+   */
   videos: IKitsuLinks;
 }
 
@@ -1784,10 +1909,12 @@ interface IKitsuChapter {
      * The identifiant (ID) of the chapter.
      */
     id: string;
+
     /**
      * The type of the requested content (in logic: chapter)
      */
     type: string;
+
     links: IKitsuBasicLinks;
     attributes: IKitsuChapterAttributes;
     relationships: IKitsuChapterRelationShips;
@@ -1804,10 +1931,12 @@ interface IKitsuChapters {
      * The identifiant (ID) of the chapter.
      */
     id: string;
+
     /**
      * The type of the requested content (in logic: chapter)
      */
     type: string;
+
     links: IKitsuBasicLinks;
     attributes: IKitsuChapterAttributes;
     relationships: IKitsuChapterRelationShips;
@@ -1944,6 +2073,8 @@ declare class AnimeKitsu<AT extends string = ""> {
  * @description A class using the Kitsu.app API to retrieve manga information with multiple methods.
  * @constructor
  *
+ * @template AT A token-type flag that switches certain API response types between restricted and unrestricted variants.
+ *
  * @example
  * // CJS
  * const { MangaKitsu } = require("aniki");
@@ -2003,7 +2134,7 @@ declare class MangaKitsu<AT extends string = ""> {
    *
    * @param id The manga ID.
    * @param handleError Custom async error handler.
-   * @returns A Promise containing the single manga, or `undefined` if an error occurs.
+   * @returns A Promise containing a single manga, or `undefined` if an error occurs.
    *
    * @since 1.3.0
    */
@@ -2058,9 +2189,11 @@ declare class MangaKitsu<AT extends string = ""> {
   ): Promise<Readonly<IKitsuChapters> | undefined>;
 }
 
+// Classes
 export { AnimeKitsu, MangaKitsu };
 
 export type {
+  // Interfaces
   IKitsuAnime,
   IKitsuAnimeAttributes,
   IKitsuAnimeRelationShips,
@@ -2086,6 +2219,8 @@ export type {
   IKitsuMangaTitles,
   IKitsuRatingFrequencies,
   IKitsuTitles,
+
+  // Types
   TKitsuAnimeAgeRating,
   TKitsuAnimeAgeRatingUR,
   TKitsuAnimeCategories,

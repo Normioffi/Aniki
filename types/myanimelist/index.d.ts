@@ -27,7 +27,7 @@ type IMALHandleError = (
   /**
    * Basic fetch `Response`.
    */
-  res: Response
+  res: Response,
 ) => Promise<void>;
 
 /**
@@ -233,6 +233,7 @@ interface IMALBasicParams {
    * - . . .
    */
   offset?: number | `${number}`;
+
   /**
    * Limiting the results.
    * - `MyAnimeList#find`
@@ -313,6 +314,7 @@ interface IMALSeason extends IMALBasicParams {
    * Listing animes based on the year of publication.
    */
   year: number;
+
   /**
    * Listing animes based on the season of publication.
    *
@@ -322,6 +324,7 @@ interface IMALSeason extends IMALBasicParams {
    * - `winter` : *January*, *February*, *March*
    */
   season: TMALSeason;
+
   /**
    * Sort animes.
    */
@@ -354,10 +357,29 @@ interface IMMLRanking extends IMALBasicParams {
  * @since 1.4.3
  */
 interface IMALStatisticsStatus {
+  /**
+   * How much users are currently watching this anime.
+   */
   watching: number;
+
+  /**
+   * How much users have completed this anime.
+   */
   completed: number;
+
+  /**
+   * How much users are still on progress.
+   */
   on_hold: number;
+
+  /**
+   * How much users have lost the want to watch this anime.
+   */
   dropped: number;
+
+  /**
+   * How much users are planning to watch this anime in the future.
+   */
   plan_to_watch: number;
 }
 
@@ -377,14 +399,40 @@ interface IMALMyListStatus {
   status: TMALUserStatus;
   score: number;
   num_episodes_watched: number;
+
+  /**
+   * If the user is rewatching this anime.
+   */
   is_rewatching: boolean;
+
+  /**
+   * When the user did begin watching this anime.
+   */
   start_date: Date | null;
+
+  /**
+   * When the user did finish watching this anime.
+   */
   finish_date: Date | null;
+
   priority: number;
+
+  /**
+   * How much the user did rewatch this anime.
+   */
   num_times_rewatched: number;
+
+  /**
+   * How much the user did rewatch this anime.
+   */
   rewatch_value: number;
+
   tags: string[];
   comments: string;
+
+  /**
+   * Last update of this anime in this user list.
+   */
   updated_at: Date;
 }
 
@@ -394,16 +442,49 @@ interface IMALMyListStatus {
 interface IMMLMyListStatus {
   status: TMMLUserStatus | null;
   score: number;
+
+  /**
+   * How much volumes the user did read this manga.
+   */
   num_volumes_read: number;
+
+  /**
+   * How much chapters the user did read this manga.
+   */
   num_chapters_read: number;
+
+  /**
+   * If the user is rereading this manga.
+   */
   is_rereading: boolean;
+
+  /**
+   * When the user did begin reading this manga.
+   */
   start_date: Date | null;
+
+  /**
+   * When the user did finish reading this manga.
+   */
   finish_date: Date | null;
+
   priority: number;
+
+  /**
+   * How much the user did reread this manga.
+   */
   num_times_reread: number;
+
   reread_value: number;
   tags: string[];
+  /**
+   * Comments that made the user on this manga.
+   */
   comments: string;
+
+  /**
+   * Last update of this manga in the user list.
+   */
   updated_at: Date;
 }
 
@@ -431,10 +512,25 @@ interface IMALMainPicture {
  * @since 1.4.3
  */
 interface IMALAlternativeTitles {
+  /**
+   * Different synonyms of the main title.
+   * - *One Punch Man 3rd Season*, *OPM 3*
+   */
   synonyms: string[] | null;
+
+  /**
+   * The japanese version of the main title.
+   * - *ワンパンマン 3*
+   */
   ja: string | null;
+
+  /**
+   * The english version of the main title.
+   * - *One-Punch Man Season 3*
+   */
   en: string | null;
 }
+
 /**
  * The MyAnimeList "node".
  * @since 1.4.0
@@ -452,7 +548,7 @@ interface IMALNode {
 }
 
 /**
- * The additional interface of the MyAnimeList/MyMangaList#ranking method.
+ * The additional interface of the `MyAnimeList`/`MyMangaList#ranking` method.
  * @since 1.4.3
  */
 interface IMALRankingRes {
@@ -463,7 +559,7 @@ interface IMALRankingRes {
 }
 
 /**
- * The additional interface of the MyAnimeList#seasonal method.
+ * The additional interface of the `MyAnimeList#seasonal` method.
  * @since 1.4.3
  */
 interface IMALSeasonRes {
@@ -485,18 +581,47 @@ interface IMALNameAndId {
  * @since 1.4.0
  */
 interface IMALAnime {
+  /**
+   * The ID of this anime. (MyAnimeList related)
+   */
   id: number;
+
+  /**
+   * The main title.
+   */
   title: string;
+
+  /**
+   * The main picture.
+   */
   main_picture: IMALMainPicture;
+
+  /**
+   * Alternative titles. (**synonyms**, **ja**, **en**)
+   */
   alternative_titles: IMALAlternativeTitles;
+
+  /**
+   * The start date of the anime airing.
+   */
   start_date: string | null;
+
+  /**
+   * The end date of the anime airing.
+   */
   end_date: string | null;
+
+  /**
+   * The synopsis (description) of the anime.
+   */
   synopsis: string | null;
+
   mean: number | null;
   rank: number | null;
   popularity: number | null;
   num_list_users: number;
   num_scoring_users: number;
+
   /**
    * The different NSFW categories of MyAnimeList.
    *
@@ -505,20 +630,42 @@ interface IMALAnime {
    * - `black` : *This work is not safe for work*
    */
   nsfw: TMALNsfwCategories | null;
+
+  /**
+   * Creation date of the document. (in myanimelist)
+   */
   created_at: Date;
+
+  /**
+   * Last update of the document. (in myanimelist)
+   */
   updated_at: Date;
+
   media_type: TMALMediaTypes;
   status: TMALStatus;
   genres: IMALNameAndId[];
   my_list_status: IMALMyListStatus | null;
   num_episodes: number;
+
+  /**
+   * Starting season information.
+   */
   start_season: {
+    /**
+     * Beginning year of the anime production.
+     */
     year: number;
+
+    /**
+     * Beginning season of the anime production.
+     */
     season: TMALSeason;
   } | null;
+
   broadcast: IMALBroadCast | null;
   source: TMALSources | null;
   average_episode_duration: number | null;
+
   /**
    * The different rating categories of MyAnimeList.
    *
@@ -530,12 +677,30 @@ interface IMALAnime {
    * - `rx`	: *Hentai*
    * */
   rating: TMALRating;
+
   pictures: IMALMainPicture[];
   background: string | null;
+
+  /**
+   * Related anime content based on this anime.
+   */
   related_anime: IMALNode[];
+
+  /**
+   * Related manga content based on this anime.
+   */
   related_manga: IMALNode[];
+
+  /**
+   * Recommended content based on this anime.
+   */
   recommendations: IMALNode[];
+
+  /**
+   * Studio(s) that made the anime.
+   */
   studios: IMALNameAndId[];
+
   statistics: IMALStatistics | null;
 }
 
@@ -543,9 +708,21 @@ interface IMALAnime {
  * @since 1.4.3
  */
 interface IMALManga {
+  /**
+   * The ID of this manga. (MyAnimeList related)
+   */
   id: number;
+
+  /**
+   * The main title.
+   */
   title: string;
+
+  /**
+   * The main picture.
+   */
   main_picture: IMALMainPicture;
+
   alternative_titles: IMALAlternativeTitles;
   start_date: string | null;
   end_date: string | null;
@@ -555,6 +732,7 @@ interface IMALManga {
   popularity: number | null;
   num_list_users: number;
   num_scoring_users: number;
+
   /**
    * The different NSFW categories of MyAnimeList.
    *
@@ -563,6 +741,7 @@ interface IMALManga {
    * - `black` : *This work is not safe for work*
    */
   nsfw: TMALNsfwCategories | null;
+
   created_at: Date;
   updated_at: Date;
   media_type: TMMLMediaTypes;
@@ -578,16 +757,10 @@ interface IMALManga {
       last_name: string;
     };
   }[];
-  broadcast: {
-    day_of_the_week: string;
-    start_time: string | null;
-  };
+  broadcast: IMALBroadCast;
   source: string;
   average_episode_duration: number;
-  pictures: {
-    medium: string;
-    large: string | null;
-  }[];
+  pictures: IMALMainPicture;
   background: string | null;
   related_anime: IMALNode[];
   related_manga: IMALNode[];
@@ -612,7 +785,7 @@ interface IMALManga {
 type IMALList<
   M extends Readonly<IMALAnime | IMALManga>,
   F extends readonly TMALFields<M>[],
-  A extends Readonly<IMALRankingRes | IMALSeasonRes | {}>
+  A extends Readonly<IMALRankingRes | IMALSeasonRes | {}>,
 > = {
   data: {
     node: Pick<M, F[number]> & {
@@ -695,7 +868,7 @@ declare class MyAnimeList {
    */
   find<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
     params: IMALFind & { fields?: F },
-    handleError?: IMALHandleError
+    handleError?: IMALHandleError,
   ): Promise<Readonly<IMALList<IMALAnime, F, {}>> | undefined>;
 
   /**
@@ -710,7 +883,7 @@ declare class MyAnimeList {
    */
   details<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
     params: IMALDetails & { fields?: F },
-    handleError?: IMALHandleError
+    handleError?: IMALHandleError,
   ): Promise<
     | Readonly<
         Pick<IMALAnime, F[number]> & {
@@ -736,7 +909,7 @@ declare class MyAnimeList {
    */
   ranking<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
     params: IMALRanking & { fields?: F },
-    handleError?: IMALHandleError
+    handleError?: IMALHandleError,
   ): Promise<Readonly<IMALList<IMALAnime, F, IMALRankingRes>> | undefined>;
 
   /**
@@ -751,7 +924,7 @@ declare class MyAnimeList {
    */
   seasonal<F extends readonly TMALFields<IMALAnime>[] = readonly []>(
     params: IMALSeason & { fields?: F },
-    handleError?: IMALHandleError
+    handleError?: IMALHandleError,
   ): Promise<Readonly<IMALList<IMALAnime, F, IMALSeasonRes>> | undefined>;
 }
 
@@ -820,7 +993,7 @@ declare class MyMangaList {
    */
   find<F extends readonly TMALFields<IMALManga>[] = readonly []>(
     params: IMALFind & { fields?: F },
-    handleError?: IMALHandleError
+    handleError?: IMALHandleError,
   ): Promise<Readonly<IMALList<IMALManga, F, {}>> | undefined>;
 
   /**
@@ -835,7 +1008,7 @@ declare class MyMangaList {
    */
   details<F extends readonly TMALFields<IMALManga>[] = readonly []>(
     params: IMMLDetails & { fields?: F },
-    handleError?: IMALHandleError
+    handleError?: IMALHandleError,
   ): Promise<
     | Readonly<
         Pick<IMALManga, F[number]> & {
@@ -862,13 +1035,14 @@ declare class MyMangaList {
    */
   ranking<F extends readonly TMALFields<IMALManga>[] = readonly []>(
     params: IMMLRanking & { fields?: F },
-    handleError?: IMALHandleError
+    handleError?: IMALHandleError,
   ): Promise<Readonly<IMALList<IMALManga, F, IMALRankingRes>> | undefined>;
 }
 
 export { MyAnimeList, MyMangaList };
 
 export type {
+  // Interfaces
   IMALAlternativeTitles,
   IMALAnime,
   IMALBasicParams,
@@ -891,6 +1065,8 @@ export type {
   IMMLDetails,
   IMMLMyListStatus,
   IMMLRanking,
+
+  // Types
   TMALFields,
   TMALMediaTypes,
   TMALNsfwCategories,
