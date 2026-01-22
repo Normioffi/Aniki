@@ -26,6 +26,12 @@ With pnpm
 pnpm i aniki@latest
 ```
 
+<small style="font-size: 12.5px">I'm still wondering why some of you guys are still using the 1.3.5 version....</small>
+
+## New beta soon
+
+I'm actually working on a new **beta** version that may come _in the next few weeks_, _stay tuned!!_
+
 # API used
 
 - Kitsu.app
