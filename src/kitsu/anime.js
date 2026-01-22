@@ -71,7 +71,7 @@ class AnimeKitsu {
 
       if (params.limit > 20)
         throw new ReferenceError(
-          "Parameter 'limit' must be less or equal to 20."
+          "Parameter 'limit' must be less or equal to 20.",
         );
 
       Object.assign(parameters, { "page[limit]": params.limit });
@@ -82,7 +82,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'ageRating' must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
         throw new ReferenceError(
-          "Invalid value(s) in the 'ageRating' parameter."
+          "Invalid value(s) in the 'ageRating' parameter.",
         );
 
       Object.assign(parameters, { "filter[ageRating]": params.ageRating });
@@ -93,7 +93,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
         throw new ReferenceError(
-          "Invalid value(s) in the 'subtype' parameter."
+          "Invalid value(s) in the 'subtype' parameter.",
         );
 
       Object.assign(parameters, { "filter[subtype]": params.subtype });
@@ -108,34 +108,34 @@ class AnimeKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "First value (index 0) of the 'averageRating' parameter must be specified."
+          "First value (index 0) of the 'averageRating' parameter must be specified.",
         );
 
       if (Number.isNaN(p[0]))
         throw new TypeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`,
         );
       else if (!Number.isInteger(p[0]))
         throw new TypeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be an integer.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be an integer.`,
         );
 
       if (Number.isNaN(sec))
         throw new TypeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be a number.`
+          `Parameter 'averageRating' index 1 (${sec}) must be a number.`,
         );
-      else if (!Number.isInteger(p[0]))
+      else if (!Number.isInteger(sec))
         throw new TypeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be an integer.`
+          `Parameter 'averageRating' index 1 (${sec}) must be an integer.`,
         );
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`,
         );
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`,
         );
 
       Object.assign(parameters, {
@@ -160,34 +160,34 @@ class AnimeKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "First value (index 0) of the 'year' parameter must be specified."
+          "First value (index 0) of the 'year' parameter must be specified.",
         );
 
       if (Number.isNaN(p[0]))
         throw new TypeError(
-          `Parameter 'year' index 0 (${p[0]}) must be a number.`
+          `Parameter 'year' index 0 (${p[0]}) must be a number.`,
         );
       else if (!Number.isInteger(p[0]))
         throw new TypeError(
-          `Parameter 'year' index 0 (${p[0]}) must be an integer.`
+          `Parameter 'year' index 0 (${p[0]}) must be an integer.`,
         );
 
       if (Number.isNaN(sec))
         throw new TypeError(
-          `Parameter 'year' index 1 (${sec}) must be a number.`
+          `Parameter 'year' index 1 (${sec}) must be a number.`,
         );
       else if (!Number.isInteger(sec))
         throw new TypeError(
-          `Parameter 'year' index 1 (${sec}) must be an integer.`
+          `Parameter 'year' index 1 (${sec}) must be an integer.`,
         );
 
       if (p[0] < 1907 || p[0] > 2027)
         throw new RangeError(
-          `Parameter 'year' index 0 (${p[0]}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) must be lower than 1907 or greater than 2027.`,
         );
       if (sec < 1907 || sec > 2027)
         throw new RangeError(
-          `Parameter 'year' index 1 (${sec}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) must be lower than 1907 or greater than 2027.`,
         );
 
       Object.assign(parameters, {
@@ -200,7 +200,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'streamers' must be an array.");
       if (!isSameArray(params.streamers, KStreamers))
         throw new ReferenceError(
-          "Invalid value(s) in the 'streamers' parameter."
+          "Invalid value(s) in the 'streamers' parameter.",
         );
       Object.assign(parameters, { "filter[streamers]": params.streamers });
     }
@@ -210,7 +210,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'categories' must be an array.");
       if (!isSameArray(params.categories, KACategories))
         throw new ReferenceError(
-          "Invalid value(s) in the 'categories' parameter."
+          "Invalid value(s) in the 'categories' parameter.",
         );
 
       Object.assign(parameters, { "filter[categories]": params.categories });
@@ -265,7 +265,7 @@ class AnimeKitsu {
 
       if (params.limit > 20)
         throw new ReferenceError(
-          "Parameter 'limit' must be less or equal to 20."
+          "Parameter 'limit' must be less or equal to 20.",
         );
 
       Object.assign(parameters, { "page[limit]": params.limit });
@@ -276,7 +276,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'ageRating' must be an array.");
       if (!isSameArray(params.ageRating, KAgeRating))
         throw new ReferenceError(
-          "Invalid value(s) in the 'ageRating' parameter."
+          "Invalid value(s) in the 'ageRating' parameter.",
         );
 
       Object.assign(parameters, { "filter[ageRating]": params.ageRating });
@@ -287,7 +287,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'subtype' must be an array.");
       if (!isSameArray(params.subtype, KASubtypes))
         throw new ReferenceError(
-          "Invalid value(s) in the 'subtype' parameter."
+          "Invalid value(s) in the 'subtype' parameter.",
         );
 
       Object.assign(parameters, { "filter[subtype]": params.subtype });
@@ -302,34 +302,34 @@ class AnimeKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "First value (index 0) of the 'averageRating' parameter must be specified."
+          "First value (index 0) of the 'averageRating' parameter must be specified.",
         );
 
       if (Number.isNaN(p[0]))
         throw new TypeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be a number.`,
         );
       else if (!Number.isInteger(p[0]))
         throw new TypeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be an integer.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be an integer.`,
         );
 
       if (Number.isNaN(sec))
         throw new TypeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be a number.`
+          `Parameter 'averageRating' index 1 (${sec}) must be a number.`,
         );
-      else if (!Number.isInteger(p[0]))
+      else if (!Number.isInteger(sec))
         throw new TypeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be an integer.`
+          `Parameter 'averageRating' index 1 (${sec}) must be an integer.`,
         );
 
       if (p[0] < 5 || p[0] > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 0 (${p[0]}) must be lower than 5 or greater than 100.`,
         );
       if (sec < 5 || sec > 100)
         throw new RangeError(
-          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`
+          `Parameter 'averageRating' index 1 (${sec}) must be lower than 5 or greater than 100.`,
         );
 
       Object.assign(parameters, {
@@ -355,34 +355,34 @@ class AnimeKitsu {
 
       if (!p[0])
         throw new ReferenceError(
-          "First value (index 0) of the 'year' parameter must be specified."
+          "First value (index 0) of the 'year' parameter must be specified.",
         );
 
       if (Number.isNaN(p[0]))
         throw new TypeError(
-          `Parameter 'year' index 0 (${p[0]}) must be a number.`
+          `Parameter 'year' index 0 (${p[0]}) must be a number.`,
         );
       else if (!Number.isInteger(p[0]))
         throw new TypeError(
-          `Parameter 'year' index 0 (${p[0]}) must be an integer.`
+          `Parameter 'year' index 0 (${p[0]}) must be an integer.`,
         );
 
       if (Number.isNaN(sec))
         throw new TypeError(
-          `Parameter 'year' index 1 (${sec}) must be a number.`
+          `Parameter 'year' index 1 (${sec}) must be a number.`,
         );
       else if (!Number.isInteger(sec))
         throw new TypeError(
-          `Parameter 'year' index 1 (${sec}) must be an integer.`
+          `Parameter 'year' index 1 (${sec}) must be an integer.`,
         );
 
       if (p[0] < 1907 || p[0] > 2027)
         throw new RangeError(
-          `Parameter 'year' index 0 (${p[0]}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 0 (${p[0]}) must be lower than 1907 or greater than 2027.`,
         );
       if (sec < 1907 || sec > 2027)
         throw new RangeError(
-          `Parameter 'year' index 1 (${sec}) must be lower than 1907 or greater than 2027.`
+          `Parameter 'year' index 1 (${sec}) must be lower than 1907 or greater than 2027.`,
         );
 
       Object.assign(parameters, {
@@ -395,7 +395,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'streamers' must be an array.");
       if (!isSameArray(params.streamers, KStreamers))
         throw new ReferenceError(
-          "Invalid value(s) in the 'streamers' parameter."
+          "Invalid value(s) in the 'streamers' parameter.",
         );
 
       Object.assign(parameters, { "filter[streamers]": params.streamers });
@@ -406,7 +406,7 @@ class AnimeKitsu {
         throw new TypeError("Parameter 'categories' must be an array.");
       if (!isSameArray(params.categories, KACategories))
         throw new ReferenceError(
-          "Invalid value(s) in the 'categories' parameter."
+          "Invalid value(s) in the 'categories' parameter.",
         );
 
       Object.assign(parameters, { "filter[categories]": params.categories });
