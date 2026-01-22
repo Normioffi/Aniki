@@ -1,7 +1,7 @@
 <div align="center">
 <h1>Aniki</h1>
 <h2>Change Logs</h2>
-All updates (mostly patches) from the recent minor update (0.<b>1</b>.0) can be found in this file.
+All updates (mostly patches) from the recent minor update (0.<i><b>1</b></i>.0) can be found in this file.
 </div>
 
 ## Bugs/Suggestions?
@@ -9,6 +9,13 @@ All updates (mostly patches) from the recent minor update (0.<b>1</b>.0) can be 
 Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
 If you want to suggest me anything, please also make an issue with the "enhancement" label.
+
+# 1.4.4
+
+1. Fixing missing Kitsu interfaces and types that are not being exported.
+2. Fixing `isSameArray` TypeErrors messages.
+3. Code readability improvements.
+4. New Integer `TypeError`s in some properties that does use numbers.
 
 # 1.4.3
 
