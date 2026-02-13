@@ -21,24 +21,24 @@
       "types": "./types/consts/index.d.ts"
     },
     "./kitsu": {
-      "default": "./src/kitsu/index.js",
-      "require": "./src/kitsu/index.js",
-      "types": "./types/kitsu/index.d.ts"
+      "default": "./src/apis/kitsu/index.js",
+      "require": "./src/apis/kitsu/index.js",
+      "types": "./types/apis/kitsu/index.d.ts"
     },
     "./myanimelist": {
-      "default": "./src/myanimelist/index.js",
-      "require": "./src/myanimelist/index.js",
-      "types": "./types/myanimelist/index.d.ts"
+      "default": "./src/apis/myanimelist/index.js",
+      "require": "./src/apis/myanimelist/index.js",
+      "types": "./types/apis/myanimelist/index.d.ts"
     },
     "./waifuim": {
-      "default": "./src/waifuim/index.js",
-      "require": "./src/waifuim/index.js",
-      "types": "./types/waifuim/index.d.ts"
+      "default": "./src/apis/waifuim/index.js",
+      "require": "./src/apis/waifuim/index.js",
+      "types": "./types/apis/waifuim/index.d.ts"
     },
     "./waifuit": {
-      "default": "./src/waifuit/index.js",
-      "require": "./src/waifuit/index.js",
-      "types": "./types/waifuit/index.d.ts"
+      "default": "./src/apis/waifuit/index.js",
+      "require": "./src/apis/waifuit/index.js",
+      "types": "./types/apis/waifuit/index.d.ts"
     }
   },
   "repository": {
