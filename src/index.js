@@ -1,9 +1,10 @@
-const { AnimeKitsu, MangaKitsu } = require("./kitsu");
-const { MyAnimeList, MyMangaList } = require("./myanimelist");
+const { AnimeKitsu, MangaKitsu } = require("./apis/kitsu/index.js");
+const { MyAnimeList, MyMangaList } = require("./apis/myanimelist/index.js");
+const { WaifuIm } = require("./apis/waifuim/index.js");
 
-const { isSameArray } = require("./funcs");
+const { isSameArray } = require("./funcs/index.js");
 
-const { kitsu, myanimelist } = require("./consts");
+const { kitsu, myanimelist } = require("./consts/index.js");
 
 module.exports = {
   // Classes and functions
@@ -12,7 +13,7 @@ module.exports = {
   isSameArray,
   MyAnimeList,
   MyMangaList,
-
+  WaifuIm,
   // Constants
   kitsu,
   myanimelist,
