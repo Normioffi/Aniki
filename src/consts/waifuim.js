@@ -1,4 +1,4 @@
-const WIMUrl = "https://api.waifu.im/search";
+const WIMUrl = "https://api.waifu.im";
 
 const WIMTags = Object.freeze([
   "maid",
