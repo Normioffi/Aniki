@@ -16,14 +16,15 @@ class AnikiCore {
       await beforeRequest(config);
     }
     const res = await fetch(
-      `${config.url}${config.endpoint}${config.parameters}`,
+      `${config.url}${config.endpoint}?${config.parameters}`,
       {
         headers: config.headers,
       },
     );
 
-    if (!res.ok) {
+    if (!res.ok || res.status !== 200) {
       await (onError || this.#defaultHandleError)(await res.json(), res);
+      return;
     }
     if (afterRequest) {
       await afterRequest(res);
