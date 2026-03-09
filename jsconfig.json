@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*", "types/*"]
+    },
+    "checkJs": true
+  },
+  "include": ["src/**/*", "types/**/*"],
+  "exclude": ["node_modules"]
+}

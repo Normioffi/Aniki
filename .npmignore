@@ -6,3 +6,5 @@ node_modules
 .vscode
 CHANGELOG.md
 tsconfig.json
+jsconfig.json
+tsconfig.json
