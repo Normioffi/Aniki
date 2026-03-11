@@ -68,7 +68,7 @@
   "bugs": {
     "url": "https://github.com/Normioffi/Aniki/issues"
   },
-  "homepage": "https://github.com/Normioffi/Aniki#readme",
+  "homepage": "https://github.com/Normioffi/Aniki/tree/beta#readme",
   "dependencies": {
     "node-fetch": "^3.3.2"
   },
