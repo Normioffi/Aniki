@@ -16,7 +16,7 @@ class AnikiCore {
       await beforeRequest(config);
     }
     const res = await fetch(
-      `${config.url}${config.endpoint}?${config.parameters}`,
+      `${config.url}${config.endpoint}${config.parameters ? `?${config.parameters}` : ""}`,
       {
         headers: config.headers,
       },
