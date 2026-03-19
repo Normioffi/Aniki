@@ -1055,6 +1055,7 @@ export type {
   IMALMainPicture,
   IMALManga,
   IMALMyListStatus,
+  IMALNameAndId,
   IMALNode,
   IMALRanking,
   IMALRankingRes,
@@ -1065,7 +1066,6 @@ export type {
   IMMLDetails,
   IMMLMyListStatus,
   IMMLRanking,
-
   // Types
   TMALFields,
   TMALMediaTypes,
