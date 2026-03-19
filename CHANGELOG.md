@@ -10,6 +10,10 @@ Please let me know if there are any **mistakes**/**bugs** by using the [Issues](
 
 If you want to suggest me anything, please also make an issue with the "enhancement" label.
 
+# 1.4.6
+
+1. Adding a missing interface export.
+
 # 1.4.4
 
 1. Fixing missing Kitsu interfaces and types that are not being exported.
