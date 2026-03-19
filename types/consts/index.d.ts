@@ -179,4 +179,33 @@ declare namespace myanimelist {
   };
 }
 
-export { kitsu, myanimelist };
+/**
+ * Namespace for all Waifu.Im constants.
+ * @since 2.0.0-beta.1
+ */
+declare namespace waifuim {
+  /**
+   * Main url for waifu.im
+   * @since 2.0.0-beta.1
+   */
+  const WIMUrl: Readonly<"https://api.waifu.im">;
+
+  const WIMTags: Readonly<string[]>;
+
+  export { WIMTags, WIMUrl };
+}
+
+/**
+ * Namespace for all Waifu.It constants.
+ * @since 2.0.0-beta.1
+ */
+declare namespace waifuit {
+  /**
+   * Main url for waifu.it
+   * @since 2.0.0-beta.1
+   */
+  const WITUrl: Readonly<"https://waifu.it/api/v4/waifu">;
+
+  export { WITUrl };
+}
+export { kitsu, myanimelist, waifuim, waifuit };
