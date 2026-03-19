@@ -11,4 +11,5 @@ const WIMTags = Object.freeze([
   "uniform",
   "kamisato-ayaka",
 ]);
+
 module.exports = { WIMUrl, WIMTags };
