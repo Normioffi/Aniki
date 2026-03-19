@@ -7,4 +7,3 @@ pnpm-lock.yaml
 .vscode
 package-lock.json
 tsconfig.json
-.github
