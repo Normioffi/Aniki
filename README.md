@@ -1,16 +1,26 @@
+<div>
 <div align="center">
   <h1>Aniki</h1>
   <p style="font-size: 15px">Aniki is an easy-to-use NPM module that gets information about your favorite anime and manga.</p>
-
-See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/normal/CHANGELOG.md) for new content.
+</div>
 
   <div class="tags">
     <img alt="NPM Main Version" src="https://img.shields.io/npm/v/aniki"/>
     <img alt="NPM Last update" src="https://img.shields.io/npm/last-update/aniki"/>
     <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/aniki">
     <img alt="GIT Last commit" src="https://img.shields.io/github/last-commit/Normioffi/Aniki">
+
+  </div>
+  <h3>Last beta version and commit:</h3>
+  <div class="tags">
+    <img alt="NPM Beta Version" src="https://img.shields.io/npm/v/aniki/beta"/>
+    <img alt="NPM Last update" src="https://img.shields.io/npm/last-update/aniki/beta"/>
+    <img alt="GIT Last commit" src="https://img.shields.io/github/last-commit/Normioffi/Aniki/beta">
+
   </div>
 </div>
+
+See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/normal/CHANGELOG.md) for new content.
 
 # Installation
 
@@ -25,12 +35,6 @@ With pnpm
 ```pnpm
 pnpm i aniki@latest
 ```
-
-<small style="font-size: 12.5px">I'm still wondering why some of you guys are still using the 1.3.5 version....</small>
-
-## New beta soon
-
-I'm actually working on a new **beta** version that may come _in the next few weeks_, _stay tuned!!_
 
 # API used
 
