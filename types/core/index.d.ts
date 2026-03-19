@@ -11,6 +11,7 @@ import type { IWaifuItError } from "../apis/waifuit/interfaces";
 type ErrorsHook = IWaifuImError | IMALError | IKitsuError | IWaifuItError;
 
 /**
+ * The interface configuration that will be used for the `AnikiCore#fetching` method.
  * @since 2.0.0-beta.1
  */
 interface FetchConfig {
@@ -45,9 +46,9 @@ declare class AnikiCore {
   /**
    * @method
    *
-   * @description d
-   * @param config
-   * @param hooks
+   * @description This method is used as an improved version of the fetch function.
+   * @param config The configuration parameter, will contain the url, endpoint, url parameters and headers.
+   * @param hooks The hooks to execute a few functions before, after a request or once an error occured.
    */
   fetching(
     config: FetchConfig,
@@ -56,4 +57,4 @@ declare class AnikiCore {
 }
 
 export { AnikiCore };
-export type { AnikiHooks, FetchConfig };
+export type { AnikiHooks, ErrorsHook, FetchConfig };
