@@ -765,7 +765,7 @@ interface IMALManga {
  *
  * @since 1.4.3
  */
-type IMALList<
+type TMALList<
   M extends Readonly<IMALAnime | IMALManga>,
   F extends readonly TMALFields<M>[],
   A extends Readonly<IMALRankingRes | IMALSeasonRes | {}>,
@@ -792,7 +792,6 @@ export type {
   IMALDetails,
   IMALError,
   IMALFind,
-  IMALList,
   IMALMainPicture,
   IMALManga,
   IMALMyListStatus,
@@ -810,6 +809,7 @@ export type {
 
   // Types
   TMALFields,
+  TMALList,
   TMALMediaTypes,
   TMALNsfwCategories,
   TMALRankingType,
