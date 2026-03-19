@@ -752,14 +752,14 @@ interface IMALManga {
 }
 
 /**
- * @template M - A readonly model type extending either `IMALAnime` or `IMALManga`.
+ * @template M A readonly model type extending either `IMALAnime` or `IMALManga`.
  *               Determines the shape of each media node.
  *
- * @template F - A readonly array of keys from `M` (filtered through `TMALFields`),
+ * @template F A readonly array of keys from `M` (filtered through `TMALFields`),
  *               specifying which additional fields should be included for each node.
  *               These fields are picked dynamically and merged into the node.
  *
- * @template A - An optional readonly metadata object extending ranking, seasonal,
+ * @template A An optional readonly metadata object extending ranking, seasonal,
  *               or any custom response properties. Used to enrich the response
  *               with extra contextual information.
  *
@@ -796,6 +796,7 @@ export type {
   IMALMainPicture,
   IMALManga,
   IMALMyListStatus,
+  IMALNameAndId,
   IMALNode,
   IMALRanking,
   IMALRankingRes,
