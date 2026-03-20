@@ -1,5 +1,5 @@
 const { WIMUrl, WIMTags } = require("../../consts/waifuim");
-const { isSameArray } = require("../../funcs/index");
+const { isSameArray, isOperatorValid } = require("../../funcs/index");
 const { AnikiCore } = require("../../core/index");
 
 class WaifuIm extends AnikiCore {
@@ -70,20 +70,33 @@ class WaifuIm extends AnikiCore {
     else Object.assign(parameters, { Page: 1 });
 
     if (params.Height) {
-      if (Number.isNaN(params.Height))
-        throw new TypeError(`Parameter 'Height' must be a number.`);
-      else if (!Number.isInteger(params.Height))
-        throw new TypeError(`Parameter 'Height' must be an integer.`);
+      if (typeof params.Height === "string") {
+        if (isOperatorValid(params.Height === false))
+          throw new TypeError(`Parameter 'Height' must use one of those operators: <=, >=, >, <, !=, =
+          Actual value: ${params.Height}`);
+      } else {
+        if (Number.isNaN(params.Height))
+          throw new TypeError("Parameter 'Height' must be a number.");
+        else if (!Number.isInteger(params.Height))
+          throw new TypeError("Parameter 'Height' must be an integer.");
+      }
+
       Object.assign(parameters, {
         Height: params.Height,
       });
     }
 
     if (params.Width) {
-      if (Number.isNaN(params.Width))
-        throw new TypeError(`Parameter 'Width' must be a number.`);
-      else if (!Number.isInteger(params.Width))
-        throw new TypeError(`Parameter 'Width' must be an integer.`);
+      if (typeof params.Width === "string") {
+        if (isOperatorValid(params.Width === false))
+          throw new TypeError(`Parameter 'Width' must use one of those operators: <=, >=, >, <, !=, =
+          Actual value: ${params.Width}`);
+      } else {
+        if (Number.isNaN(params.Width))
+          throw new TypeError("Parameter 'Width' must be a number.");
+        else if (!Number.isInteger(params.Width))
+          throw new TypeError("Parameter 'Width' must be an integer.");
+      }
 
       Object.assign(parameters, {
         Width: params.Width,
