@@ -1,5 +1,6 @@
 /**
  * Namespace of all constants of Kitsu.
+ * @since 1.4.0
  */
 declare namespace kitsu {
   // Anime
@@ -101,6 +102,7 @@ declare namespace kitsu {
 
 /**
  * Namespace of all constants of MyAnimeList.
+ * @since 1.4.0
  */
 declare namespace myanimelist {
   /**
@@ -208,4 +210,5 @@ declare namespace waifuit {
 
   export { WITUrl };
 }
+
 export { kitsu, myanimelist, waifuim, waifuit };
