@@ -3,13 +3,20 @@ import { AnikiCore } from "../../core/index";
 import type { IWaifuIm, IWaifuImError, IWaifuImParams } from "./interfaces";
 /**
  * @class
+ * @extends {AnikiCore} The core for the fetch method.
  * @description This class use the Waifu.Im to get anime or manga waifu with optionals parameters.
  *
  * @since 2.0.0-beta.1
  */
 declare class WaifuIm extends AnikiCore {
   private config: FetchConfig;
-  constructor(accessToken?: string);
+  constructor(
+    access_token?: string,
+    /**
+     * Any supplementary configuration that you need to add for the fetch function.
+     */
+    config?: FetchConfig,
+  );
   /**
    * @method
    * @description Find an waifu with different parameters (only tags like: maid, waifu, marin-kitagawa, mori-calliope, raiden-shogun, oppai, selfies or uniform can be used.) For more informations, go to https://docs.waifu.im/ website.
