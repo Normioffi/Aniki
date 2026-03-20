@@ -10,15 +10,17 @@ import type { IWaifuItError } from "../apis/waifuit/interfaces";
  */
 type ErrorsHook = IWaifuImError | IMALError | IKitsuError | IWaifuItError;
 
+interface HeaderProperty {
+  [name: string | number]: string | number | this;
+}
+
 /**
  * The interface configuration that will be used for the `AnikiCore#fetching` method.
  * @since 2.0.0-beta.1
  */
 interface FetchConfig {
   url: string;
-  headers: {
-    [name: string | number]: string | Object;
-  };
+  headers: HeaderProperty;
   endpoint?: string;
   parameters?: URLSearchParams;
 }
@@ -26,6 +28,7 @@ interface FetchConfig {
 /**
  * Type for hooks that can optionnally be executed before or after a request and on error.
  * @template Err - Generic type for changing the possible error response.
+ *
  * @since 2.0.0-beta.1
  */
 type AnikiHooks<Err extends ErrorsHook | unknown> = {
@@ -36,7 +39,7 @@ type AnikiHooks<Err extends ErrorsHook | unknown> = {
 
 /**
  * @class
- *
+ * @description
  *
  * @since 2.0.0-beta.1
  */
