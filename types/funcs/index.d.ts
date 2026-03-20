@@ -29,4 +29,11 @@
  */
 declare function isSameArray(value: unknown[], valid: unknown[]): boolean;
 
-export { isSameArray };
+/**
+ * @function
+ *
+ * @since 2.0.0-beta.1
+ */
+declare function isOperatorValid(value: unknown): boolean;
+
+export { isOperatorValid, isSameArray };
