@@ -70,16 +70,10 @@ class WaifuIm extends AnikiCore {
     else Object.assign(parameters, { Page: 1 });
 
     if (params.Height) {
-      if (typeof params.Height === "string") {
-        if (isOperatorValid(params.Height === false))
-          throw new TypeError(`Parameter 'Height' must use one of those operators: <=, >=, >, <, !=, =
-          Actual value: ${params.Height}`);
-      } else {
-        if (Number.isNaN(params.Height))
-          throw new TypeError("Parameter 'Height' must be a number.");
-        else if (!Number.isInteger(params.Height))
-          throw new TypeError("Parameter 'Height' must be an integer.");
-      }
+      if (isOperatorValid(params.Height) === false)
+        throw new TypeError(
+          "Parameter 'Height' has not a valid operator with an integer or is not an integer",
+        );
 
       Object.assign(parameters, {
         Height: params.Height,
@@ -87,16 +81,10 @@ class WaifuIm extends AnikiCore {
     }
 
     if (params.Width) {
-      if (typeof params.Width === "string") {
-        if (isOperatorValid(params.Width === false))
-          throw new TypeError(`Parameter 'Width' must use one of those operators: <=, >=, >, <, !=, =
-          Actual value: ${params.Width}`);
-      } else {
-        if (Number.isNaN(params.Width))
-          throw new TypeError("Parameter 'Width' must be a number.");
-        else if (!Number.isInteger(params.Width))
-          throw new TypeError("Parameter 'Width' must be an integer.");
-      }
+      if (isOperatorValid(params.Width) === false)
+        throw new TypeError(
+          "Parameter 'Width' has not a valid operator with an integer or is not an integer",
+        );
 
       Object.assign(parameters, {
         Width: params.Width,
