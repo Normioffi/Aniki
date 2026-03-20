@@ -16,7 +16,7 @@ import type {
 } from "./interfaces";
 /**
  * @class
- * @extends AnikiCore
+ * @extends {AnikiCore} The core for the fetch method.
  * @description A client class for interacting with the MyAnimeList API to retrieve anime information.
  * @constructor
  *
@@ -52,23 +52,34 @@ import type {
  */
 declare class MyAnimeList extends AnikiCore {
   private config: FetchConfig;
-
-  constructor({
-    client_id,
-  }: {
+  constructor(
+    {
+      client_id,
+    }: {
+      /**
+       *  Your MyAnimeList API `client_id` (https://myanimelist.net/apiconfig)
+       */
+      client_id: string;
+    },
     /**
-     *  Your MyAnimeList API `client_id` (https://myanimelist.net/apiconfig)
+     * Any supplementary configuration that you need to add for the fetch function.
      */
-    client_id: string;
-  });
-  constructor({
-    access_token,
-  }: {
+    config?: FetchConfig,
+  );
+  constructor(
+    {
+      access_token,
+    }: {
+      /**
+       *  An `access_token` belonging to an authenticated user.
+       */
+      access_token: string;
+    },
     /**
-     *  An `access_token` belonging to an authenticated user.
+     * Any supplementary configuration that you need to add for the fetch function.
      */
-    access_token: string;
-  });
+    config?: FetchConfig,
+  );
 
   /**
    * @method
@@ -148,7 +159,7 @@ declare class MyAnimeList extends AnikiCore {
 
 /**
  * @class
- * @extends {AnikiCore}
+ * @extends {AnikiCore} The core for the fetch method.
  *
  * @description A client class for interacting with the MyAnimeList API to retrieve manga information.
  * @constructor
@@ -183,22 +194,34 @@ declare class MyAnimeList extends AnikiCore {
  */
 declare class MyMangaList extends AnikiCore {
   private config: FetchConfig;
-  constructor({
-    client_id,
-  }: {
+  constructor(
+    {
+      client_id,
+    }: {
+      /**
+       *  Your MyAnimeList API `client_id` (https://myanimelist.net/apiconfig)
+       */
+      client_id: string;
+    },
     /**
-     *  Your MyAnimeList API `client_id` (https://myanimelist.net/apiconfig)
+     * Any supplementary configuration that you need to add for the fetch function.
      */
-    client_id: string;
-  });
-  constructor({
-    access_token,
-  }: {
+    config?: FetchConfig,
+  );
+  constructor(
+    {
+      access_token,
+    }: {
+      /**
+       *  An `access_token` belonging to an authenticated user.
+       */
+      access_token: string;
+    },
     /**
-     *  An `access_token` belonging to an authenticated user.
+     * Any supplementary configuration that you need to add for the fetch function.
      */
-    access_token: string;
-  });
+    config?: FetchConfig,
+  );
 
   /**
    * @method

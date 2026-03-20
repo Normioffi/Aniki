@@ -21,6 +21,7 @@ import type {
 // Main classes.
 /**
  * @class
+ * @extends {AnikiCore} The core for the fetch method.
  * @description A class using the Kitsu.app API to retrieve anime information with multiple methods.
  * @constructor
  *
@@ -33,7 +34,7 @@ import type {
  * import { AnimeKitsu } from "aniki";
  *
  * const anime = new AnimeKitsu();
- * const anime = new AnimeKitsu("accessToken123");
+ * const anime = new AnimeKitsu("access_token123");
  *
  * anime.find({ query: "Oshi no Ko" }).then(a => console.log(a.data[0]));
  * anime.find(3163).then(a => console.log(a.data));
@@ -44,7 +45,13 @@ import type {
 declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
   private config: FetchConfig;
 
-  constructor(accessToken?: AT);
+  constructor(
+    access_token?: AT,
+    /**
+     * Any supplementary configuration that you need to add for the fetch function.
+     */
+    config?: FetchConfig,
+  );
 
   /**
    * @method
@@ -140,7 +147,7 @@ declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
 
 /**
  * @class
- * @extends {AnikiCore}
+ * @extends {AnikiCore} The core for the fetch method.
  *
  * @description A class using the Kitsu.app API to retrieve manga information with multiple methods.
  * @constructor
@@ -162,7 +169,13 @@ declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
 declare class MangaKitsu<AT extends string = ""> extends AnikiCore {
   private config: FetchConfig;
 
-  constructor(accessToken?: AT);
+  constructor(
+    access_token?: AT,
+    /**
+     * Any supplementary configuration that you need to add for the fetch function.
+     */
+    config?: FetchConfig,
+  );
 
   // Methods
   /**
