@@ -13,7 +13,7 @@ const { isSameArray } = require("../../funcs/index.js");
 class AnimeKitsu extends AnikiCore {
   #config = {};
 
-  constructor(accessToken, config) {
+  constructor(access_token, config) {
     super();
     let defaultConfig = {
       url: KUrl,
@@ -21,14 +21,14 @@ class AnimeKitsu extends AnikiCore {
         ...KHeaders,
       },
     };
-    if (accessToken) {
-      if (typeof accessToken !== "string")
-        throw new TypeError("'accessToken' must be a string.");
+    if (access_token) {
+      if (typeof access_token !== "string")
+        throw new TypeError("'access_token' must be a string.");
       if (config)
         this.#config = {
           ...defaultConfig,
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${access_token}`,
           },
           ...config,
         };
@@ -36,7 +36,7 @@ class AnimeKitsu extends AnikiCore {
         this.#config = {
           ...defaultConfig,
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${access_token}`,
           },
         };
     }
