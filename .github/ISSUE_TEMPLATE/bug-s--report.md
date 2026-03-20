@@ -1,10 +1,9 @@
 ---
 name: Bug(s) report
 about: Making a bug report to help me fixing things.
-title: ''
+title: ""
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 **Describe the bug**
@@ -17,4 +16,5 @@ If applicable, add screenshots to help explain your problem.
 
 **Environnement**
 NodeJs version:
+Aniki version:
 Using a framework?:
