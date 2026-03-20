@@ -44,3 +44,5 @@ anime.find(
 6. New constants.
 7. Renaming IMALList to TMALList (since it was a type from the beginning.)
 8. New namespaces (waifuim and waifuit)
+9. Renaming methods (list > findMany ; findById > findUnique
+10. New `isOperatorValid` function.
