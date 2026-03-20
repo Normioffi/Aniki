@@ -1366,7 +1366,7 @@ interface IKitsuAnime {
   }[];
 }
 /**
- * This interface is the JSON response of the AnimeKitsu#findById Promise (single object)
+ * This interface is the JSON response of the AnimeKitsu#findUnique Promise (single object)
  * @since 1.3.0
  */
 interface IKitsuAnimeSingle {
@@ -1374,7 +1374,7 @@ interface IKitsuAnimeSingle {
    * Get the content of the request.
    * @example
    * ```js
-   * anime.findById({ query: "oshi no ko", offset: 0 }).then(r => console.log(r.data)). { id: "...", type: "anime", links: { self: "..." } attributes: { ... }, ...}
+   * anime.findUnique({ query: "oshi no ko", offset: 0 }).then(r => console.log(r.data)). { id: "...", type: "anime", links: { self: "..." } attributes: { ... }, ...}
    * ```
    */
   data: {
@@ -1767,7 +1767,7 @@ interface IKitsuManga {
 }
 
 /**
- * This interface is the JSON response of the `MangaKitsu#findById` Promise (single object).
+ * This interface is the JSON response of the `MangaKitsu#findUnique` Promise (single object).
  * @since 1.3.0
  */
 interface IKitsuMangaSingle {

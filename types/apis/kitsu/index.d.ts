@@ -33,12 +33,20 @@ import type {
  * // ESM / TS
  * import { AnimeKitsu } from "aniki";
  *
- * const anime = new AnimeKitsu();
- * const anime = new AnimeKitsu("access_token123");
+ *
+ * // If you got an access token with your custom auth system:
+ * const anime = new AnimeKitsu("abdcefg123456789");
+ *
+ * //Need to add things in the configuration?
+ * const anime = new AnimeKitsu("", {
+ *  headers: {
+ *    // ...
+ *  }
+ * })
  *
  * anime.find({ query: "Oshi no Ko" }).then(a => console.log(a.data[0]));
  * anime.find(3163).then(a => console.log(a.data));
- * anime.findById(3600).then(a => console.log(a.data));
+ * anime.findUnique(3600).then(a => console.log(a.data));
  *
  * @since 1.0.2
  */
@@ -92,7 +100,7 @@ declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
    *
    * @since 1.3.0
    */
-  findById(
+  findUnique(
     id: number | `${number}`,
     hooks: AnikiHooks<IKitsuError>,
   ): Promise<Readonly<IKitsuAnimeSingle> | undefined>;
@@ -109,7 +117,7 @@ declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
    * @since 1.0.2
    *
    */
-  list(
+  findMany(
     params: TKitsuAnimeList<AT>,
     hooks: AnikiHooks<IKitsuError>,
   ): Promise<Readonly<IKitsuAnime> | undefined>;
@@ -161,8 +169,19 @@ declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
  * import { MangaKitsu } from "aniki";
  *
  * const manga = new MangaKitsu();
+ *
+ * // If you got an access token with your custom auth system:
+ * const manga = new MangaKitsu("abdcefg123456789");
+ *
+ * //Need to add things in the configuration?
+ * const manga = new MangaKitsu("", {
+ *  headers: {
+ *    // ...
+ *  }
+ * })
+ *
  * manga.find({ query: "Oshi no Ko" }).then(m => console.log(m.data[0]));
- * manga.findById(3600).then(m => console.log(m.data));
+ * manga.findUnique(3600).then(m => console.log(m.data));
  *
  * @since 1.0.2
  */
@@ -218,7 +237,7 @@ declare class MangaKitsu<AT extends string = ""> extends AnikiCore {
    *
    * @since 1.3.0
    */
-  findById(
+  findUnique(
     id: number | `${number}`,
     hooks: AnikiHooks<IKitsuError>,
   ): Promise<Readonly<IKitsuMangaSingle> | undefined>;
@@ -233,7 +252,7 @@ declare class MangaKitsu<AT extends string = ""> extends AnikiCore {
    *
    * @since 1.0.2
    */
-  list(
+  findMany(
     params: TKitsuMangaList<AT>,
     hooks: AnikiHooks<IKitsuError>,
   ): Promise<Readonly<IKitsuManga> | undefined>;

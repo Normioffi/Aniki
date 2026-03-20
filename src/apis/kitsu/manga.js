@@ -215,7 +215,7 @@ class MangaKitsu extends AnikiCore {
     return;
   }
 
-  async findById(id, hooks) {
+  async findUnique(id, hooks) {
     if (!id) throw new ReferenceError("Parameter 'id' must be specified.");
     if (Number.isNaN(id))
       throw new TypeError("Parameter 'id' must be a number.");
@@ -235,7 +235,7 @@ class MangaKitsu extends AnikiCore {
     return;
   }
 
-  async list(params, hooks) {
+  async findMany(params, hooks) {
     const parameters = {};
 
     if (params.offset) {
