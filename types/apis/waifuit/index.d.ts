@@ -1,6 +1,6 @@
 import type { AnikiHooks, FetchConfig } from "../../core/index";
 import { AnikiCore } from "../../core/index";
-import type { IWaifuItError, IWITAnime, IWITFind } from "./interfaces";
+import type { IWaifuItError, IWITCharacter, IWITFind } from "./interfaces";
 
 /**
  * # WARNING
@@ -27,13 +27,28 @@ declare class WaifuIt extends AnikiCore {
    *
    * @description
    * @param params
-   * @param hooks
+   * @param hooks Object with functions inside to execute code before, after a request and on error.
+   *
    * @since 2.0.0-beta.1
    */
-  find(
+  findWaifu(
     params: IWITFind,
     hooks?: AnikiHooks<IWaifuItError>,
-  ): Promise<Readonly<IWITAnime> | undefined>;
+  ): Promise<Readonly<IWITCharacter> | undefined>;
+
+  /**
+   * @method
+   *
+   * @description
+   * @param params
+   * @param hooks Object with functions inside to execute code before, after a request and on error.
+   *
+   * @since 2.0.0-beta.1
+   */
+  findHusbando(
+    params: IWITFind,
+    hooks?: AnikiHooks<IWaifuItError>,
+  ): Promise<Readonly<IWITCharacter> | undefined>;
 }
 
 export type * from "./interfaces";

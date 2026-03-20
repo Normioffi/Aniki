@@ -35,7 +35,7 @@ class WaifuIt extends AnikiCore {
         },
       };
   }
-  async find(params, hooks) {
+  async findWaifu(params, hooks) {
     const parameters = {};
     if (params.name) {
       Object.assign(parameters, { name: params.name });
@@ -51,6 +51,30 @@ class WaifuIt extends AnikiCore {
       {
         ...this.#config,
         endpoint: "/waifu",
+        parameters: p,
+      },
+      hooks,
+    );
+    if (res) return res.json();
+    return;
+  }
+
+  async findHusbando(params, hooks) {
+    const parameters = {};
+    if (params.name) {
+      Object.assign(parameters, { name: params.name });
+    }
+    if (params.anime) {
+      Object.assign(parameters, { anime: params.anime });
+    }
+
+    // @ts-ignore
+    const p = new URLSearchParams(parameters);
+
+    const res = await super.fetching(
+      {
+        ...this.#config,
+        endpoint: "/husbando",
         parameters: p,
       },
       hooks,
