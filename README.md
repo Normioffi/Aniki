@@ -26,18 +26,16 @@ With pnpm
 pnpm i aniki@beta
 ```
 
-<small style="font-size: 12.5px">I'm still wondering why some of you guys are still using the 1.3.5 version....</small>
+## Beta
 
-## Beta version
-
-This version is a beta version, can be more bugged than the main version. (or vice-versa)
+This version is currently being in beta, it may could contain more bugs than the main version. Updates may be more regular too!
 
 # APIs used
 
 - Kitsu.app
 - MyAnimeList.net (Need a client ID? Check [here](https://myanimelist.net/apiconfig))
 - WaifuIm
-- WaifuIt
+- WaifuIt (Note: This API is currently down for some reason, it will stay in the beta version without being tested and published in the main version.)
 
 ## Authentification
 
@@ -62,7 +60,7 @@ import { AnimeKitsu } from "aniki";
 
 const anime = new AnimeKitsu();
 
-// With an accessToken
+// With an access_token
 // If you have one, you'll be able to use the R18 rating category on the find and list age rating parameter.
 // I do not take any responsibility for users who use the unrestricted content.
 const anime = new AnimeKitsu("abCdEfgHiJK12345");
@@ -73,12 +71,12 @@ anime
   .then((r) => console.log(r.data[0]));
 
 // All list from the first page (limited by 10 result)
-anime.list({ offset: 0, limit: 10 }).then((results) => {
+anime.findMany({ offset: 0, limit: 10 }).then((results) => {
   console.log(results.data);
 });
 
 // Find anime with ID
-anime.findById(2303).then((result) => {
+anime.findUnique(2303).then((result) => {
   console.log(result.data);
 });
 // Alternative
@@ -91,11 +89,27 @@ anime.episode(2302).then((result) => {
   console.log(result.data);
 });
 
-// Handling API errors
+// Using hooks
 anime
-  .find({ query: "Oshi no ko" }, async (apiError, res) => {
-    if (apiError) console.error(await apiError);
-  })
+  .find(
+    { query: "Oshi no ko" },
+    {
+      beforeRequest: async (config) => {
+        console.log("Before request with the url: " + config.url);
+        // ...
+      },
+      onError: async (err, res) => {
+        if (res.status === 404)
+          console.error(`The requested content was not found!
+    More details: ${(await err).errors[0].title}`);
+        // ...
+      },
+      afterRequest: async (res) => {
+        console.log("Request done!");
+        // ...
+      },
+    },
+  )
   .then((r) => console.log(r));
 ```
 
@@ -140,11 +154,39 @@ Example:
 ```js
 anime
   .details(52991, ["created_at", "updated_at"])
-  .then((r) => console.log(r.id, r.title, r.created_at, r.updated_at)); // 52991, Sousou no Frieren, Date, Date
+  .then((r) =>
+    console.log(r.id, r.title, new Date(r.created_at), new Date(r.updated_at)),
+  ); // 52991, Sousou no Frieren, Date, Date
 
 anime
   .details(52991, ["alternative_titles", "background"])
   .then((r) => console.log(r.id, r.title, r.mean)); // 52991, Sousou no Frieren, undefined.
+```
+
+With Waifu.Im:
+
+```javascript
+const { WaifuIm } = require("aniki");
+
+const waifu = new WaifuIm();
+
+waifu
+  .find({ isNsfw: "False", IncludedTags: "maid" })
+  .then((r) => console.log(r));
+```
+
+With Waifu.It:
+This API is currently down.
+
+```javascript
+const { WaifuIt } = require("aniki");
+
+// Access token required!
+const waifu = new WaifuIt("abscsdsd");
+
+waifu.findWaifu({ name: "Tokisaki Kurumi" }).then((r) => console.log(r.id));
+
+waifu.findHusbando({ name: "Sung Jinwoo" }).then((r) => console.log(r.id));
 ```
 
 ## Best practices
@@ -154,7 +196,7 @@ Avoiding multiple awaits (only in **async**!!)
 ```js
 async function getAnimes(query, offset, limit) {
   const a = anime.find({ query: query });
-  const b = anime.list({ offset: offset, limit: limit });
+  const b = anime.findMany({ offset: offset, limit: limit });
 
   const [A, B] = await Promise.all([a, b]);
 }
