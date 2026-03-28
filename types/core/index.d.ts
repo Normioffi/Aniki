@@ -15,7 +15,7 @@ interface HeaderProperty {
 }
 
 /**
- * The interface configuration that will be used for the `AnikiCore#fetching` method.
+ * The interface configuration that will be used for the `fetching#fetching` method.
  * @since 2.0.0-beta.1
  */
 interface FetchConfig {
@@ -37,27 +37,19 @@ type AnikiHooks<Err extends ErrorsHook | unknown> = {
   onError: (error: Promise<Err>, res: Response) => Promise<void>;
 };
 
+declare function defaultHandleError(res: AnikiHooks<undefined>): Promise<Error>;
+
 /**
- * @class
- * @description
+ * @function
  *
- * @since 2.0.0-beta.1
+ * @description This function is used as an improved version of the fetch function.
+ * @param config The configuration parameter, will contain the url, endpoint, url parameters and headers.
+ * @param hooks The hooks to execute a few functions before, after a request or once an error occured.
  */
-declare class AnikiCore {
-  private defaultHandleError: (error) => Promise<void>;
+declare function fetching(
+  config: FetchConfig,
+  hooks: AnikiHooks<undefined>,
+): Promise<Response | undefined>;
 
-  /**
-   * @method
-   *
-   * @description This method is used as an improved version of the fetch function.
-   * @param config The configuration parameter, will contain the url, endpoint, url parameters and headers.
-   * @param hooks The hooks to execute a few functions before, after a request or once an error occured.
-   */
-  fetching(
-    config: FetchConfig,
-    hooks: AnikiHooks<undefined>,
-  ): Promise<Response | undefined>;
-}
-
-export { AnikiCore };
+export { fetching };
 export type { AnikiHooks, ErrorsHook, FetchConfig };

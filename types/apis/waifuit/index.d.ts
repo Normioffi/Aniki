@@ -1,18 +1,16 @@
 import type { AnikiHooks, FetchConfig } from "../../core/index";
-import { AnikiCore } from "../../core/index";
 import type { IWaifuItError, IWITCharacter, IWITFind } from "./interfaces";
 
 /**
  * # WARNING
  * ## This API is currently down for some reason, i will keep it in the beta branch without being tested.
  * @class
- * @extends {AnikiCore} The core for the fetch method.
  * @constructor
  * @description
  *
  * @since 2.0.0-beta.1
  */
-declare class WaifuIt extends AnikiCore {
+declare class WaifuIt {
   private config: FetchConfig;
   constructor(
     access_token: string,

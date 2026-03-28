@@ -1,4 +1,4 @@
-const { AnikiCore } = require("../../core/index.js");
+const { fetching } = require("../../core/index.js");
 const {
   KAgeRating,
   KHeaders,
@@ -10,7 +10,7 @@ const {
 } = require("../../consts/kitsu");
 const { isSameArray } = require("../../funcs/index.js");
 
-class AnimeKitsu extends AnikiCore {
+class AnimeKitsu  {
   #config = {};
 
   constructor(access_token, config) {
@@ -49,7 +49,7 @@ class AnimeKitsu extends AnikiCore {
       throw new ReferenceError("Parameter 'param' must be specified.");
 
     if (typeof params === "number") {
-      const res = await super.fetching(
+      const res = await fetching(
         // @ts-ignore
         {
           ...this.#config,
@@ -230,7 +230,7 @@ class AnimeKitsu extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -251,7 +251,7 @@ class AnimeKitsu extends AnikiCore {
     else if (!Number.isInteger(id))
       throw new TypeError("Parameter 'id' must be an integer.");
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -430,7 +430,7 @@ class AnimeKitsu extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -451,7 +451,7 @@ class AnimeKitsu extends AnikiCore {
     else if (!Number.isInteger(id))
       throw new TypeError("Parameter 'id' must be an integer.");
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -472,7 +472,7 @@ class AnimeKitsu extends AnikiCore {
     else if (!Number.isInteger(mediaId))
       throw new TypeError("Parameter 'mediaId' must be an integer.");
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,

@@ -1,7 +1,7 @@
-const { AnikiCore } = require("../../core/index");
+const { fetching } = require("../../core/index");
 const { WITUrl } = require("../../consts/waifuit");
 
-class WaifuIt extends AnikiCore {
+class WaifuIt  {
   #config = {};
   constructor(access_token, config) {
     if (!access_token)
@@ -47,7 +47,7 @@ class WaifuIt extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/waifu",
@@ -71,7 +71,7 @@ class WaifuIt extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/husbando",

@@ -1,14 +1,12 @@
 import type { AnikiHooks, FetchConfig } from "../../core/index";
-import { AnikiCore } from "../../core/index";
 import type { IWaifuIm, IWaifuImError, IWaifuImParams } from "./interfaces";
 /**
  * @class
- * @extends {AnikiCore} The core for the fetch method.
  * @description This class use the Waifu.Im to get anime or manga waifu with optionals parameters.
  *
  * @since 2.0.0-beta.1
  */
-declare class WaifuIm extends AnikiCore {
+declare class WaifuIm {
   private config: FetchConfig;
   constructor(
     access_token?: string,

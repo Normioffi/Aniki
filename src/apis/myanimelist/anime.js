@@ -1,9 +1,9 @@
 const { myanimelist } = require("../../consts/index.js");
 const { isSameArray } = require("../../funcs/index.js");
 const { MALFields, MALUrl, MALSeason, MALRankingType } = myanimelist;
-const { AnikiCore } = require("../../core/index.js");
+const { fetching } = require("../../core/index.js");
 
-class MyAnimeList extends AnikiCore {
+class MyAnimeList  {
   #config = {};
   #defaultHandleError = async (error) => {
     if (error) console.error("Aniki: Unhandled API error:", await error);
@@ -112,7 +112,7 @@ class MyAnimeList extends AnikiCore {
 
     // @ts-ignore
     const p = new URLSearchParams(parameters);
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/anime",
@@ -145,7 +145,7 @@ class MyAnimeList extends AnikiCore {
 
       fie = params.fields;
     }
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/anime",
@@ -203,7 +203,7 @@ class MyAnimeList extends AnikiCore {
 
     // @ts-ignore
     const p = new URLSearchParams(parameters);
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/anime/ranking",
@@ -287,7 +287,7 @@ class MyAnimeList extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/anime/season",

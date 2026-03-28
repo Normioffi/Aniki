@@ -1,8 +1,8 @@
 const { WIMUrl, WIMTags } = require("../../consts/waifuim");
 const { isSameArray, isOperatorValid } = require("../../funcs/index");
-const { AnikiCore } = require("../../core/index");
+const { fetching } = require("../../core/index");
 
-class WaifuIm extends AnikiCore {
+class WaifuIm  {
   #config = {};
   constructor(config) {
     super();
@@ -94,7 +94,7 @@ class WaifuIm extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/images",

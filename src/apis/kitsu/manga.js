@@ -1,4 +1,4 @@
-const { AnikiCore } = require("../../core/index");
+const { fetching } = require("../../core/index");
 const {
   KMCategoriesUR,
   KMSubtypes,
@@ -8,7 +8,7 @@ const {
 } = require("../../consts/kitsu");
 const { isSameArray } = require("../../funcs/index");
 
-class MangaKitsu extends AnikiCore {
+class MangaKitsu  {
   #config = {};
 
   constructor(access_token, config) {
@@ -44,7 +44,7 @@ class MangaKitsu extends AnikiCore {
     const parameters = {};
 
     if (typeof params === "number") {
-      const res = await super.fetching(
+      const res = await fetching(
         // @ts-ignore
         {
           ...this.#config,
@@ -201,7 +201,7 @@ class MangaKitsu extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -222,7 +222,7 @@ class MangaKitsu extends AnikiCore {
     else if (!Number.isInteger(id))
       throw new TypeError("Parameter 'id' must be an integer.");
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -375,7 +375,7 @@ class MangaKitsu extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -396,7 +396,7 @@ class MangaKitsu extends AnikiCore {
     else if (!Number.isInteger(id))
       throw new TypeError("Parameter 'id' must be an integer.");
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,
@@ -417,7 +417,7 @@ class MangaKitsu extends AnikiCore {
     else if (!Number.isInteger(mangaId))
       throw new TypeError("Parameter 'mangaId' must be an integer.");
 
-    const res = await super.fetching(
+    const res = await fetching(
       // @ts-ignore
       {
         ...this.#config,

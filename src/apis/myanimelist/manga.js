@@ -1,9 +1,9 @@
-const { AnikiCore } = require("../../core/index.js");
+const { fetching } = require("../../core/index.js");
 const { myanimelist } = require("../../consts/index.js");
 const { isSameArray } = require("../../funcs/index.js");
 const { MMLFields, MALUrl, MMLRankingType } = myanimelist;
 
-class MyMangaList extends AnikiCore {
+class MyMangaList  {
   #config = {};
   constructor({ client_id, access_token }, config) {
     super();
@@ -101,7 +101,7 @@ class MyMangaList extends AnikiCore {
     }
     // @ts-ignore
     const p = new URLSearchParams(parameters);
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/manga",
@@ -134,7 +134,7 @@ class MyMangaList extends AnikiCore {
       fie = params.fields;
     }
 
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: `/manga/${params.manga_id}`,
@@ -192,7 +192,7 @@ class MyMangaList extends AnikiCore {
     // @ts-ignore
     const p = new URLSearchParams(parameters);
 
-    const res = await super.fetching(
+    const res = await fetching(
       {
         ...this.#config,
         endpoint: "/manga/ranking",

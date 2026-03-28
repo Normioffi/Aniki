@@ -1,4 +1,4 @@
-import { AnikiCore, AnikiHooks, FetchConfig } from "../../core/index";
+import { AnikiHooks, FetchConfig } from "../../core/index";
 import type {
   IMALAnime,
   IMALDetails,
@@ -16,7 +16,6 @@ import type {
 } from "./interfaces";
 /**
  * @class
- * @extends {AnikiCore} The core for the fetch method.
  * @description A client class for interacting with the MyAnimeList API to retrieve anime information.
  * @constructor
  *
@@ -50,7 +49,7 @@ import type {
  *
  * @since 1.4.0
  */
-declare class MyAnimeList extends AnikiCore {
+declare class MyAnimeList {
   private config: FetchConfig;
   constructor(
     {
@@ -159,7 +158,6 @@ declare class MyAnimeList extends AnikiCore {
 
 /**
  * @class
- * @extends {AnikiCore} The core for the fetch method.
  *
  * @description A client class for interacting with the MyAnimeList API to retrieve manga information.
  * @constructor
@@ -192,7 +190,7 @@ declare class MyAnimeList extends AnikiCore {
  *
  * @since 1.4.3
  */
-declare class MyMangaList extends AnikiCore {
+declare class MyMangaList {
   private config: FetchConfig;
   constructor(
     {

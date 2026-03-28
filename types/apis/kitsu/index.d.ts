@@ -1,6 +1,6 @@
 // Handling errors
 
-import { AnikiCore, AnikiHooks, FetchConfig } from "../../core/index";
+import { AnikiHooks, FetchConfig } from "../../core/index";
 import type {
   // Interfaces
   IKitsuAnime,
@@ -21,7 +21,6 @@ import type {
 // Main classes.
 /**
  * @class
- * @extends {AnikiCore} The core for the fetch method.
  * @description A class using the Kitsu.app API to retrieve anime information with multiple methods.
  * @constructor
  *
@@ -50,7 +49,7 @@ import type {
  *
  * @since 1.0.2
  */
-declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
+declare class AnimeKitsu<AT extends string = ""> {
   private config: FetchConfig;
 
   constructor(
@@ -155,7 +154,6 @@ declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
 
 /**
  * @class
- * @extends {AnikiCore} The core for the fetch method.
  *
  * @description A class using the Kitsu.app API to retrieve manga information with multiple methods.
  * @constructor
@@ -185,7 +183,7 @@ declare class AnimeKitsu<AT extends string = ""> extends AnikiCore {
  *
  * @since 1.0.2
  */
-declare class MangaKitsu<AT extends string = ""> extends AnikiCore {
+declare class MangaKitsu<AT extends string = ""> {
   private config: FetchConfig;
 
   constructor(
