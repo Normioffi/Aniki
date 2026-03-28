@@ -5,9 +5,7 @@ const { fetching } = require("../../core/index.js");
 
 class MyAnimeList {
   #config = {};
-  #defaultHandleError = async (error) => {
-    if (error) console.error("Aniki: Unhandled API error:", await error);
-  };
+
   constructor({ client_id, access_token }, config) {
     const defaultConfig = {
       url: MALUrl,
