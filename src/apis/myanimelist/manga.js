@@ -3,10 +3,9 @@ const { myanimelist } = require("../../consts/index.js");
 const { isSameArray } = require("../../funcs/index.js");
 const { MMLFields, MALUrl, MMLRankingType } = myanimelist;
 
-class MyMangaList  {
+class MyMangaList {
   #config = {};
   constructor({ client_id, access_token }, config) {
-    super();
     const defaultConfig = {
       url: MALUrl,
       headers: {

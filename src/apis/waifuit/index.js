@@ -1,13 +1,12 @@
 const { fetching } = require("../../core/index");
 const { WITUrl } = require("../../consts/waifuit");
 
-class WaifuIt  {
+class WaifuIt {
   #config = {};
   constructor(access_token, config) {
     if (!access_token)
       throw new ReferenceError("'access_token' must be specified.");
 
-    super();
     let defaultConfig = {
       url: WITUrl,
       headers: {

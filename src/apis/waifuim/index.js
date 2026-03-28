@@ -2,10 +2,9 @@ const { WIMUrl, WIMTags } = require("../../consts/waifuim");
 const { isSameArray, isOperatorValid } = require("../../funcs/index");
 const { fetching } = require("../../core/index");
 
-class WaifuIm  {
+class WaifuIm {
   #config = {};
   constructor(config) {
-    super();
     let defaultConfig = {
       url: WIMUrl,
       headers: {

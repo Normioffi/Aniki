@@ -3,13 +3,12 @@ const { isSameArray } = require("../../funcs/index.js");
 const { MALFields, MALUrl, MALSeason, MALRankingType } = myanimelist;
 const { fetching } = require("../../core/index.js");
 
-class MyAnimeList  {
+class MyAnimeList {
   #config = {};
   #defaultHandleError = async (error) => {
     if (error) console.error("Aniki: Unhandled API error:", await error);
   };
   constructor({ client_id, access_token }, config) {
-    super();
     const defaultConfig = {
       url: MALUrl,
       headers: {

@@ -10,11 +10,10 @@ const {
 } = require("../../consts/kitsu");
 const { isSameArray } = require("../../funcs/index.js");
 
-class AnimeKitsu  {
+class AnimeKitsu {
   #config = {};
 
   constructor(access_token, config) {
-    super();
     let defaultConfig = {
       url: KUrl,
       headers: {

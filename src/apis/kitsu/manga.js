@@ -8,11 +8,10 @@ const {
 } = require("../../consts/kitsu");
 const { isSameArray } = require("../../funcs/index");
 
-class MangaKitsu  {
+class MangaKitsu {
   #config = {};
 
   constructor(access_token, config) {
-    super();
     let defaultConfig = {
       url: KUrl,
       headers: {
