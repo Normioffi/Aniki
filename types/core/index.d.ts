@@ -15,7 +15,7 @@ interface HeaderProperty {
 }
 
 /**
- * The interface configuration that will be used for the `fetching#fetching` method.
+ * The interface configuration that will be used for the `fetching` function.
  * @since 2.0.0-beta.1
  */
 interface FetchConfig {
