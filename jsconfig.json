@@ -3,7 +3,7 @@
     "module": "ESNext",
     "target": "ESNext",
     "rootDir": "./src",
-
+    "noImplicitAny": false,
     "checkJs": true,
     "typeRoots": ["../types/index.d.ts"]
   },
