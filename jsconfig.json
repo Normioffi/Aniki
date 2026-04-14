@@ -5,7 +5,7 @@
     "rootDir": "./src",
 
     "checkJs": true,
-    "typeRoots": ["../types"]
+    "typeRoots": ["../types/index.d.ts"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "types"]
