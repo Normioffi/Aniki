@@ -5,4 +5,5 @@ module.exports = {
   ...require("./apis/waifuit/index.js"),
   ...require("./funcs/index.js"),
   ...require("./consts/index.js"),
+  ...require("./apis/danbooru/danbooru.js"),
 };
