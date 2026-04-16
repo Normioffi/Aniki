@@ -52,7 +52,7 @@ This version is currently being in beta, it may could contain more bugs than the
 
 <div align="center">
 
-  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; flex: row">
+  <div style="display: inline-block; gap: 20px; justify-content: center;">
 
 <div style="text-align: center;">
   <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png" width="100" />
