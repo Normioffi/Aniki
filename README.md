@@ -50,33 +50,26 @@ This version is currently being in beta, it may could contain more bugs than the
 
 # Available APIs
 
-<div align="center">
-
-  <div style="display: inline-block; gap: 20px; justify-content: center;">
-
-<div style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png" width="100" />
-  <div><a href="https://myanimelist.net/apiconfig/references/api/v2">MyAnimeList</a></div>
-</div>
-
-<div style="text-align: center;">
-  <img src="https://avatars.githubusercontent.com/u/7648832?s=280&v=4" width="100" />
+<p align="center">
+  <table>
+    <tr>
+    <td align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png" width="100" />
+  <div><a href="https://myanimelist.net/apiconfig/references/api/v2">MyAnimeList</a></div></td>
+      <td align="center">
+        <img src="https://avatars.githubusercontent.com/u/7648832?s=280&v=4" width="100" />
   <div><a href="https://kitsu.docs.apiary.io/#">Kitsu.app</a></div>
-</div>
-
-<div style="text-align: center;">
-  <img src="https://docs.waifu.im/img/favicon.png" width="100" />
+      </td>
+      <td align="center">
+        <img src="https://docs.waifu.im/img/favicon.png" width="100" />
   <div><a href="https://docs.waifu.im/">Waifu.Im</a></div>
-</div>
-
-<div style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Danbooru_icon.png" width="100" />
+      </td>
+      <td align="center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Danbooru_icon.png" width="100" />
   <div><a href="https://danbooru.donmai.us/wiki_pages/help:api">Danbooru</a></div>
-</div>
-
-  </div>
-
-</div>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ## Authentification
 
