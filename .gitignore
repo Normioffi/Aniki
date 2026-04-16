@@ -7,3 +7,12 @@ pnpm-lock.yaml
 .vscode
 package-lock.json
 tsconfig.json
+ignore
+
+# Removing WaifuIt since its deprecation.
+
+./src/apis/waifuit
+
+./types/apis/waifuit
+
+./src/consts/waifuit.js
