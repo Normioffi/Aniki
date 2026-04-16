@@ -35,10 +35,10 @@
       "require": "./src/apis/waifuim/index.js",
       "types": "./types/apis/waifuim/index.d.ts"
     },
-    "./waifuit": {
-      "default": "./src/apis/waifuit/index.js",
-      "require": "./src/apis/waifuit/index.js",
-      "types": "./types/apis/waifuit/index.d.ts"
+    "./danbooru": {
+      "default": "./src/apis/danbooru/danbooru.js",
+      "require": "./src/apis/danbooru/danbooru.js",
+      "types": "./types/apis/danbooru/index.d.ts"
     }
   },
   "repository": {
