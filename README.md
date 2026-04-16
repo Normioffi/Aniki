@@ -149,7 +149,7 @@ anime
 ```
 
 > [!WARNING]
-> Using an `access_token` in the `AnimeKitsu`/`MangaKitsu` classes will unlock R18 (rule 18) features **_IN_** _the API_
+> Using an `access_token` in the `AnimeKitsu`/`MangaKitsu` classes will unlock R18 (rule 18) features **_IN_** _the API_. <br>
 > THIS MODULE CAN RETRIEVE R18 CONTENT FROM THE **_API_**, MISUSE OF THOSE FEATURES IS AT YOUR OWN RISK. **I DO NOT TAKE ANY RESPONSABILITY**.
 
 ## MyAnimeList
@@ -211,6 +211,7 @@ const { WaifuIm } = require("aniki");
 
 const waifu = new WaifuIm();
 
+// Getting simple SFW maid images.
 waifu
   .find({ isNsfw: "False", IncludedTags: "maid" })
   .then((r) => console.log(r));
@@ -219,7 +220,17 @@ waifu
 ## Danbooru
 
 ```javascript
-const { Danbooru } = require("aniki");
+const { Danbooru, PostBuilder } = require("aniki");
+
+const dan = new Danbooru("abcdefgh1234567", {}, true); // access_token, additionnal configuration, is in test mode (URL CHANGE TO TESTBOORU!!)
+
+const posts = dan.posts();
+
+// Creating a post, object mode
+posts.createOne({ id: 3234423 });
+
+// Creating a post, Builder mode
+posts.createOne(new PostBuilder().setId(3234423).setRating("g").setSource(""));
 ```
 
 # License
