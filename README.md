@@ -4,13 +4,31 @@ Node.js API wrapper for anime/manga related content.
 
 See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/beta/CHANGELOG.md) for new content.
 
-  <div class="tags">
-    <img alt="NPM Beta Version" src="https://img.shields.io/npm/v/aniki/beta"/>
-    <img alt="NPM Last update" src="https://img.shields.io/npm/last-update/aniki/beta"/>
-    <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/aniki">
-    <img alt="GIT Last commit" src="https://img.shields.io/github/last-commit/Normioffi/Aniki/beta">
-  </div>
+<div class="tags">
+  <img alt="NPM Beta Version" src="https://img.shields.io/npm/v/aniki/beta"/>
+  <img alt="NPM Last update" src="https://img.shields.io/npm/last-update/aniki/beta"/>
+  <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/aniki">
+  <img alt="GIT Last commit" src="https://img.shields.io/github/last-commit/Normioffi/Aniki/beta">
+  
 </div>
+
+# Table of contents
+
+[Aniki](Aniki)
+
+- [Table of Contents](#table-of-contents)
+- [Install](#installation)
+- [Beta](#beta)
+- [Available APIs](#available-apis)
+
+- [Bugs/suggestions?](#bugs-or-suggestions)
+- [Authentification](#authentification)
+  - [Usage](#usage)
+    - [Kitsu](#kitsu)
+    - [MyAnimeList](#myanimelist)
+    - [Waifu.Im](#waifu.im)
+    - [Danbooru](#danbooru)
+  - [License](#license)
 
 # Installation
 
@@ -30,12 +48,35 @@ pnpm i aniki@beta
 
 This version is currently being in beta, it may could contain more bugs than the main version. Updates may be more regular too!
 
-# APIs used
+# Available APIs
 
-- Kitsu.app
-- MyAnimeList.net (Need a client ID? Check [here](https://myanimelist.net/apiconfig))
-- WaifuIm
-- WaifuIt (Note: This API is currently down for some reason, it will stay in the beta version without being tested and published in the main version.)
+<div align="center">
+
+  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+
+<div style="text-align: center;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png" width="100" />
+  <div><a href="https://myanimelist.net/apiconfig/references/api/v2">MyAnimeList</a></div>
+</div>
+
+<div style="text-align: center;">
+  <img src="https://avatars.githubusercontent.com/u/7648832?s=280&v=4" width="100" />
+  <div><a href="https://kitsu.docs.apiary.io/#">Kitsu.app</a></div>
+</div>
+
+<div style="text-align: center;">
+  <img src="https://docs.waifu.im/img/favicon.png" width="100" />
+  <div><a href="https://docs.waifu.im/">Waifu.Im</a></div>
+</div>
+
+<div style="text-align: center;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Danbooru_icon.png" width="100" />
+  <div><a href="https://danbooru.donmai.us/wiki_pages/help:api">Danbooru</a></div>
+</div>
+
+  </div>
+
+</div>
 
 ## Authentification
 
@@ -43,7 +84,7 @@ If you need to authenticate with the APIs, you have to make **your own** authent
 
 Otherwise, for the `MyAnimeList` and `MyMangaList`, you can still use the `client_id` but it is recommended for tests only if requests appears in the client side.
 
-## Bugs/Suggestions?
+## Bugs or suggestions
 
 Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
@@ -51,7 +92,7 @@ If you want to suggest me anything, please also make an issue with the "enhancem
 
 # Usage
 
-Kitsu:
+## Kitsu
 
 ```js
 const { AnimeKitsu } = require("aniki");
@@ -113,7 +154,7 @@ anime
   .then((r) => console.log(r));
 ```
 
-With MyAnimeList:
+## MyAnimeList
 
 ```js
 const { MyAnimeList } = require("aniki");
@@ -163,7 +204,7 @@ anime
   .then((r) => console.log(r.id, r.title, r.mean)); // 52991, Sousou no Frieren, undefined.
 ```
 
-With Waifu.Im:
+## Waifu.Im
 
 ```javascript
 const { WaifuIm } = require("aniki");
@@ -175,18 +216,10 @@ waifu
   .then((r) => console.log(r));
 ```
 
-With Waifu.It:
-This API is currently down.
+## Danbooru
 
 ```javascript
-const { WaifuIt } = require("aniki");
-
-// Access token required!
-const waifu = new WaifuIt("abscsdsd");
-
-waifu.findWaifu({ name: "Tokisaki Kurumi" }).then((r) => console.log(r.id));
-
-waifu.findHusbando({ name: "Sung Jinwoo" }).then((r) => console.log(r.id));
+const { Danbooru } = require("aniki");
 ```
 
 ## Best practices
@@ -201,3 +234,7 @@ async function getAnimes(query, offset, limit) {
   const [A, B] = await Promise.all([a, b]);
 }
 ```
+
+# License
+
+[MIT License](https://github.com/Normioffi/Aniki/blob/beta/LICENSE) - Normioffi
