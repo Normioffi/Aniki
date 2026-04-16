@@ -46,7 +46,8 @@ pnpm i aniki@beta
 
 ## Beta
 
-This version is currently being in beta, it may could contain more bugs than the main version. Updates may be more regular too!
+> [!NOTE]
+> This version is currently being in beta, it may could contain more bugs than the main version. Updates may be more regular too!
 
 # Available APIs
 
@@ -73,7 +74,8 @@ This version is currently being in beta, it may could contain more bugs than the
 
 ## Authentification
 
-If you need to authenticate with the APIs, you have to make **your own** authentification system, and use the basic `fetch` to use the auth, once you have made your system, you can use the `access_token`s in the classes to make unrestricted requests.
+> [!IMPORTANT]
+> If you need to authenticate with the APIs, you have to make **your own** authentification system, and use the basic `fetch` to use the auth, once you have made your system, you can use the `access_token`s in the classes to make unrestricted requests.
 
 Otherwise, for the `MyAnimeList` and `MyMangaList`, you can still use the `client_id` but it is recommended for tests only if requests appears in the client side.
 
@@ -182,7 +184,9 @@ anime
 // Almost the same for MyMangaList!
 ```
 
-I recommend you to make sure to add your fields depending on your needs, if you don't use the proper fields, some properties that return the API and the Promise will be undefined.
+> [!NOTE]
+> I recommend you to make sure you add any fields depending on your needs, if you don't specify the proper fields, some properties returned by the API will be undefined.
+
 Example:
 
 ```js
