@@ -1,15 +1,14 @@
 # Aniki
 
-Node.js API wrapper for anime/manga related content.
+Node.js APIs wrapper for anime/manga related content.
 
-See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/beta/CHANGELOG.md) for new content.
+See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/beta/CHANGELOG.md) for recent changes.
 
 <div class="tags">
   <img alt="NPM Beta Version" src="https://img.shields.io/npm/v/aniki/beta"/>
-  <img alt="NPM Last update" src="https://img.shields.io/npm/last-update/aniki/beta"/>
+  <img alt="NPM Last update of beta" src="https://img.shields.io/npm/last-update/aniki/beta"/>
   <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/aniki">
-  <img alt="GIT Last commit" src="https://img.shields.io/github/last-commit/Normioffi/Aniki/beta">
-  
+  <img alt="GIT Last commit of beta" src="https://img.shields.io/github/last-commit/Normioffi/Aniki/beta">
 </div>
 
 # Table of contents
@@ -38,7 +37,7 @@ With NPM:
 npm i aniki@beta
 ```
 
-With pnpm
+With PNPM:
 
 ```pnpm
 pnpm i aniki@beta
@@ -47,7 +46,7 @@ pnpm i aniki@beta
 ## Beta
 
 > [!NOTE]
-> This version is currently being in beta, it may could contain more bugs than the main version. Updates may be more regular too!
+> This version is currently in beta and may contain a few bugs. In this case, open an issue.
 
 # Available APIs
 
@@ -72,18 +71,18 @@ pnpm i aniki@beta
   </table>
 </p>
 
+## Bugs or suggestions
+
+Please let me know if there are any $\color{Apricot}{mistakes}$/$\color{Bittersweet}{bugs}$ by using the [Issues](https://github.com/Normioffi/Aniki/issues).
+
+If you want to suggest me anything, please also make an issue with the "$\color{Aquamarine}{enhancement}$" label.
+
 ## Authentification
 
 > [!IMPORTANT]
 > If you need to authenticate with the APIs, you have to make **your own** authentification system, and use the basic `fetch` to use the auth, once you have made your system, you can use the `access_token`s in the classes to make unrestricted requests.
 
 Otherwise, for the `MyAnimeList` and `MyMangaList`, you can still use the `client_id` but it is recommended for tests only if requests appears in the client side.
-
-## Bugs or suggestions
-
-Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
-
-If you want to suggest me anything, please also make an issue with the "enhancement" label.
 
 # Usage
 
@@ -149,6 +148,10 @@ anime
   .then((r) => console.log(r));
 ```
 
+> [!WARNING]
+> Using an `access_token` in the `AnimeKitsu`/`MangaKitsu` classes will unlock R18 (rule 18) features **_IN_** _the API_
+> THIS MODULE CAN RETRIEVE R18 CONTENT FROM THE **_API_**, MISUSE OF THOSE FEATURES IS AT YOUR OWN RISK. **I DO NOT TAKE ANY RESPONSABILITY**.
+
 ## MyAnimeList
 
 ```js
@@ -185,7 +188,7 @@ anime
 ```
 
 > [!NOTE]
-> I recommend you to make sure you add any fields depending on your needs, if you don't specify the proper fields, some properties returned by the API will be undefined.
+> I recommend to add any fields depending on your needs, if you don't specify the proper fields, some properties returned by the API will be undefined.
 
 Example:
 
@@ -217,19 +220,6 @@ waifu
 
 ```javascript
 const { Danbooru } = require("aniki");
-```
-
-## Best practices
-
-Avoiding multiple awaits (only in **async**!!)
-
-```js
-async function getAnimes(query, offset, limit) {
-  const a = anime.find({ query: query });
-  const b = anime.findMany({ offset: offset, limit: limit });
-
-  const [A, B] = await Promise.all([a, b]);
-}
 ```
 
 # License
