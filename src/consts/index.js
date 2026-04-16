@@ -1,6 +1,7 @@
 module.exports = {
   kitsu: require("./kitsu"),
   myanimelist: require("./mal"),
-  waifuit: require("./waifuit"),
   waifuim: require("./waifuim"),
+  danbooru: require("./danbooru"),
+  // waifuit: require("./waifuit"),
 };

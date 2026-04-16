@@ -197,19 +197,20 @@ declare namespace waifuim {
   export { WIMTags, WIMUrl };
 }
 
-/**
+/* /**
  * Namespace for all Waifu.It constants.
  * @since 2.0.0-beta.1
- */
+ 
 declare namespace waifuit {
   /**
    * Main url for waifu.it
    * @since 2.0.0-beta.1
-   */
+   
   const WITUrl: Readonly<"https://waifu.it/api/v4/waifu">;
 
   export { WITUrl };
 }
+*/
 
 /**
  * Namespace for all Danbooru constants.
@@ -236,4 +237,4 @@ declare namespace danbooru {
 
   export { DanUrl, TestDanUrl, DanRatings };
 }
-export { kitsu, myanimelist, waifuim, waifuit };
+export { kitsu, myanimelist, waifuim };

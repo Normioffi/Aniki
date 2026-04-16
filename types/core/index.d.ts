@@ -2,13 +2,13 @@ import { Response } from "node-fetch";
 import type { IKitsuError } from "../apis/kitsu/interfaces";
 import type { IMALError } from "../apis/myanimelist/interfaces";
 import type { IWaifuImError } from "../apis/waifuim/interfaces";
-import type { IWaifuItError } from "../apis/waifuit/interfaces";
+// import type { IWaifuItError } from "../apis/waifuit/interfaces";
 
 /**
  * List of every error interfaces.
  * @since 2.0.0-beta.1
  */
-type ErrorsHook = IWaifuImError | IMALError | IKitsuError | IWaifuItError;
+type ErrorsHook = IWaifuImError | IMALError | IKitsuError;
 
 interface HeaderProperty {
   [name: string | number]: string | number | this;
@@ -37,12 +37,16 @@ type AnikiHooks<Err extends ErrorsHook | unknown> = {
   onError: (error: Promise<Err>, res: Response) => Promise<void>;
 };
 
-declare function defaultHandleError(res: AnikiHooks<undefined>): Promise<Error>;
+/**
+ * @function
+ * @param res
+ */
+declare function defaultHandleError(res: ErrorsHook): Promise<Error>;
 
 /**
  * @function
  *
- * @description This function is used as an improved version of the fetch function.
+ * @description This function is used as an "improved" version of the fetch function.
  * @param config The configuration parameter, will contain the url, endpoint, url parameters and headers.
  * @param hooks The hooks to execute a few functions before, after a request or once an error occured.
  */
