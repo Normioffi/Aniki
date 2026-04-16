@@ -211,4 +211,29 @@ declare namespace waifuit {
   export { WITUrl };
 }
 
+/**
+ * Namespace for all Danbooru constants.
+ * @since 2.0.0-beta.2
+ */
+declare namespace danbooru {
+  /**
+   * Main url for Danbooru.
+   * @since 2.0.0-beta.2
+   */
+  const DanUrl: Readonly<"https://danbooru.donmai.us">;
+
+  /**
+   * Test url for Danbooru.
+   * @since 2.0.0-beta.2
+   */
+  const TestDanUrl: Readonly<"https://testbooru.donmai.us">;
+
+  /**
+   * Ratings of the posts.
+   * @since 2.0.0-beta.2
+   */
+  const DanRatings: Readonly<["g", "s", "q", "e"]>;
+
+  export { DanUrl, TestDanUrl, DanRatings };
+}
 export { kitsu, myanimelist, waifuim, waifuit };
