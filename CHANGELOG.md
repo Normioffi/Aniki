@@ -1,21 +1,33 @@
-<div align="center">
-<h1>Aniki</h1>
-<h2>Change Logs</h2>
-All updates (mostly patches) from the recent beta update (-beta.<i><b>1</b></i>) can be found in this file.
-</div>
+# Aniki BETA versions
+
+## Changes Logs file
+
+All updates from the recent $\color{Aquamarine}{beta}$ update (-beta.$\color{OrangeRed}{1}$) can be found in this file.
+
+> [!NOTE]
+> Mostly any changes is being mentionned here. If not, please check the commits.
 
 ## Bugs/Suggestions?
 
-Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
+Please let me know if there are any $\color{Apricot}{mistakes}$/$\color{Bittersweet}{bugs}$ by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
-If you want to suggest me anything, please also make an issue with the "enhancement" label.
+If you want to suggest me anything, please also make an issue with the "$\color{Aquamarine}{enhancement}$" label.
+
+# 2.0.0-beta.2
+
+1. Removing `WaifuIt` content because of its deprecation.
+2. `AnikiCore` has been renamed as `fetching` and now redefined as a function.
+3. Fixing `isOperatorValid` type verification.
+4. New `isOperatorValid` example.
+5. Trying to freeze returned values.
+6. New README.md style.
 
 # 2.0.0-beta.1
 
 1. New classes:
 
 - WaifuIm
-- WaifuIt
+- ~~WaifuIt~~
 - AnikiCore (especially used for this module, not really made for you guys)
 
 2. All `handleError`s are being replaced by `hooks`! Which mean you can now do stuff before requests, after and get the error if there is actually one.
