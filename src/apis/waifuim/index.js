@@ -101,7 +101,7 @@ class WaifuIm {
       },
       hooks,
     );
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 }

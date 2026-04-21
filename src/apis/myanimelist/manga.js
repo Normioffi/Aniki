@@ -109,7 +109,7 @@ class MyMangaList {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 
@@ -142,7 +142,7 @@ class MyMangaList {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
   async ranking(params, hooks) {
@@ -200,7 +200,7 @@ class MyMangaList {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 }

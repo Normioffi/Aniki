@@ -118,7 +118,7 @@ class MyAnimeList {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 
@@ -151,7 +151,7 @@ class MyAnimeList {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
   async ranking(params, hooks) {
@@ -209,7 +209,7 @@ class MyAnimeList {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
   async seasonal(params, hooks) {
@@ -293,7 +293,7 @@ class MyAnimeList {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 }

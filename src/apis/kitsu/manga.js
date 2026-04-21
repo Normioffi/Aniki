@@ -52,7 +52,7 @@ class MangaKitsu {
         hooks,
       );
 
-      if (res) return res.json();
+      if (res) return Object.freeze(res.json());
       return;
     }
 
@@ -210,7 +210,7 @@ class MangaKitsu {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 
@@ -230,7 +230,7 @@ class MangaKitsu {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 
@@ -384,7 +384,7 @@ class MangaKitsu {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 
@@ -404,7 +404,7 @@ class MangaKitsu {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 
@@ -425,7 +425,7 @@ class MangaKitsu {
       hooks,
     );
 
-    if (res) return res.json();
+    if (res) return Object.freeze(res.json());
     return;
   }
 }
