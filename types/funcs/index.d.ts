@@ -41,10 +41,10 @@ declare function isSameArray(value: unknown[], valid: unknown[]): boolean;
  *
  * isOperatorValid("AAA"); // return false, no valid operator + NaN.
  * isOperatorValid("1000.1"); // return false, no valid operator + not an integer.
- * isOperatorValid("1000.1>="); // return false, valid operator but not an integer.
+ * isOperatorValid("<=1000.1"); // return false, valid operator but not an integer.
  *
  * isOperatorValid("1011"); // return true, no operator but is a number.
- * isOperatorValid("1000="); // return true, has a valid operator.
+ * isOperatorValid("=1000"); // return true, has a valid operator.
  * ```
  * @since 2.0.0-beta.1
  */
