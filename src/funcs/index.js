@@ -13,13 +13,10 @@ function isSameArray(value, valid) {
 }
 
 function isOperatorValid(value) {
-  if (typeof value === "number" && Number.isInteger(value) === true)
-    return true;
-
-  if (typeof value !== "string") return false;
-
   const regex = /^(<=|>=|>|<|!=|=)?\d+$/;
-  return regex.test(value);
+
+  if (typeof value === "string") return regex.test(value);
+  else return false;
 }
 
 module.exports = { isSameArray, isOperatorValid };
