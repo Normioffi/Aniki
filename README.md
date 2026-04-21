@@ -26,7 +26,7 @@ See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/beta/CHANGELOG.md) for r
     - [Kitsu](#kitsu)
     - [MyAnimeList](#myanimelist)
     - [Waifu.Im](#waifu.im)
-    - [Danbooru](#danbooru)
+    - [Danbooru](#danbooru) (CURRENTLY NOT AVAILABLE.)
   - [License](#license)
 
 # Installation
@@ -45,7 +45,7 @@ pnpm i aniki@beta
 
 ## Beta
 
-> [!NOTE]
+> **Note**  
 > This version is currently in beta and may contain a few bugs. In this case, open an issue.
 
 # Available APIs
@@ -73,13 +73,13 @@ pnpm i aniki@beta
 
 ## Bugs or suggestions
 
-Please let me know if there are any $\color{Apricot}{mistakes}$ / $\color{Bittersweet}{bugs}$ by using the [Issues](https://github.com/Normioffi/Aniki/issues).
+Please let me know if there are any mistakes / bugs by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
-If you want to suggest me anything, please also make an issue with the $\color{Aquamarine}{enhancement}$ label.
+If you want to suggest me anything, please also make an issue with the enhancement label.
 
 ## Authentification
 
-> [!IMPORTANT]
+> **Important**  
 > If you need to authenticate with the APIs, you have to make **your own** authentification system, and use the basic `fetch` to use the auth, once you have made your system, you can use the `access_token`s in the classes to make unrestricted requests.
 
 Otherwise, for the `MyAnimeList` and `MyMangaList`, you can still use the `client_id` but it is recommended for tests only if requests appears in the client side.
@@ -148,7 +148,7 @@ anime
   .then((r) => console.log(r));
 ```
 
-> [!WARNING]
+> **Warning**  
 > Using an `access_token` in the `AnimeKitsu`/`MangaKitsu` classes will unlock R18 (rule 18) features **_IN_** _the API_. <br>
 > THIS MODULE CAN RETRIEVE R18 CONTENT FROM THE **_API_**, MISUSE OF THOSE FEATURES IS AT YOUR OWN RISK. <br>
 > **I DO NOT TAKE ANY RESPONSABILITY**.
@@ -188,7 +188,7 @@ anime
 // Almost the same for MyMangaList!
 ```
 
-> [!NOTE]
+> **Note**  
 > I recommend to add any fields depending on your needs, if you don't specify the proper fields, some properties returned by the API will be undefined.
 
 Example:
@@ -220,7 +220,7 @@ waifu
   .then((r) => console.log(r));
 ```
 
-> [!NOTE]
+> **Note**  
 > The `isNsfw` parameter is `"False"` by default.
 
 ## Danbooru

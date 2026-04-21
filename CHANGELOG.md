@@ -2,16 +2,16 @@
 
 ## Changes Logs file
 
-All updates from the recent $\color{Aquamarine}{beta}$ update (-beta.$\color{OrangeRed}{1}$) can be found in this file.
+All updates from the recent beta update (-beta.**1**) can be found in this file.
 
-> [!NOTE]
+> **Note**  
 > Mostly any changes is being mentionned here. If not, please check the commits.
 
-## Bugs/Suggestions?
+## Bugs or suggestions
 
-Please let me know if there are any $\color{Apricot}{mistakes}$/$\color{Bittersweet}{bugs}$ by using the [Issues](https://github.com/Normioffi/Aniki/issues).
+Please let me know if there are any mistakes / bugs by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
-If you want to suggest me anything, please also make an issue with the "$\color{Aquamarine}{enhancement}$" label.
+If you want to suggest me anything, please also make an issue with the enhancement label.
 
 # 2.0.0-beta.2
 
