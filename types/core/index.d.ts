@@ -3,12 +3,13 @@ import type { IKitsuError } from "../apis/kitsu/interfaces";
 import type { IMALError } from "../apis/myanimelist/interfaces";
 import type { IWaifuImError } from "../apis/waifuim/interfaces";
 // import type { IWaifuItError } from "../apis/waifuit/interfaces";
+// import type { DanError } from "../apis/danbooru";
 
 /**
  * List of every error interfaces.
  * @since 2.0.0-beta.1
  */
-type ErrorsHook = IWaifuImError | IMALError | IKitsuError;
+type ErrorsHook = IWaifuImError | IMALError | IKitsuError; //| DanError;
 
 interface HeaderProperty {
   [name: string | number]: string | number | this;
@@ -34,7 +35,7 @@ interface FetchConfig {
 type AnikiHooks<Err extends ErrorsHook | unknown> = {
   beforeRequest: (config: FetchConfig) => Promise<void>;
   afterRequest: (res: Response) => Promise<void>;
-  onError: (error: Promise<Err>, res: Response) => Promise<void>;
+  onError: (error: Promise<Readonly<Err>>, res: Response) => Promise<void>;
 };
 
 /**

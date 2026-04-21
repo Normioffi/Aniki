@@ -34,11 +34,6 @@
       "default": "./src/apis/waifuim/index.js",
       "require": "./src/apis/waifuim/index.js",
       "types": "./types/apis/waifuim/index.d.ts"
-    },
-    "./danbooru": {
-      "default": "./src/apis/danbooru/danbooru.js",
-      "require": "./src/apis/danbooru/danbooru.js",
-      "types": "./types/apis/danbooru/index.d.ts"
     }
   },
   "repository": {

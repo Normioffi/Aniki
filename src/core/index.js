@@ -21,7 +21,7 @@ async function fetching(config, hooks) {
   );
 
   if (!res.ok || res.status !== 200) {
-    await (onError || defaultHandleError)(await res.json(), res);
+    await (onError || defaultHandleError)(Object.freeze(await res.json()), res);
     return;
   }
   if (afterRequest) {
