@@ -150,7 +150,8 @@ anime
 
 > [!WARNING]
 > Using an `access_token` in the `AnimeKitsu`/`MangaKitsu` classes will unlock R18 (rule 18) features **_IN_** _the API_. <br>
-> THIS MODULE CAN RETRIEVE R18 CONTENT FROM THE **_API_**, MISUSE OF THOSE FEATURES IS AT YOUR OWN RISK. **I DO NOT TAKE ANY RESPONSABILITY**.
+> THIS MODULE CAN RETRIEVE R18 CONTENT FROM THE **_API_**, MISUSE OF THOSE FEATURES IS AT YOUR OWN RISK. <br>
+> **I DO NOT TAKE ANY RESPONSABILITY**.
 
 ## MyAnimeList
 
@@ -193,12 +194,14 @@ anime
 Example:
 
 ```js
+// Proper fields
 anime
   .details(52991, ["created_at", "updated_at"])
   .then((r) =>
     console.log(r.id, r.title, new Date(r.created_at), new Date(r.updated_at)),
   ); // 52991, Sousou no Frieren, Date, Date
 
+// Unproper fields
 anime
   .details(52991, ["alternative_titles", "background"])
   .then((r) => console.log(r.id, r.title, r.mean)); // 52991, Sousou no Frieren, undefined.
@@ -216,6 +219,9 @@ waifu
   .find({ isNsfw: "False", IncludedTags: "maid" })
   .then((r) => console.log(r));
 ```
+
+> [!NOTE]
+> The `isNsfw` parameter is `"False"` by default.
 
 ## Danbooru
 
