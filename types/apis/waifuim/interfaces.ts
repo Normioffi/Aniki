@@ -1,6 +1,6 @@
 /**
  * The main versatile Waifu.Im tags.
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 type TWIMTags =
   | "maid"
@@ -15,7 +15,7 @@ type TWIMTags =
 
 /**
  * The main operators for a few parameters.
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 type TWIMOperators = "<=" | ">=" | ">" | "<" | "!=" | "=";
 
@@ -29,7 +29,7 @@ type TWIMReviewStatusFilter = "Accepted" | "Pending" | "All";
 
 /**
  * This interface are the JSON response of the method request below.
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 interface IWaifuIm {
   images: {
@@ -90,7 +90,7 @@ interface IWaifuIm {
 
 /**
  * This interface is used for the "find" method of the class "WaifuIm"
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 interface IWaifuImParams {
   IsNsfw?: TWIMNsfwMode;
@@ -115,7 +115,7 @@ interface IWaifuImParams {
 
 /**
  * Main interface of the WaifuIm errors.
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 interface IWaifuImError {
   type: string;

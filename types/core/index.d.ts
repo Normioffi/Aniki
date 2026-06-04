@@ -7,7 +7,7 @@ import type { IWaifuImError } from "../apis/waifuim/interfaces";
 
 /**
  * List of every error interfaces.
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 type ErrorsHook = IWaifuImError | IMALError | IKitsuError; //| DanError;
 
@@ -17,7 +17,7 @@ interface HeaderProperty {
 
 /**
  * The interface configuration that will be used for the `fetching` function.
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 interface FetchConfig {
   url: string;
@@ -30,7 +30,7 @@ interface FetchConfig {
  * Type for hooks that can optionnally be executed before or after a request and on error.
  * @template Err - Generic type for changing the possible error response.
  *
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 type AnikiHooks<Err extends ErrorsHook | unknown> = {
   beforeRequest: (config: FetchConfig) => Promise<void>;

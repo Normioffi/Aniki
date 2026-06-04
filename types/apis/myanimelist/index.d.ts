@@ -14,6 +14,7 @@ import type {
   TMALFields,
   TMALList,
 } from "./interfaces";
+
 /**
  * @class
  * @description A client class for interacting with the MyAnimeList API to retrieve anime information.

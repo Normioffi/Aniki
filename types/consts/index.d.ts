@@ -183,12 +183,12 @@ declare namespace myanimelist {
 
 /**
  * Namespace for all Waifu.Im constants.
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 declare namespace waifuim {
   /**
    * Main url for waifu.im
-   * @since 2.0.0-beta.1
+   * @since 1.4.7
    */
   const WIMUrl: Readonly<"https://api.waifu.im">;
 

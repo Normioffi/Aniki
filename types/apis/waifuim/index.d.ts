@@ -4,7 +4,7 @@ import type { IWaifuIm, IWaifuImError, IWaifuImParams } from "./interfaces";
  * @class
  * @description This class use the Waifu.Im to get anime or manga waifu with optionals parameters.
  *
- * @since 2.0.0-beta.1
+ * @since 1.4.7
  */
 declare class WaifuIm {
   private config: FetchConfig;
@@ -24,7 +24,7 @@ declare class WaifuIm {
    *
    * @throws An internal server error has occured: **error**
    * @returns Return a Promise.
-   * @since 2.0.0-beta.1
+   * @since 1.4.7
    */
   find(
     params: IWaifuImParams,
