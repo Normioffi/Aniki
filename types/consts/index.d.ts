@@ -1,5 +1,6 @@
 /**
  * Namespace of all constants of Kitsu.
+ * @since 1.4.0
  */
 declare namespace kitsu {
   // Anime
@@ -101,6 +102,7 @@ declare namespace kitsu {
 
 /**
  * Namespace of all constants of MyAnimeList.
+ * @since 1.4.0
  */
 declare namespace myanimelist {
   /**
@@ -179,4 +181,20 @@ declare namespace myanimelist {
   };
 }
 
-export { kitsu, myanimelist };
+/**
+ * Namespace for all Waifu.Im constants.
+ * @since 2.0.0-beta.1
+ */
+declare namespace waifuim {
+  /**
+   * Main url for waifu.im
+   * @since 2.0.0-beta.1
+   */
+  const WIMUrl: Readonly<"https://api.waifu.im">;
+
+  const WIMTags: Readonly<string[]>;
+
+  export { WIMTags, WIMUrl };
+}
+
+export { kitsu, myanimelist, waifuim };
