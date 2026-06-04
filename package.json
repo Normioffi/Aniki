@@ -1,7 +1,7 @@
 {
   "name": "aniki",
-  "version": "1.4.7",
-  "description": "Aniki is an easy-to-use NPM module that gets information about your favorite anime and manga.",
+  "version": "1.4.8",
+  "description": "Node.js APIs wrapper for anime/manga related content.",
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
   "exports": {

@@ -1,6 +1,7 @@
 module.exports = {
-  ...require("./myanimelist/index.js"),
-  ...require("./kitsu/index.js"),
+  ...require("./apis/myanimelist/index.js"),
+  ...require("./apis/kitsu/index.js"),
+  ...require("./apis/waifuim/index.js"),
   ...require("./funcs/index.js"),
   ...require("./consts/index.js"),
 };
