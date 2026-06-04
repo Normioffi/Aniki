@@ -1,19 +1,6 @@
-const { AnimeKitsu, MangaKitsu } = require("./kitsu");
-const { MyAnimeList, MyMangaList } = require("./myanimelist");
-
-const { isSameArray } = require("./funcs");
-
-const { kitsu, myanimelist } = require("./consts");
-
 module.exports = {
-  // Classes and functions
-  AnimeKitsu,
-  MangaKitsu,
-  isSameArray,
-  MyAnimeList,
-  MyMangaList,
-
-  // Constants
-  kitsu,
-  myanimelist,
+  ...require("./myanimelist/index.js"),
+  ...require("./kitsu/index.js"),
+  ...require("./funcs/index.js"),
+  ...require("./consts/index.js"),
 };
