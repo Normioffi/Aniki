@@ -12,4 +12,11 @@ function isSameArray(value, valid) {
   return true;
 }
 
-module.exports = { isSameArray };
+function isOperatorValid(value) {
+  const regex = /^(<=|>=|>|<|!=|=)?\d+$/;
+
+  if (typeof value === "string") return regex.test(value);
+  else return false;
+}
+
+module.exports = { isSameArray, isOperatorValid };
