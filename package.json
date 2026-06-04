@@ -21,14 +21,14 @@
       "types": "./types/consts/index.d.ts"
     },
     "./kitsu": {
-      "default": "./src/kitsu/index.js",
-      "require": "./src/kitsu/index.js",
-      "types": "./types/kitsu/index.d.ts"
+      "default": "./src/apis/kitsu/index.js",
+      "require": "./src/apis/kitsu/index.js",
+      "types": "./types/apis/kitsu/index.d.ts"
     },
     "./myanimelist": {
-      "default": "./src/myanimelist/index.js",
-      "require": "./src/myanimelist/index.js",
-      "types": "./types/myanimelist/index.d.ts"
+      "default": "./src/apis/myanimelist/index.js",
+      "require": "./src/apis/myanimelist/index.js",
+      "types": "./types/apis/myanimelist/index.d.ts"
     },
     "./waifuim": {
       "default": "./src/apis/waifuim/index.js",
