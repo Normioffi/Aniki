@@ -19,7 +19,7 @@ All updates (mostly patches) from the recent minor update (0.`1`.0) can be found
 > [!NOTE]
 > Some minor changes may not be referenced here, please refer to commits if you need to check specific changes.
 
-## Bugsp or Suggestions
+## Bugs or Suggestions
 
 Please let me know if there are any **mistakes**/**bugs** by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
