@@ -1,6 +1,6 @@
 {
   "name": "aniki",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Aniki is an easy-to-use NPM module that gets information about your favorite anime and manga.",
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
@@ -29,6 +29,11 @@
       "default": "./src/myanimelist/index.js",
       "require": "./src/myanimelist/index.js",
       "types": "./types/myanimelist/index.d.ts"
+    },
+    "./waifuim": {
+      "default": "./src/apis/waifuim/index.js",
+      "require": "./src/apis/waifuim/index.js",
+      "types": "./types/apis/waifuim/index.d.ts"
     }
   },
   "repository": {
@@ -51,7 +56,10 @@
     "mymangalist",
     "mal",
     "anime-mal",
-    "manga-mal"
+    "manga-mal",
+    "waifu",
+    "waifu-im",
+    "waifuim"
   ],
   "author": "normioffi",
   "license": "MIT",
