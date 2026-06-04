@@ -1,8 +1,23 @@
-<div align="center">
-<h1>Aniki</h1>
-<h2>Change Logs</h2>
-All updates (mostly patches) from the recent minor update (0.<i><b>1</b></i>.0) can be found in this file.
-</div>
+# Change logs
+
+All updates (mostly patches) from the recent minor update (0.`1`.0) can be found in this file.
+
+# Table of contents
+
+[Aniki](#change-logs)
+
+- [Table of Contents](#table-of-contents)
+- [Bugs/suggestions?](#bugs-or-suggestions)
+- [Versions](#versions)
+  - [1.4.7](#1.4.7)
+  - [1.4.6](#1.4.6)
+  - [1.4.4](#1.4.4)
+  - [1.4.3](#1.4.3)
+  - [1.4.2](#1.4.2)
+  - [1.4.0](#1.4.0)
+
+> [!NOTE]
+> Some minor changes may not be referenced here, please refer to commits if you need to check specific changes.
 
 ## Bugs/Suggestions?
 
@@ -10,18 +25,68 @@ Please let me know if there are any **mistakes**/**bugs** by using the [Issues](
 
 If you want to suggest me anything, please also make an issue with the "enhancement" label.
 
-# 1.4.6
+# Versions
+
+## 1.4.7
+
+1. New class:
+
+- `WaifuIm`
+
+2. New functions
+
+- `isOperatorValid`
+- `fetching`
+- `defaultHandleError`
+
+3. All `handleError`s are being replaced by `hooks`! You are now being able to execute code at a specific moment! `hooks` are still optionnals.
+
+```javascript
+anime.find(
+  { query: "Date a live", offset: 0 },
+  {
+    beforeRequest: (config) => {
+      // ...
+    },
+    onError: (err, res) => {
+      // ...
+    },
+    afterRequest: (res) => {
+      // ...
+    },
+  },
+);
+```
+
+4. Fixing some types and interfaces.
+5. Moving api folders into the `apis` folder (including in the `types` folder.)
+6. All classes methods are now using the `fetching` function.
+7. New constants.
+8. Renaming IMALList to TMALList.
+9. New namespace
+
+- `waifuim`
+
+10. Renaming methods!
+
+- `list` to `findMany`
+- `findById` to `findUnique`
+
+11. Returned values are now freezed. (i think)
+12. Improving README and CHANGELOG.
+
+## 1.4.6
 
 1. Adding a missing interface export.
 
-# 1.4.4
+## 1.4.4
 
 1. Fixing missing Kitsu interfaces and types that are not being exported.
 2. Fixing `isSameArray` TypeErrors messages.
 3. Code readability improvements.
 4. New Integer `TypeError`s in some properties that does use numbers.
 
-# 1.4.3
+## 1.4.3
 
 1. Adding the `MyMangaList` class.
 2. New methods on `MyAnimeList` and `MyMangaList`.
@@ -58,11 +123,11 @@ anime.find({ query: "Oshi no ko", offset: 0, limit: 2 }, async (error, res) => {
 
 <small>Some new interfaces and types may not have a description... Only because i don't know what to say. Please help.</small>
 
-# 1.4.2
+## 1.4.2
 
 1. Fixing array type check.
 
-# 1.4.0
+## 1.4.0
 
 1. Removed the use of the TS compiler.
 2. Fixing package.json `exports`.
