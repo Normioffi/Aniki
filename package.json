@@ -1,6 +1,6 @@
 {
   "name": "aniki",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "Node.js APIs wrapper for anime/manga related content.",
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
