@@ -9,12 +9,13 @@ All updates (mostly patches) from the recent minor update (0.`1`.0) can be found
 - [Table of Contents](#table-of-contents)
 - [Bugs/suggestions?](#bugs-or-suggestions)
 - [Versions](#versions)
-  - [1.4.7](#1.4.7)
-  - [1.4.6](#1.4.6)
-  - [1.4.4](#1.4.4)
-  - [1.4.3](#1.4.3)
-  - [1.4.2](#1.4.2)
-  - [1.4.0](#1.4.0)
+  - [v1.4.9](#v149)
+  - [v1.4.8](#v148)
+  - [v1.4.6](#v146)
+  - [v1.4.4](#v144)
+  - [v1.4.3](#v143)
+  - [v1.4.2](#v142)
+  - [v1.4.0](#v140)
 
 > [!NOTE]
 > Some minor changes may not be referenced here, please refer to commits if you need to check specific changes.
@@ -27,7 +28,12 @@ If you want to suggest me anything, please also make an issue with the "enhancem
 
 # Versions
 
-## 1.4.7
+## v1.4.9
+
+1. Fixing `undefined` URL when using `AnimeKitsu`/`MangaKitsu`
+2. Fixing versions.
+
+## v1.4.8
 
 1. New class:
 
@@ -75,18 +81,18 @@ anime.find(
 11. Returned values are now freezed. (i think)
 12. Improving README and CHANGELOG.
 
-## 1.4.6
+## v1.4.6
 
 1. Adding a missing interface export.
 
-## 1.4.4
+## v1.4.4
 
 1. Fixing missing Kitsu interfaces and types that are not being exported.
 2. Fixing `isSameArray` TypeErrors messages.
 3. Code readability improvements.
 4. New Integer `TypeError`s in some properties that does use numbers.
 
-## 1.4.3
+## v1.4.3
 
 1. Adding the `MyMangaList` class.
 2. New methods on `MyAnimeList` and `MyMangaList`.
@@ -123,11 +129,11 @@ anime.find({ query: "Oshi no ko", offset: 0, limit: 2 }, async (error, res) => {
 
 <small>Some new interfaces and types may not have a description... Only because i don't know what to say. Please help.</small>
 
-## 1.4.2
+## v1.4.2
 
 1. Fixing array type check.
 
-## 1.4.0
+## v1.4.0
 
 1. Removed the use of the TS compiler.
 2. Fixing package.json `exports`.
