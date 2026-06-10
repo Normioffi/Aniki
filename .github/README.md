@@ -32,7 +32,7 @@ See [CHANGELOG](https://github.com/Normioffi/Aniki/blob/CHANGELOG.md) for recent
 - [Usage](#usage)
   - [Kitsu](#kitsu)
   - [MyAnimeList](#myanimelist)
-  - [Waifu.Im](#waifu.im)
+  - [Waifu.Im](#waifuim)
 - [License](#license)
 
 # Installation
@@ -70,7 +70,7 @@ pnpm i aniki@latest
 
 ## Bugs or suggestions
 
-Please let me know if there are any mistakes / bugs by using the [Issues](https://github.com/Normioffi/Aniki/issues).
+**PLEASE** let me know _instantly_ if there are any mistakes / bugs by using the [Issues](https://github.com/Normioffi/Aniki/issues).
 
 If you want to suggest me anything, please also make an issue with the enhancement label.
 
