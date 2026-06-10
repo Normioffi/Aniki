@@ -36,6 +36,16 @@ class MangaKitsu {
             Authorization: `Bearer ${access_token}`,
           },
         };
+    } else {
+      if (config)
+        this.#config = {
+          ...defaultConfig,
+          ...config,
+        };
+      else
+        this.#config = {
+          ...defaultConfig,
+        };
     }
   }
 
