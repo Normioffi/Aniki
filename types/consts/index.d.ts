@@ -225,16 +225,22 @@ declare namespace danbooru {
 
   /**
    * Test url for Danbooru.
-   * @since 2.0.0-beta.2
+   * @since 2.0.0-beta.3
    */
   const TestDanUrl: Readonly<"https://testbooru.donmai.us">;
 
   /**
    * Ratings of the posts.
-   * @since 2.0.0-beta.2
+   * @since 2.0.0-beta.3
    */
   const DanRatings: Readonly<["g", "s", "q", "e"]>;
 
-  export { DanUrl, TestDanUrl, DanRatings };
+  /**
+   * Safebooru URL (Danbooru version for most SFW content)
+   * @since @2.0.0-beta.3
+   */
+  const SafeDanUrl: Readonly<"https://safebooru.org">;
+
+  export { DanUrl, TestDanUrl, DanRatings, SafeDanUrl };
 }
 export { kitsu, myanimelist, waifuim };
